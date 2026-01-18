@@ -22,14 +22,6 @@
     th, td { border: 1px solid #e2e8f0; padding: 12px; text-align: left; }
     th { background: #edf2f7; }
     ul, ol { padding-left: 20px; }
-    .calculator-placeholder {
-      background: #f7fafc;
-      border: 2px dashed #cbd5e0;
-      padding: 40px;
-      text-align: center;
-      margin: 20px 0;
-      border-radius: 8px;
-    }
   </style>
 </head>
 <body>
@@ -37,7 +29,7 @@
 <p>Break-even analysis helps businesses understand when they will start generating profit. This calculator determines the sales volume needed to cover all costs. Understanding your break-even point guides pricing, cost management, and growth strategies. By calculating break-even regularly, businesses can make informed decisions about expansion and profitability. Use this tool to optimize your business model and achieve financial sustainability.</p>
 <h2>How to Use the Calculator</h2>
 <p>To use the break-even calculator, input your fixed costs, variable costs per unit, and selling price per unit. The calculator will compute your break-even point in units and revenue. Enter accurate cost data for reliable results. Include all fixed costs like rent and salaries. Variable costs should reflect per-unit production costs. Update calculations when costs or prices change.</p>
-<p><div class="calculator-placeholder"><p>Calculator Loading...</p><div id="calculator"></div></div></p>
+<p><div id="calculator"></div></p>
 <h2>Understanding Your Results</h2>
 <p>The calculator shows your break-even point in both units and revenue. The unit break-even indicates how many products you need to sell to cover costs. Revenue break-even shows the dollar amount needed. Compare these against current sales to assess profitability progress. Understanding contribution margin helps optimize pricing and cost strategies. Use results to set sales targets and evaluate business scenarios.</p>
 <h2>Break-Even Formula</h2>
@@ -57,5 +49,86 @@
 <h2>Strategies to Lower Break-Even</h2>
 <p>Several strategies can help lower your break-even point. First, reduce fixed costs by negotiating better lease terms or optimizing overhead expenses. Second, increase selling prices while maintaining market competitiveness. Third, decrease variable costs through supplier negotiations or process improvements. Fourth, increase sales volume through marketing and customer acquisition efforts. Fifth, diversify product lines to leverage fixed costs across multiple offerings.</p>
 
+<script>/**
+ * Break-Even Calculator
+ * Calculates break-even point in units and revenue
+ */
+(function() {
+  const container = document.getElementById('calculator');
+  if (!container) return;
+
+  container.innerHTML = `
+    <div class="calc-form">
+      <div class="calc-group">
+        <label>Fixed Costs ($/month)</label>
+        <input type="number" id="fixed" placeholder="10000" min="0">
+      </div>
+      <div class="calc-group">
+        <label>Price per Unit ($)</label>
+        <input type="number" id="price" placeholder="100" min="0">
+      </div>
+      <div class="calc-group">
+        <label>Variable Cost per Unit ($)</label>
+        <input type="number" id="variable" placeholder="40" min="0">
+      </div>
+      <button type="button" id="calculate">Calculate Break-Even</button>
+    </div>
+    <div class="calc-results" id="results" style="display:none;">
+      <div class="result-item highlight">
+        <span class="result-label">Break-Even Units</span>
+        <span class="result-value" id="units">0 units</span>
+      </div>
+      <div class="result-item">
+        <span class="result-label">Break-Even Revenue</span>
+        <span class="result-value" id="revenue">$0</span>
+      </div>
+      <div class="result-item">
+        <span class="result-label">Contribution Margin</span>
+        <span class="result-value" id="margin">$0/unit</span>
+      </div>
+      <div class="result-item">
+        <span class="result-label">Margin Percentage</span>
+        <span class="result-value" id="margin-pct">0%</span>
+      </div>
+    </div>
+  `;
+
+  const style = document.createElement('style');
+  style.textContent = `
+    .calc-form { display: flex; flex-direction: column; gap: 15px; }
+    .calc-group { display: flex; flex-direction: column; gap: 5px; }
+    .calc-group label { font-weight: 600; color: #2c5282; }
+    .calc-group input { padding: 12px; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 16px; }
+    .calc-group input:focus { outline: none; border-color: #2b6cb0; }
+    #calculate { padding: 14px 24px; background: #2b6cb0; color: white; border: none; border-radius: 6px; font-size: 16px; cursor: pointer; margin-top: 10px; }
+    #calculate:hover { background: #2c5282; }
+    .calc-results { margin-top: 25px; background: #f7fafc; padding: 20px; border-radius: 8px; }
+    .result-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #e2e8f0; }
+    .result-item:last-child { border-bottom: none; }
+    .result-item.highlight { background: #ebf8ff; padding: 15px; border-radius: 8px; margin-bottom: 10px; }
+    .result-label { font-weight: 500; }
+    .result-value { font-weight: 700; color: #2b6cb0; }
+  `;
+  document.head.appendChild(style);
+
+  document.getElementById('calculate').addEventListener('click', function() {
+    const fixed = parseFloat(document.getElementById('fixed').value) || 0;
+    const price = parseFloat(document.getElementById('price').value) || 0;
+    const variable = parseFloat(document.getElementById('variable').value) || 0;
+
+    const contributionMargin = price - variable;
+    const marginPct = price > 0 ? (contributionMargin / price) * 100 : 0;
+    const breakEvenUnits = contributionMargin > 0 ? Math.ceil(fixed / contributionMargin) : 0;
+    const breakEvenRevenue = breakEvenUnits * price;
+
+    document.getElementById('units').textContent = breakEvenUnits.toLocaleString() + ' units/mo';
+    document.getElementById('revenue').textContent = '$' + breakEvenRevenue.toLocaleString() + '/mo';
+    document.getElementById('margin').textContent = '$' + contributionMargin.toFixed(2) + '/unit';
+    document.getElementById('margin-pct').textContent = marginPct.toFixed(1) + '%';
+
+    document.getElementById('results').style.display = 'block';
+  });
+})();
+</script>
 </body>
 </html>
