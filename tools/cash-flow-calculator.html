@@ -22,14 +22,6 @@
     th, td { border: 1px solid #e2e8f0; padding: 12px; text-align: left; }
     th { background: #edf2f7; }
     ul, ol { padding-left: 20px; }
-    .calculator-placeholder {
-      background: #f7fafc;
-      border: 2px dashed #cbd5e0;
-      padding: 40px;
-      text-align: center;
-      margin: 20px 0;
-      border-radius: 8px;
-    }
   </style>
 </head>
 <body>
@@ -37,7 +29,7 @@
 <p>Cash flow represents the lifeblood of any business, showing how money moves in and out of your operations. Understanding cash flow helps businesses manage liquidity, plan for growth, and avoid financial difficulties. This calculator helps analyze your operating, investing, and financing cash flows. By tracking cash flow patterns, businesses can identify trends, optimize working capital, and make informed financial decisions. Use this tool to gain insights into your cash management and improve financial health.</p>
 <h2>Using the Calculator</h2>
 <p>To use the cash flow calculator, input your financial data for the period. Enter operating revenues and expenses, investing activities like equipment purchases, and financing activities such as loans or equity investments. The calculator will automatically compute your net cash flow and categorize it by type. Use actual financial data for accurate results. Review your inputs for completeness and accuracy. This tool provides real-time insights into your cash position and flow patterns.</p>
-<p><div class="calculator-placeholder"><p>Calculator Loading...</p><div id="calculator"></div></div></p>
+<p><div id="calculator"></div></p>
 <h2>Reading Your Results</h2>
 <p>The calculator provides detailed cash flow analysis across three categories. Operating cash flow shows cash generated from core business activities after accounting for expenses. Positive operating cash flow indicates healthy business operations. Investing cash flow tracks cash used for long-term assets and investments. Negative investing cash flow is common for growing businesses. Financing cash flow shows cash from loans, equity, or repayments. Net cash flow combines all categories to show overall cash position change. Compare results against industry benchmarks and historical performance.</p>
 <h2>Cash Flow Formula</h2>
@@ -57,5 +49,123 @@
 <h2>Improving Cash Flow</h2>
 <p>Several strategies can help businesses improve cash flow management. First, accelerate receivables by offering early payment discounts and following up on overdue accounts. Second, optimize inventory through just-in-time purchasing and regular stock reviews. Third, negotiate better supplier terms to extend payment periods and reduce costs. Fourth, improve pricing by analyzing profit margins and adjusting pricing strategies. Fifth, monitor expenses regularly and eliminate unnecessary spending to preserve cash.</p>
 
+<script>/**
+ * Cash Flow Calculator
+ * Calculates operating, investing, and financing cash flows
+ */
+(function() {
+  const container = document.getElementById('calculator');
+  if (!container) return;
+
+  container.innerHTML = `
+    <div class="calc-form">
+      <h4 style="margin: 0 0 10px; color: #2c5282;">Operating Activities</h4>
+      <div class="calc-row">
+        <div class="calc-group">
+          <label>Cash from Customers ($)</label>
+          <input type="number" id="customers" placeholder="100000" min="0">
+        </div>
+        <div class="calc-group">
+          <label>Cash to Suppliers ($)</label>
+          <input type="number" id="suppliers" placeholder="60000" min="0">
+        </div>
+      </div>
+      <div class="calc-group">
+        <label>Cash to Employees ($)</label>
+        <input type="number" id="employees" placeholder="30000" min="0">
+      </div>
+
+      <h4 style="margin: 20px 0 10px; color: #2c5282;">Investing Activities</h4>
+      <div class="calc-group">
+        <label>Equipment Purchases ($)</label>
+        <input type="number" id="equipment" placeholder="5000" min="0">
+      </div>
+
+      <h4 style="margin: 20px 0 10px; color: #2c5282;">Financing Activities</h4>
+      <div class="calc-row">
+        <div class="calc-group">
+          <label>Loans Received ($)</label>
+          <input type="number" id="loans" placeholder="0" min="0">
+        </div>
+        <div class="calc-group">
+          <label>Loan Payments ($)</label>
+          <input type="number" id="payments" placeholder="2000" min="0">
+        </div>
+      </div>
+
+      <button type="button" id="calculate">Calculate Cash Flow</button>
+    </div>
+    <div class="calc-results" id="results" style="display:none;">
+      <div class="result-item">
+        <span class="result-label">Operating Cash Flow</span>
+        <span class="result-value" id="operating">$0</span>
+      </div>
+      <div class="result-item">
+        <span class="result-label">Investing Cash Flow</span>
+        <span class="result-value" id="investing">$0</span>
+      </div>
+      <div class="result-item">
+        <span class="result-label">Financing Cash Flow</span>
+        <span class="result-value" id="financing">$0</span>
+      </div>
+      <div class="result-item highlight">
+        <span class="result-label">Net Cash Flow</span>
+        <span class="result-value" id="net">$0</span>
+      </div>
+    </div>
+  `;
+
+  const style = document.createElement('style');
+  style.textContent = `
+    .calc-form { display: flex; flex-direction: column; gap: 12px; }
+    .calc-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+    .calc-group { display: flex; flex-direction: column; gap: 5px; }
+    .calc-group label { font-weight: 600; color: #4a5568; font-size: 0.9em; }
+    .calc-group input { padding: 10px; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 14px; }
+    .calc-group input:focus { outline: none; border-color: #2b6cb0; }
+    #calculate { padding: 14px 24px; background: #2b6cb0; color: white; border: none; border-radius: 6px; font-size: 16px; cursor: pointer; margin-top: 15px; }
+    #calculate:hover { background: #2c5282; }
+    .calc-results { margin-top: 25px; background: #f7fafc; padding: 20px; border-radius: 8px; }
+    .result-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #e2e8f0; }
+    .result-item:last-child { border-bottom: none; }
+    .result-item.highlight { background: #ebf8ff; margin: 10px -20px -20px; padding: 15px 20px; border-radius: 0 0 8px 8px; }
+    .result-label { font-weight: 500; }
+    .result-value { font-weight: 700; color: #2b6cb0; }
+    .positive { color: #38a169 !important; }
+    .negative { color: #e53e3e !important; }
+  `;
+  document.head.appendChild(style);
+
+  document.getElementById('calculate').addEventListener('click', function() {
+    const customers = parseFloat(document.getElementById('customers').value) || 0;
+    const suppliers = parseFloat(document.getElementById('suppliers').value) || 0;
+    const employees = parseFloat(document.getElementById('employees').value) || 0;
+    const equipment = parseFloat(document.getElementById('equipment').value) || 0;
+    const loans = parseFloat(document.getElementById('loans').value) || 0;
+    const payments = parseFloat(document.getElementById('payments').value) || 0;
+
+    const operating = customers - suppliers - employees;
+    const investing = -equipment;
+    const financing = loans - payments;
+    const net = operating + investing + financing;
+
+    const format = (n) => (n >= 0 ? '$' : '-$') + Math.abs(n).toLocaleString();
+
+    document.getElementById('operating').textContent = format(operating);
+    document.getElementById('operating').className = 'result-value ' + (operating >= 0 ? 'positive' : 'negative');
+
+    document.getElementById('investing').textContent = format(investing);
+    document.getElementById('investing').className = 'result-value ' + (investing >= 0 ? 'positive' : 'negative');
+
+    document.getElementById('financing').textContent = format(financing);
+    document.getElementById('financing').className = 'result-value ' + (financing >= 0 ? 'positive' : 'negative');
+
+    document.getElementById('net').textContent = format(net);
+    document.getElementById('net').className = 'result-value ' + (net >= 0 ? 'positive' : 'negative');
+
+    document.getElementById('results').style.display = 'block';
+  });
+})();
+</script>
 </body>
 </html>
