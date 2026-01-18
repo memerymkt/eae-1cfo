@@ -22,14 +22,6 @@
     th, td { border: 1px solid #e2e8f0; padding: 12px; text-align: left; }
     th { background: #edf2f7; }
     ul, ol { padding-left: 20px; }
-    .calculator-placeholder {
-      background: #f7fafc;
-      border: 2px dashed #cbd5e0;
-      padding: 40px;
-      text-align: center;
-      margin: 20px 0;
-      border-radius: 8px;
-    }
   </style>
 </head>
 <body>
@@ -37,7 +29,7 @@
 <p>Startup valuation determines the economic value of your business for fundraising, acquisitions, or exit planning. Understanding your startup&#39;s valuation helps founders make informed decisions about equity distribution and growth strategy. This calculator provides multiple valuation methods to help you assess your company&#39;s worth. By using different approaches, you can develop a realistic valuation range for investor discussions. Valuation analysis helps prepare for funding rounds and strategic partnerships.</p>
 <h2>How to Use the Calculator</h2>
 <p>Using the startup valuation calculator requires inputting key financial and operational metrics. Enter your annual revenue, growth rate, profit margin, and industry multiples. The calculator will compute valuations using multiple methods. Provide accurate, current data for reliable results. Use conservative estimates to avoid overvaluation. Compare results across methods to develop a valuation range. Update calculations regularly as your business evolves.</p>
-<p><div class="calculator-placeholder"><p>Calculator Loading...</p><div id="calculator"></div></div></p>
+<p><div id="calculator"></div></p>
 <h2>Understanding Your Valuation</h2>
 <p>The calculator provides valuation estimates using different methodologies. Comparable company analysis values your startup based on similar public companies. Discounted cash flow projects future cash flows to present value. Revenue multiples apply industry-standard ratios to your revenue. Understanding these methods helps interpret results. Valuation ranges provide negotiation parameters. Compare against industry benchmarks and recent transactions. Early-stage startups typically have higher valuation volatility.</p>
 <h2>Valuation Methods</h2>
@@ -58,5 +50,97 @@
 <h2>Factors Affecting Valuation</h2>
 <p>Several factors influence startup valuation. First, revenue growth rate demonstrates market traction and scalability. Second, profit margins indicate operational efficiency and pricing power. Third, market size shows potential for expansion and market dominance. Fourth, competitive advantage reflects unique technology or business model strength. Fifth, team experience and track record provide execution confidence.</p>
 
+<script>/**
+ * Valuation Calculator
+ * Simple revenue multiple valuation
+ */
+(function() {
+  const container = document.getElementById('calculator');
+  if (!container) return;
+
+  container.innerHTML = `
+    <div class="calc-form">
+      <div class="calc-group">
+        <label>Annual Revenue ($)</label>
+        <input type="number" id="revenue" placeholder="1000000" min="0">
+      </div>
+      <div class="calc-group">
+        <label>Revenue Growth Rate (%)</label>
+        <input type="number" id="growth" placeholder="50" min="0" max="500">
+      </div>
+      <div class="calc-group">
+        <label>Industry</label>
+        <select id="industry">
+          <option value="3">General B2B (3-5x)</option>
+          <option value="5">SaaS (5-10x)</option>
+          <option value="2">E-commerce (2-4x)</option>
+          <option value="4">Fintech (4-8x)</option>
+          <option value="6">Healthcare Tech (6-12x)</option>
+        </select>
+      </div>
+      <button type="button" id="calculate">Calculate Valuation</button>
+    </div>
+    <div class="calc-results" id="results" style="display:none;">
+      <div class="result-item">
+        <span class="result-label">Low Estimate</span>
+        <span class="result-value" id="low">$0</span>
+      </div>
+      <div class="result-item highlight">
+        <span class="result-label">Mid Estimate</span>
+        <span class="result-value" id="mid">$0</span>
+      </div>
+      <div class="result-item">
+        <span class="result-label">High Estimate</span>
+        <span class="result-value" id="high">$0</span>
+      </div>
+      <div class="result-note" id="note"></div>
+    </div>
+  `;
+
+  const style = document.createElement('style');
+  style.textContent = `
+    .calc-form { display: flex; flex-direction: column; gap: 15px; }
+    .calc-group { display: flex; flex-direction: column; gap: 5px; }
+    .calc-group label { font-weight: 600; color: #2c5282; }
+    .calc-group input, .calc-group select { padding: 12px; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 16px; }
+    .calc-group input:focus, .calc-group select:focus { outline: none; border-color: #2b6cb0; }
+    #calculate { padding: 14px 24px; background: #2b6cb0; color: white; border: none; border-radius: 6px; font-size: 16px; cursor: pointer; margin-top: 10px; }
+    #calculate:hover { background: #2c5282; }
+    .calc-results { margin-top: 25px; background: #f7fafc; padding: 20px; border-radius: 8px; }
+    .result-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #e2e8f0; }
+    .result-item:last-child { border-bottom: none; }
+    .result-item.highlight { background: #ebf8ff; padding: 15px; border-radius: 8px; margin: 10px 0; }
+    .result-label { font-weight: 500; }
+    .result-value { font-weight: 700; color: #2b6cb0; font-size: 1.1em; }
+    .result-note { margin-top: 15px; padding: 10px; background: #fffaf0; border-radius: 6px; font-size: 0.9em; color: #744210; }
+  `;
+  document.head.appendChild(style);
+
+  document.getElementById('calculate').addEventListener('click', function() {
+    const revenue = parseFloat(document.getElementById('revenue').value) || 0;
+    const growth = parseFloat(document.getElementById('growth').value) || 0;
+    const baseMultiple = parseFloat(document.getElementById('industry').value) || 3;
+
+    // Adjust multiple based on growth rate
+    let growthBonus = 0;
+    if (growth >= 100) growthBonus = 2;
+    else if (growth >= 50) growthBonus = 1;
+    else if (growth < 20) growthBonus = -1;
+
+    const lowMultiple = Math.max(1, baseMultiple - 1);
+    const midMultiple = baseMultiple + growthBonus;
+    const highMultiple = baseMultiple + growthBonus + 2;
+
+    const format = (n) => '$' + Math.round(n).toLocaleString();
+
+    document.getElementById('low').textContent = format(revenue * lowMultiple);
+    document.getElementById('mid').textContent = format(revenue * midMultiple);
+    document.getElementById('high').textContent = format(revenue * highMultiple);
+    document.getElementById('note').textContent = `Based on ${midMultiple}x revenue multiple. Actual valuation depends on many factors including profitability, market conditions, and competitive position.`;
+
+    document.getElementById('results').style.display = 'block';
+  });
+})();
+</script>
 </body>
 </html>
