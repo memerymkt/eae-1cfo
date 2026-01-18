@@ -22,14 +22,6 @@
     th, td { border: 1px solid #e2e8f0; padding: 12px; text-align: left; }
     th { background: #edf2f7; }
     ul, ol { padding-left: 20px; }
-    .calculator-placeholder {
-      background: #f7fafc;
-      border: 2px dashed #cbd5e0;
-      padding: 40px;
-      text-align: center;
-      margin: 20px 0;
-      border-radius: 8px;
-    }
   </style>
 </head>
 <body>
@@ -37,7 +29,7 @@
 <p>Burn rate is a critical metric for startups, measuring how quickly a company spends its cash reserves. Understanding your burn rate helps determine how long your startup can operate before needing additional funding. This calculator provides essential insights into your financial runway and spending patterns. By tracking burn rate monthly, founders can make informed decisions about hiring, product development, and fundraising timing. A healthy burn rate ensures sustainable growth and prevents cash flow crises that could derail your business.</p>
 <h2>How to Use This Calculator</h2>
 <p>Using this burn rate calculator is straightforward. First, gather your financial data from the past month including all expenses and revenue. Input your total monthly expenses in the first field. Next, enter your monthly revenue if applicable. The calculator will automatically compute your gross and net burn rates. For accurate results, ensure your expense categories are complete and up-to-date. Use consistent accounting periods for reliable comparisons over time.</p>
-<p><div class="calculator-placeholder"><p>Calculator Loading...</p><div id="calculator"></div></div></p>
+<p><div id="calculator"></div></p>
 <h2>Understanding Your Results</h2>
 <p>The calculator provides key metrics for financial planning. Gross burn rate shows total monthly cash consumption before revenue. Net burn rate, the more critical metric, subtracts revenue from expenses. A positive net burn indicates cash outflow, while negative suggests profitability. Compare your rates against industry benchmarks—early-stage startups typically burn $10K-$50K monthly. Growth companies may see $50K-$200K burn rates. Understanding these numbers helps predict runway and fundraising needs, enabling proactive financial management.</p>
 <h2>Burn Rate Formulas</h2>
@@ -61,5 +53,82 @@ This critical metric reveals true cash consumption after accounting for income, 
 </ul>
 <p><a href="https://www.1cfo.ai">https://www.1cfo.ai</a></p>
 
+<script>/**
+ * Burn Rate Calculator
+ * Calculates gross burn, net burn, and runway
+ */
+(function() {
+  const container = document.getElementById('calculator');
+  if (!container) return;
+
+  container.innerHTML = `
+    <div class="calc-form">
+      <div class="calc-group">
+        <label>Monthly Expenses ($)</label>
+        <input type="number" id="expenses" placeholder="50000" min="0">
+      </div>
+      <div class="calc-group">
+        <label>Monthly Revenue ($)</label>
+        <input type="number" id="revenue" placeholder="20000" min="0">
+      </div>
+      <div class="calc-group">
+        <label>Current Cash ($)</label>
+        <input type="number" id="cash" placeholder="500000" min="0">
+      </div>
+      <button type="button" id="calculate">Calculate Burn Rate</button>
+    </div>
+    <div class="calc-results" id="results" style="display:none;">
+      <div class="result-item">
+        <span class="result-label">Gross Burn Rate</span>
+        <span class="result-value" id="gross-burn">$0/mo</span>
+      </div>
+      <div class="result-item">
+        <span class="result-label">Net Burn Rate</span>
+        <span class="result-value" id="net-burn">$0/mo</span>
+      </div>
+      <div class="result-item highlight">
+        <span class="result-label">Runway</span>
+        <span class="result-value" id="runway">0 months</span>
+      </div>
+    </div>
+  `;
+
+  // Add styles
+  const style = document.createElement('style');
+  style.textContent = `
+    .calc-form { display: flex; flex-direction: column; gap: 15px; }
+    .calc-group { display: flex; flex-direction: column; gap: 5px; }
+    .calc-group label { font-weight: 600; color: #2c5282; }
+    .calc-group input { padding: 12px; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 16px; }
+    .calc-group input:focus { outline: none; border-color: #2b6cb0; box-shadow: 0 0 0 3px rgba(43,108,176,0.1); }
+    #calculate { padding: 14px 24px; background: #2b6cb0; color: white; border: none; border-radius: 6px; font-size: 16px; cursor: pointer; margin-top: 10px; }
+    #calculate:hover { background: #2c5282; }
+    .calc-results { margin-top: 25px; background: #f7fafc; padding: 20px; border-radius: 8px; }
+    .result-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #e2e8f0; }
+    .result-item:last-child { border-bottom: none; }
+    .result-item.highlight { background: #ebf8ff; margin: 10px -20px -20px; padding: 15px 20px; border-radius: 0 0 8px 8px; }
+    .result-label { font-weight: 500; }
+    .result-value { font-weight: 700; color: #2b6cb0; font-size: 1.1em; }
+  `;
+  document.head.appendChild(style);
+
+  // Calculate function
+  document.getElementById('calculate').addEventListener('click', function() {
+    const expenses = parseFloat(document.getElementById('expenses').value) || 0;
+    const revenue = parseFloat(document.getElementById('revenue').value) || 0;
+    const cash = parseFloat(document.getElementById('cash').value) || 0;
+
+    const grossBurn = expenses;
+    const netBurn = expenses - revenue;
+    const runway = netBurn > 0 ? Math.floor(cash / netBurn) : (cash > 0 ? 999 : 0);
+
+    document.getElementById('gross-burn').textContent = '$' + grossBurn.toLocaleString() + '/mo';
+    document.getElementById('net-burn').textContent = '$' + netBurn.toLocaleString() + '/mo';
+    document.getElementById('runway').textContent = runway >= 999 ? 'Profitable!' : runway + ' months';
+
+    document.getElementById('results').style.display = 'block';
+  });
+})();
+</script>
 </body>
 </html>
