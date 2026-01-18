@@ -22,14 +22,6 @@
     th, td { border: 1px solid #e2e8f0; padding: 12px; text-align: left; }
     th { background: #edf2f7; }
     ul, ol { padding-left: 20px; }
-    .calculator-placeholder {
-      background: #f7fafc;
-      border: 2px dashed #cbd5e0;
-      padding: 40px;
-      text-align: center;
-      margin: 20px 0;
-      border-radius: 8px;
-    }
   </style>
 </head>
 <body>
@@ -37,7 +29,7 @@
 <p>Runway represents the critical timeframe your startup can operate before requiring additional funding. Understanding your runway helps founders make informed decisions about spending, hiring, and fundraising timing. This calculator determines how many months your current cash reserves will sustain operations. By regularly calculating runway, startups can maintain financial discipline and plan for growth. Runway analysis provides insights into cash management and helps avoid cash flow crises that could derail your business. Use this tool to forecast funding needs and optimize your startup&#39;s financial trajectory.</p>
 <h2>How to Calculate Runway</h2>
 <p>Calculating runway involves determining your monthly cash consumption rate and dividing it by available cash reserves. Start by gathering your current cash balance and monthly expenses. Include all operating costs, salaries, and overhead expenses. Subtract any monthly revenue to determine net burn rate. Divide your cash reserves by the monthly burn rate to get runway in months. Update calculations monthly as expenses and revenue change. Use conservative estimates to avoid overestimating runway. This calculation helps identify when to raise funds or reduce spending.</p>
-<p><div class="calculator-placeholder"><p>Calculator Loading...</p><div id="calculator"></div></div></p>
+<p><div id="calculator"></div></p>
 <h2>Understanding Your Runway</h2>
 <p>Runway calculation provides essential insights for startup financial management. The result shows how many months your startup can operate with current cash reserves. A healthy runway typically ranges from 12-18 months, providing buffer for fundraising and unexpected challenges. Short runway (less than 6 months) signals immediate need for funding or cost reduction. Long runway (over 24 months) may indicate conservative spending or strong revenue generation. Compare your runway against industry benchmarks and business stage. Early-stage startups need longer runways due to market uncertainty. Understanding runway helps prioritize spending and timing fundraising efforts.</p>
 <h2>Runway Formula</h2>
@@ -49,5 +41,96 @@
 <h2>Extending Your Runway</h2>
 <p>Several strategies can help startups extend their runway and preserve cash reserves. First, optimize pricing by conducting market analysis and adjusting pricing models to increase revenue. Second, negotiate better payment terms with suppliers to improve cash flow timing. Third, implement cost controls by regularly reviewing expenses and eliminating non-essential spending. Fourth, focus on customer retention through improved service and loyalty programs to increase lifetime value. Fifth, explore alternative funding options like convertible notes or revenue-based financing to bridge funding gaps.</p>
 
+<script>/**
+ * Runway Calculator
+ * Calculates months of runway based on cash and burn rate
+ */
+(function() {
+  const container = document.getElementById('calculator');
+  if (!container) return;
+
+  container.innerHTML = `
+    <div class="calc-form">
+      <div class="calc-group">
+        <label>Current Cash ($)</label>
+        <input type="number" id="cash" placeholder="500000" min="0">
+      </div>
+      <div class="calc-group">
+        <label>Monthly Burn Rate ($)</label>
+        <input type="number" id="burn" placeholder="40000" min="0">
+      </div>
+      <button type="button" id="calculate">Calculate Runway</button>
+    </div>
+    <div class="calc-results" id="results" style="display:none;">
+      <div class="result-item highlight">
+        <span class="result-label">Runway</span>
+        <span class="result-value" id="runway">0 months</span>
+      </div>
+      <div class="result-item">
+        <span class="result-label">Cash Out Date</span>
+        <span class="result-value" id="cashout-date">-</span>
+      </div>
+      <div class="result-item">
+        <span class="result-label">Status</span>
+        <span class="result-value" id="status">-</span>
+      </div>
+    </div>
+  `;
+
+  const style = document.createElement('style');
+  style.textContent = `
+    .calc-form { display: flex; flex-direction: column; gap: 15px; }
+    .calc-group { display: flex; flex-direction: column; gap: 5px; }
+    .calc-group label { font-weight: 600; color: #2c5282; }
+    .calc-group input { padding: 12px; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 16px; }
+    .calc-group input:focus { outline: none; border-color: #2b6cb0; }
+    #calculate { padding: 14px 24px; background: #2b6cb0; color: white; border: none; border-radius: 6px; font-size: 16px; cursor: pointer; margin-top: 10px; }
+    #calculate:hover { background: #2c5282; }
+    .calc-results { margin-top: 25px; background: #f7fafc; padding: 20px; border-radius: 8px; }
+    .result-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #e2e8f0; }
+    .result-item:last-child { border-bottom: none; }
+    .result-item.highlight { background: #ebf8ff; padding: 15px; border-radius: 8px; margin-bottom: 10px; }
+    .result-label { font-weight: 500; }
+    .result-value { font-weight: 700; color: #2b6cb0; }
+    .status-good { color: #38a169 !important; }
+    .status-warning { color: #d69e2e !important; }
+    .status-danger { color: #e53e3e !important; }
+  `;
+  document.head.appendChild(style);
+
+  document.getElementById('calculate').addEventListener('click', function() {
+    const cash = parseFloat(document.getElementById('cash').value) || 0;
+    const burn = parseFloat(document.getElementById('burn').value) || 0;
+
+    const runway = burn > 0 ? Math.floor(cash / burn) : 0;
+
+    const cashoutDate = new Date();
+    cashoutDate.setMonth(cashoutDate.getMonth() + runway);
+
+    let status, statusClass;
+    if (runway >= 18) {
+      status = 'Healthy';
+      statusClass = 'status-good';
+    } else if (runway >= 12) {
+      status = 'Monitor Closely';
+      statusClass = 'status-warning';
+    } else if (runway >= 6) {
+      status = 'Start Fundraising';
+      statusClass = 'status-warning';
+    } else {
+      status = 'Critical - Act Now';
+      statusClass = 'status-danger';
+    }
+
+    document.getElementById('runway').textContent = runway + ' months';
+    document.getElementById('cashout-date').textContent = cashoutDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+    const statusEl = document.getElementById('status');
+    statusEl.textContent = status;
+    statusEl.className = 'result-value ' + statusClass;
+
+    document.getElementById('results').style.display = 'block';
+  });
+})();
+</script>
 </body>
 </html>
