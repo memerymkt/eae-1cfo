@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Financial Analysis for Technical Teams</title>
+  <meta name="description" content="Financial Analysis for Technical Teams - Financial resources and tools">
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      line-height: 1.6;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      color: #333;
+    }
+    h1 { color: #1a365d; border-bottom: 2px solid #2b6cb0; padding-bottom: 10px; }
+    h2 { color: #2c5282; margin-top: 30px; }
+    h3 { color: #2d3748; }
+    a { color: #2b6cb0; }
+    table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+    th, td { border: 1px solid #e2e8f0; padding: 12px; text-align: left; }
+    th { background: #edf2f7; }
+    ul, ol { padding-left: 20px; }
+  </style>
+</head>
+<body>
+<h1>Financial Analysis for Technical Teams</h1>
+<p>GitHub enables advanced financial analysis integrated with development workflows. Technical founders and CTOs access sophisticated financial models and unit economics analysis. Automated analysis tools provide real-time insights into financial performance and technical efficiency.</p>
+<h2>Financial Analysis Challenges for Technical Companies</h2>
+<p>Technical companies require financial analysis that bridges business metrics with engineering performance. Traditional financial analysis lacks the technical depth and real-time capabilities that development teams need. Unit economics, customer lifetime value, and technical efficiency analysis demand specialized approaches.</p>
+<h3>Key Analysis Challenges</h3>
+<ul>
+<li><strong>Unit Economics Complexity</strong>: Understanding customer acquisition cost versus lifetime value in technical contexts</li>
+<li><strong>Real-Time Performance Analysis</strong>: Financial metrics that update with development velocity and deployment frequency</li>
+<li><strong>Technical Efficiency Correlation</strong>: Connecting engineering metrics with financial outcomes</li>
+<li><strong>Scenario Analysis Integration</strong>: Financial modeling that incorporates technical risk and opportunity factors</li>
+</ul>
+<h2>Advanced Financial Analysis Components</h2>
+<h3>Unit Economics Automation</h3>
+<p>Automated calculation and monitoring of customer acquisition cost, lifetime value, and unit economics ratios. Technical teams see financial efficiency alongside code quality metrics.</p>
+<h3>Real-Time Financial Dashboards</h3>
+<p>Financial analysis dashboards integrated with development dashboards. Technical teams monitor financial health alongside application performance and user metrics.</p>
+<h3>Scenario Analysis and Modeling</h3>
+<p>Automated financial scenario analysis based on technical milestones and market conditions. Development teams understand financial implications of technical decisions.</p>
+<h2>GitHub Integration for Financial Analysis</h2>
+<h3>Automated Analysis Pipelines</h3>
+<p>GitHub Actions automatically perform financial analysis and generate insights. Analysis triggered by development events, market changes, or scheduled intervals.</p>
+<h3>Analysis Model Version Control</h3>
+<p>Financial analysis models and algorithms version controlled alongside application code. Analysis improvements tracked and deployed through CI/CD.</p>
+<pre><code class="language-javascript">// GitHub Action for automated financial analysis
+const core = require(&#39;@actions/core&#39;);
+const github = require(&#39;@actions/github&#39;);
+const { Octokit } = require(&#39;@octokit/rest&#39;);
+
+async function performFinancialAnalysis() {
+  const octokit = new Octokit({ auth: core.getInput(&#39;token&#39;) });
+  
+  // Get financial and technical data
+  const data = await getAnalysisData();
+  
+  // Perform comprehensive financial analysis
+  const analysis = {
+    unitEconomics: analyzeUnitEconomics(data),
+    cohortAnalysis: analyzeCohorts(data),
+    technicalEfficiency: analyzeTechnicalEfficiency(data),
+    marketPositioning: analyzeMarketPosition(data),
+    riskAssessment: assessFinancialRisks(data),
+    growthOpportunities: identifyGrowthOpportunities(data)
+  };
+  
+  // Generate analysis insights
+  const insights = generateAnalysisInsights(analysis);
+  
+  // Create analysis report
+  const reportBody = generateAnalysisReport(analysis, insights);
+  
+  // Create or update analysis issue
+  const existingIssues = await octokit.issues.listForRepo({
+    owner: github.context.repo.owner,
+    repo: github.context.repo.repo,
+    labels: &#39;financial-analysis&#39;,
+    state: &#39;open&#39;
+  });
+  
+  if (existingIssues.data.length &gt; 0) {
+    await octokit.issues.update({
+      owner: github.context.repo.owner,
+      repo: github.context.repo.repo,
+      issue_number: existingIssues.data[0].number,
+      body: reportBody
+    });
+  } else {
+    await octokit.issues.create({
+      owner: github.context.repo.owner,
+      repo: github.context.repo.repo,
+      title: `Financial Analysis Report - ${new Date().toLocaleDateString()}`,
+      body: reportBody,
+      labels: [&#39;financial-analysis&#39;, insights.overallHealth]
+    });
+  }
+  
+  // Set outputs for workflow
+  core.setOutput(&#39;ltv_cac_ratio&#39;, analysis.unitEconomics.ltvCacRatio);
+  core.setOutput(&#39;customer_payback&#39;, analysis.unitEconomics.paybackPeriod);
+  core.setOutput(&#39;analysis_health&#39;, insights.overallHealth);
+}
+
+function generateAnalysisReport(analysis, insights) {
+  return `# Financial Analysis Report
+
+## Unit Economics
+- **Customer Acquisition Cost (CAC)**: $${analysis.unitEconomics.cac.toFixed(0)}
+- **Customer Lifetime Value (LTV)**: $${analysis.unitEconomics.ltv.toFixed(0)}
+- **LTV:CAC Ratio**: ${analysis.unitEconomics.ltvCacRatio.toFixed(1)}
+- **Payback Period**: ${analysis.unitEconomics.paybackPeriod.toFixed(1)} months
+- **Gross Margins**: ${(analysis.unitEconomics.grossMargin * 100).toFixed(1)}%
+
+## Cohort Analysis
+- **Best Cohort Retention**: ${(analysis.cohortAnalysis.bestRetention * 100).toFixed(1)}%
+- **Average Cohort LTV**: $${analysis.cohortAnalysis.averageLtv.toFixed(0)}
+- **Cohort Expansion Rate**: ${(analysis.cohortAnalysis.expansionRate * 100).toFixed(1)}%
+
+## Technical Efficiency
+- **Development Velocity**: ${analysis.technicalEfficiency.velocity} story points/week
+- **Cost per Feature**: $${analysis.technicalEfficiency.costPerFeature.toFixed(0)}
+- **Technical Debt Ratio**: ${(analysis.technicalEfficiency.debtRatio * 100).toFixed(1)}%
+- **Quality Score**: ${analysis.technicalEfficiency.qualityScore}/100
+
+## Market Positioning
+- **Market Share**: ${(analysis.marketPositioning.marketShare * 100).toFixed(1)}%
+- **Competitive Advantage Score**: ${analysis.marketPositioning.competitiveScore}/10
+- **Pricing Power Index**: ${analysis.marketPositioning.pricingPower.toFixed(1)}
+
+## Risk Assessment
+- **Financial Risk Level**: ${analysis.riskAssessment.financialRisk}
+- **Market Risk Level**: ${analysis.riskAssessment.marketRisk}
+- **Technical Risk Level**: ${analysis.riskAssessment.technicalRisk}
+
+## Analysis Health: ${insights.overallHealth.toUpperCase()}
+
+## Key Insights
+${insights.keyInsights.map(insight =&gt; `- ${insight}`).join(&#39;\n&#39;)}
+
+## Growth Opportunities
+${analysis.growthOpportunities.map(opportunity =&gt; `- ${opportunity}`).join(&#39;\n&#39;)}
+
+## Recommendations
+${insights.recommendations.map(rec =&gt; `- ${rec}`).join(&#39;\n&#39;)}
+
+*Analysis performed using automated financial models - Last updated: ${new Date().toISOString()}*`;
+}
+
+function generateAnalysisInsights(analysis) {
+  const insights = {
+    overallHealth: &#39;healthy&#39;,
+    keyInsights: [],
+    recommendations: []
+  };
+  
+  // Unit economics analysis
+  if (analysis.unitEconomics.ltvCacRatio &lt; 3) {
+    insights.keyInsights.push(&#39;LTV:CAC ratio below 3:1 - customer economics need improvement&#39;);
+    insights.overallHealth = &#39;concerning&#39;;
+    insights.recommendations.push(&#39;Focus on improving customer lifetime value or reducing acquisition costs&#39;);
+  }
+  
+  // Technical efficiency analysis
+  if (analysis.technicalEfficiency.debtRatio &gt; 20) {
+    insights.keyInsights.push(&#39;High technical debt ratio - development efficiency at risk&#39;);
+    insights.recommendations.push(&#39;Implement technical debt reduction initiatives&#39;);
+  }
+  
+  // Cohort analysis
+  if (analysis.cohortAnalysis.expansionRate &lt; 1.1) {
+    insights.keyInsights.push(&#39;Low cohort expansion - focus on customer success and upselling&#39;);
+    insights.recommendations.push(&#39;Strengthen customer success and expansion motions&#39;);
+  }
+  
+  if (insights.keyInsights.length === 0) {
+    insights.keyInsights.push(&#39;Financial and technical metrics show healthy performance&#39;);
+  }
+  
+  return insights;
+}
+
+// Placeholder functions for analysis data
+async function getAnalysisData() {
+  return {
+    customers: 2500,
+    revenue: 150000,
+    expenses: 125000,
+    cohorts: [
+      { retention: 0.85, ltv: 600 },
+      { retention: 0.82, ltv: 580 },
+      { retention: 0.88, ltv: 650 }
+    ],
+    technical: {
+      velocity: 45,
+      costPerFeature: 2500,
+      debtRatio: 0.15,
+      qualityScore: 85
+    },
+    market: {
+      marketShare: 0.025,
+      competitiveScore: 7.5,
+      pricingPower: 1.2
+    }
+  };
+}
+
+// Analysis functions
+function analyzeUnitEconomics(data) {
+  const cac = (data.expenses * 0.4) / data.customers; // Assume 40% of expenses on acquisition
+  const ltv = data.revenue / data.customers;
+  const grossMargin = (data.revenue - data.expenses) / data.revenue;
+  
+  return {
+    cac: cac,
+    ltv: ltv,
+    ltvCacRatio: ltv / cac,
+    paybackPeriod: (cac * 12) / (ltv - cac),
+    grossMargin: grossMargin
+  };
+}
+
+function analyzeCohorts(data) {
+  const retentions = data.cohorts.map(c =&gt; c.retention);
+  const ltvs = data.cohorts.map(c =&gt; c.ltv);
+  
+  return {
+    bestRetention: Math.max(...retentions),
+    averageLtv: ltvs.reduce((a, b) =&gt; a + b, 0) / ltvs.length,
+    expansionRate: 1.15 // Placeholder
+  };
+}
+
+function analyzeTechnicalEfficiency(data) {
+  return {
+    velocity: data.technical.velocity,
+    costPerFeature: data.technical.costPerFeature,
+    debtRatio: data.technical.debtRatio,
+    qualityScore: data.technical.qualityScore
+  };
+}
+
+function analyzeMarketPosition(data) {
+  return {
+    marketShare: data.market.marketShare,
+    competitiveScore: data.market.competitiveScore,
+    pricingPower: data.market.pricingPower
+  };
+}
+
+function assessFinancialRisks(data) {
+  return {
+    financialRisk: &#39;low&#39;,
+    marketRisk: &#39;medium&#39;,
+    technicalRisk: &#39;low&#39;
+  };
+}
+
+function identifyGrowthOpportunities(data) {
+  return [
+    &#39;Expand into adjacent market segments&#39;,
+    &#39;Increase average deal size through product bundling&#39;,
+    &#39;Improve customer retention through enhanced onboarding&#39;,
+    &#39;Leverage technical differentiation for premium pricing&#39;
+  ];
+}
+
+performFinancialAnalysis();
+</code></pre>
+<h3>Unit Economics Dashboards</h3>
+<p>Real-time unit economics dashboards integrated with development metrics. Technical teams monitor customer economics alongside engineering performance.</p>
+<h3>Scenario Analysis Automation</h3>
+<p>Automated generation of financial scenarios based on technical variables. Development teams understand financial implications of different technical paths.</p>
+<h2>Technical Financial Analysis Methodologies</h2>
+<h3>Customer Cohort Analysis</h3>
+<p>Advanced cohort analysis that correlates customer behavior with technical usage patterns. Development teams understand which features drive financial outcomes.</p>
+<h3>Feature Profitability Analysis</h3>
+<p>Financial analysis of individual features and capabilities. Technical teams prioritize development based on financial impact.</p>
+<h3>Infrastructure Cost Analysis</h3>
+<p>Detailed analysis of cloud infrastructure costs correlated with technical performance. Development teams optimize infrastructure spending.</p>
+<h2>Analysis Integration with Development</h2>
+<h3>Sprint Financial Reviews</h3>
+<p>Financial analysis integrated into sprint retrospectives. Technical teams review financial impact alongside delivery metrics.</p>
+<h3>Feature Financial Impact</h3>
+<p>Every feature includes financial analysis in its definition and success criteria. Development teams understand financial contribution.</p>
+<h3>Cost-Benefit Analysis Automation</h3>
+<p>Automated cost-benefit analysis for technical decisions. Development teams make financially-informed technical choices.</p>
+<h2>Advanced Analytics Capabilities</h2>
+<h3>Predictive Financial Modeling</h3>
+<p>Machine learning models predict financial outcomes based on technical metrics. Development teams anticipate financial results from technical changes.</p>
+<h3>Anomaly Detection</h3>
+<p>Automated detection of financial anomalies and their technical root causes. Development teams identify issues before they impact financial performance.</p>
+<h3>Correlation Analysis</h3>
+<p>Automated analysis of correlations between technical metrics and financial outcomes. Development teams understand which technical improvements drive financial results.</p>
+<h2>Technical Team Analysis Benefits</h2>
+<h3>Data-Driven Development</h3>
+<p>Financial analysis informs technical prioritization and resource allocation. Development teams focus on features with highest financial impact.</p>
+<h3>Performance Transparency</h3>
+<p>Technical teams see financial impact of their work in real-time. Engineering performance connected to business outcomes.</p>
+<h3>Continuous Optimization</h3>
+<p>Ongoing analysis enables continuous improvement of both technical and financial performance. Development teams optimize for both quality and profitability.</p>
+<h2>Success Stories</h2>
+<h3>SaaS Company Achieves Unit Economics Excellence</h3>
+<p>A SaaS company implemented automated unit economics analysis, improving LTV:CAC ratio from 2.1 to 4.2 through data-driven customer success initiatives.</p>
+<h3>Development Platform Optimizes Feature Development</h3>
+<p>A development platform used financial analysis to prioritize features, achieving 40% improvement in customer lifetime value through targeted development efforts.</p>
+<h3>API Platform Improves Market Positioning</h3>
+<p>An API platform integrated financial analysis with technical development, gaining 15% market share through financially-informed product strategy.</p>
+<h2>Getting Started with Financial Analysis</h2>
+<p>Ready to implement advanced financial analysis for your technical team? Contact our financial operations team to discuss GitHub-integrated analysis solutions.</p>
+<p>Explore related services:</p>
+<ul>
+<li><a href="financial-operations/forecasting.html">Forecasting</a> - Predictive financial modeling</li>
+<li><a href="resources/calculators.html">Calculators</a> - Unit economics calculators</li>
+<li><a href="resources/templates.html">Templates</a> - Financial analysis templates</li>
+</ul>
+<p>Access analysis resources:</p>
+<ul>
+<li><a href="resources/guides.html">Guides</a> - Technical financial analysis guides</li>
+<li><a href="resources/tools.html">Tools</a> - Financial modeling tools</li>
+</ul>
+<h2>Back to Financial Operations Hub</h2>
+<p>Return to the Financial Operations overview:
+<a href="financial-operations/index.html">Index</a></p>
+<h2>Cross-Silo Integration</h2>
+<p>Explore our CFO services:
+<a href="cfo-services/interim-cfo.html">Interim CFO</a> - Crisis management and analysis</p>
+<p>Access our industry expertise:
+<a href="industries/saas.html">SAAS</a> - SaaS unit economics analysis</p>
+<h2>Financial Resources</h2>
+<table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Fractional CFO Services</td>
+<td><a href="https://docs.google.com/document/d/1b7ME_R87TwUP7QvLrQtZJM4_bumPkhS0HUtFpcOKnvw/edit?usp=drivesdk">https://docs.google.com/document/d/1b7ME_R87TwUP7QvLrQtZJM4_bumPkhS0HUtFpcOKnvw/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Virtual CFO Services</td>
+<td><a href="https://docs.google.com/document/d/1g-jCRriEwH7gUE-b-pAkP6UtAIxIy90ylZx8LoPywUU/edit?usp=drivesdk">https://docs.google.com/document/d/1g-jCRriEwH7gUE-b-pAkP6UtAIxIy90ylZx8LoPywUU/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Outsourced CFO Services</td>
+<td><a href="https://docs.google.com/document/d/1At5MAw085vYTYHfdUwv70OSHymjUfV_rxkjJnQm8Oac/edit?usp=drivesdk">https://docs.google.com/document/d/1At5MAw085vYTYHfdUwv70OSHymjUfV_rxkjJnQm8Oac/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Financial Planning &amp; Analysis</td>
+<td><a href="https://docs.google.com/document/d/1S-zLJkfYmNOJUPJo3rbsLs_67yZC7LGtFaEHA73V57c/edit?usp=drivesdk">https://docs.google.com/document/d/1S-zLJkfYmNOJUPJo3rbsLs_67yZC7LGtFaEHA73V57c/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Cash Flow Management</td>
+<td><a href="https://docs.google.com/document/d/1jMWD-5pMqOLTsF0_DeWYjNmkACkXWNwKv7-lqpcIfA0/edit?usp=drivesdk">https://docs.google.com/document/d/1jMWD-5pMqOLTsF0_DeWYjNmkACkXWNwKv7-lqpcIfA0/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Financial Reporting</td>
+<td><a href="https://docs.google.com/document/d/1rJxEYy5ceFRl-FJyHCpA2zW5DuJHaAWgfiSVn9t5w4A/edit?usp=drivesdk">https://docs.google.com/document/d/1rJxEYy5ceFRl-FJyHCpA2zW5DuJHaAWgfiSVn9t5w4A/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Fundraising Support</td>
+<td><a href="https://docs.google.com/document/d/1esv1ICauYmdAH7oYN_XNgUeNdy3AJdX5EDZa-bwuGBw/edit?usp=drivesdk">https://docs.google.com/document/d/1esv1ICauYmdAH7oYN_XNgUeNdy3AJdX5EDZa-bwuGBw/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>M&amp;A Advisory</td>
+<td><a href="https://docs.google.com/document/d/10C7WM0G_rCLc9STAQE0f5A654TU7WYMGc2vR6HY43no/edit?usp=drivesdk">https://docs.google.com/document/d/10C7WM0G_rCLc9STAQE0f5A654TU7WYMGc2vR6HY43no/edit?usp=drivesdk</a></td>
+</tr>
+</tbody></table>
+<h2>Industry Expertise</h2>
+<table>
+<thead>
+<tr>
+<th>Industry</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Startup CFO</td>
+<td><a href="https://docs.google.com/document/d/1iY8plrLwhlceLdF7q1Vors3ANEoLCNNslBt34CaL9Ks/edit?usp=drivesdk">https://docs.google.com/document/d/1iY8plrLwhlceLdF7q1Vors3ANEoLCNNslBt34CaL9Ks/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Healthcare CFO</td>
+<td><a href="https://docs.google.com/document/d/1Sa2TESzUXuMfj7OslD-9pMODsYE3tWZU1K4YWj07_1s/edit?usp=drivesdk">https://docs.google.com/document/d/1Sa2TESzUXuMfj7OslD-9pMODsYE3tWZU1K4YWj07_1s/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>SaaS CFO</td>
+<td><a href="https://docs.google.com/document/d/1ePOe1T5e3buOomLe7D986nqtSYjMrOQGvJHp93h0kAw/edit?usp=drivesdk">https://docs.google.com/document/d/1ePOe1T5e3buOomLe7D986nqtSYjMrOQGvJHp93h0kAw/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Construction CFO</td>
+<td><a href="https://docs.google.com/document/d/1BCTpQIUzZufGghsC1WBFMkFoRM0bhkcB6p5NrZEADw8/edit?usp=drivesdk">https://docs.google.com/document/d/1BCTpQIUzZufGghsC1WBFMkFoRM0bhkcB6p5NrZEADw8/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>E-commerce CFO</td>
+<td><a href="https://docs.google.com/document/d/1MofZMqBNwFFWJlIr8ZaI45Bj06atwtGLuqjwzK1hVRQ/edit?usp=drivesdk">https://docs.google.com/document/d/1MofZMqBNwFFWJlIr8ZaI45Bj06atwtGLuqjwzK1hVRQ/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Manufacturing CFO</td>
+<td><a href="https://docs.google.com/document/d/1S0QLjLY2rH_aV1FLQWqQhqPmGNdERPhbVz0DQNw8Iw4/edit?usp=drivesdk">https://docs.google.com/document/d/1S0QLjLY2rH_aV1FLQWqQhqPmGNdERPhbVz0DQNw8Iw4/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Nonprofit CFO</td>
+<td><a href="https://docs.google.com/document/d/1NT24jSSnSEAiqu8VVzXOzwICfFbn-B_GPQrOncdT6iI/edit?usp=drivesdk">https://docs.google.com/document/d/1NT24jSSnSEAiqu8VVzXOzwICfFbn-B_GPQrOncdT6iI/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Professional Services CFO</td>
+<td><a href="https://docs.google.com/document/d/1yIa13DisLYlaW09uRozm-v5CUNdMI9SUiyNKtFcGqD4/edit?usp=drivesdk">https://docs.google.com/document/d/1yIa13DisLYlaW09uRozm-v5CUNdMI9SUiyNKtFcGqD4/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Technology CFO</td>
+<td><a href="https://docs.google.com/document/d/1Gb_g1nr-z6scA348PQht08qgsALH-FQuC_g1mcEiTI8/edit?usp=drivesdk">https://docs.google.com/document/d/1Gb_g1nr-z6scA348PQht08qgsALH-FQuC_g1mcEiTI8/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Real Estate CFO</td>
+<td><a href="https://docs.google.com/document/d/1V9vKH45TrLADqELP-pouV_vYEfvnQZi6D1Hte9ULvN8/edit?usp=drivesdk">https://docs.google.com/document/d/1V9vKH45TrLADqELP-pouV_vYEfvnQZi6D1Hte9ULvN8/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Retail CFO</td>
+<td><a href="https://docs.google.com/document/d/1_cXGNsxyY37rjrc4_-8KTntLDYmBpkmCum6-NrgMLN0/edit?usp=drivesdk">https://docs.google.com/document/d/1_cXGNsxyY37rjrc4_-8KTntLDYmBpkmCum6-NrgMLN0/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Legal CFO</td>
+<td><a href="https://docs.google.com/document/d/1zOqBO0tXzGZa7t4V334dx8BuXIaF492ZM_G7zfxwBz0/edit?usp=drivesdk">https://docs.google.com/document/d/1zOqBO0tXzGZa7t4V334dx8BuXIaF492ZM_G7zfxwBz0/edit?usp=drivesdk</a></td>
+</tr>
+</tbody></table>
+<h2>Regional Services</h2>
+<table>
+<thead>
+<tr>
+<th>Market</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Phoenix CFO</td>
+<td><a href="https://docs.google.com/document/d/1HAR4bXqUnkrbL6GmwHwGy8nxiRoquEH5IQshvlhdnTs/edit?usp=drivesdk">https://docs.google.com/document/d/1HAR4bXqUnkrbL6GmwHwGy8nxiRoquEH5IQshvlhdnTs/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Scottsdale CFO</td>
+<td><a href="https://docs.google.com/document/d/190AuvOwVWrF9XiRJDKaebhYLUB-M9D4qSwsEZDynsVs/edit?usp=drivesdk">https://docs.google.com/document/d/190AuvOwVWrF9XiRJDKaebhYLUB-M9D4qSwsEZDynsVs/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Dallas CFO</td>
+<td><a href="https://docs.google.com/document/d/1mI5nCWSlZAWTPjNDLJkekk_9saDiAPER7eyWXxeWsQY/edit?usp=drivesdk">https://docs.google.com/document/d/1mI5nCWSlZAWTPjNDLJkekk_9saDiAPER7eyWXxeWsQY/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Denver CFO</td>
+<td><a href="https://docs.google.com/document/d/1Yjvx1-U-50Z7FrpFQIyNrzHxeicDmsKbiLta-s49XB4/edit?usp=drivesdk">https://docs.google.com/document/d/1Yjvx1-U-50Z7FrpFQIyNrzHxeicDmsKbiLta-s49XB4/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Austin CFO</td>
+<td><a href="https://docs.google.com/document/d/1lzwU_kZJr7ZNnCRZSs81gJ8bhg9L2-vjP6iiHqhhuPE/edit?usp=drivesdk">https://docs.google.com/document/d/1lzwU_kZJr7ZNnCRZSs81gJ8bhg9L2-vjP6iiHqhhuPE/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Houston CFO</td>
+<td><a href="https://docs.google.com/document/d/1xTbk9NAoLpdkPDWOZg6B2INCIbV-70qPGBiBn5ybb10/edit?usp=drivesdk">https://docs.google.com/document/d/1xTbk9NAoLpdkPDWOZg6B2INCIbV-70qPGBiBn5ybb10/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Los Angeles CFO</td>
+<td><a href="https://docs.google.com/document/d/1w2nj8z6TsWecr4fbYUwptV-DNBNKscPQHsuG91pR5yY/edit?usp=drivesdk">https://docs.google.com/document/d/1w2nj8z6TsWecr4fbYUwptV-DNBNKscPQHsuG91pR5yY/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>San Diego CFO</td>
+<td><a href="https://docs.google.com/document/d/1WdDzi5OMSf25ado5x6Z-4VaRSdu_sx2CeNi6xLh68aQ/edit?usp=drivesdk">https://docs.google.com/document/d/1WdDzi5OMSf25ado5x6Z-4VaRSdu_sx2CeNi6xLh68aQ/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>San Antonio CFO</td>
+<td><a href="https://docs.google.com/document/d/1zpUQ3-9KzR98sA7fknmO7n2ajfG8ezsLmaRomiKalP8/edit?usp=drivesdk">https://docs.google.com/document/d/1zpUQ3-9KzR98sA7fknmO7n2ajfG8ezsLmaRomiKalP8/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Las Vegas CFO</td>
+<td><a href="https://docs.google.com/document/d/1ziOozCmMpCi42z-km83jwz6MztSvycEUByKjkRhI3Jw/edit?usp=drivesdk">https://docs.google.com/document/d/1ziOozCmMpCi42z-km83jwz6MztSvycEUByKjkRhI3Jw/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Tucson CFO</td>
+<td><a href="https://docs.google.com/document/d/1O4wv81fQx7OAcL54-hCAIjEWSTNNuO4hhIYkJd1UVgU/edit?usp=drivesdk">https://docs.google.com/document/d/1O4wv81fQx7OAcL54-hCAIjEWSTNNuO4hhIYkJd1UVgU/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Albuquerque CFO</td>
+<td><a href="https://docs.google.com/document/d/1r8frk3L4cq8Z5snHB5y5GTSqu3D6V_Tpchdix0bAiLg/edit?usp=drivesdk">https://docs.google.com/document/d/1r8frk3L4cq8Z5snHB5y5GTSqu3D6V_Tpchdix0bAiLg/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Salt Lake City CFO</td>
+<td><a href="https://docs.google.com/document/d/1tFU6RRbFmWnndsnIX4jp-GI0j4gf-jkZXkrjv9O39-o/edit?usp=drivesdk">https://docs.google.com/document/d/1tFU6RRbFmWnndsnIX4jp-GI0j4gf-jkZXkrjv9O39-o/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Portland CFO</td>
+<td><a href="https://docs.google.com/document/d/1mEXSiyb6cd-_VHOviXL6zv00UpIwP5Ifmn74-zrsiLk/edit?usp=drivesdk">https://docs.google.com/document/d/1mEXSiyb6cd-_VHOviXL6zv00UpIwP5Ifmn74-zrsiLk/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Seattle CFO</td>
+<td><a href="https://docs.google.com/document/d/1E79oZ2SKiKtXnrVI8w26-Uy3Wke3CuMdpR-b9hpcpaw/edit?usp=drivesdk">https://docs.google.com/document/d/1E79oZ2SKiKtXnrVI8w26-Uy3Wke3CuMdpR-b9hpcpaw/edit?usp=drivesdk</a></td>
+</tr>
+</tbody></table>
+<h2>Document Library</h2>
+<p><a href="https://drive.google.com/drive/folders/17FIc19x6kgby5iX5xNCtkLvwdnTKkYEL" target="_blank" style="display:inline-block; padding:12px 24px; background:#4285f4; color:white; text-decoration:none; border-radius:4px; font-weight:bold;">Browse Document Library</a></p>
+
+<h2>Complete Resource Index</h2>
+<p><a href="https://www.1cfo.ai/resources" target="_blank" style="display:inline-block; padding:12px 24px; background:#34a853; color:white; text-decoration:none; border-radius:4px; font-weight:bold;">View All Resources</a></p>
+
+
+</body>
+</html>
