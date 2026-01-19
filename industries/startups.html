@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Startup CFO Services for Technical Founders</title>
+  <meta name="description" content="Startup CFO Services for Technical Founders - Financial resources and tools">
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      line-height: 1.6;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      color: #333;
+    }
+    h1 { color: #1a365d; border-bottom: 2px solid #2b6cb0; padding-bottom: 10px; }
+    h2 { color: #2c5282; margin-top: 30px; }
+    h3 { color: #2d3748; }
+    a { color: #2b6cb0; }
+    table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+    th, td { border: 1px solid #e2e8f0; padding: 12px; text-align: left; }
+    th { background: #edf2f7; }
+    ul, ol { padding-left: 20px; }
+  </style>
+</head>
+<body>
+<h1>Startup CFO Services for Technical Founders</h1>
+<p>GitHub transforms startup financial management for technical founders. Early-stage companies need financial guidance that understands developer workflows and scaling challenges. Our startup CFO services integrate with GitHub to provide real-time financial insights during rapid growth phases.</p>
+<h2>Understanding Startup Financial Challenges</h2>
+<p>Technical startups face unique financial pressures. From bootstrapping constraints to venture funding preparation, founders need financial expertise that complements their technical skills. Startup CFOs bridge the gap between engineering focus and business financial requirements.</p>
+<h3>Key Startup Financial Challenges</h3>
+<ul>
+<li><strong>Cash Flow Management</strong>: Managing runway while building product-market fit</li>
+<li><strong>Funding Preparation</strong>: Creating compelling financial narratives for investors</li>
+<li><strong>Unit Economics</strong>: Understanding customer acquisition cost and lifetime value</li>
+<li><strong>Scalable Financial Infrastructure</strong>: Building systems that grow with technical complexity</li>
+</ul>
+<h2>How Startup CFOs Support Technical Founders</h2>
+<h3>Bootstrapping Financial Strategy</h3>
+<p>Startup CFOs help founders optimize limited resources. Financial planning integrated with product development cycles ensures efficient capital allocation.</p>
+<h3>GitHub-Integrated Financial Monitoring</h3>
+<p>Real-time financial dashboards connected to GitHub repositories. Founders monitor burn rate alongside code commits and user growth metrics.</p>
+<h3>Funding Readiness Preparation</h3>
+<p>Comprehensive financial preparation for venture funding. From financial modeling to investor presentations, startup CFOs ensure compelling valuation narratives.</p>
+<h2>Startup CFO Service Components</h2>
+<h3>Early-Stage Financial Planning</h3>
+<ul>
+<li>Bootstrapping strategy and resource allocation</li>
+<li>Financial milestone planning aligned with technical roadmaps</li>
+<li>Cash flow forecasting for runway management</li>
+<li>Break-even analysis and unit economics</li>
+</ul>
+<h3>Funding and Investor Relations</h3>
+<ul>
+<li>Financial model development for investor presentations</li>
+<li>Valuation analysis and negotiation support</li>
+<li>Term sheet review and financial implications</li>
+<li>Post-funding financial restructuring</li>
+</ul>
+<h3>Operational Financial Management</h3>
+<ul>
+<li>Accounting system setup and bookkeeping</li>
+<li>Budget development and expense management</li>
+<li>Financial reporting for board and investors</li>
+<li>Tax planning for startups and founders</li>
+</ul>
+<h2>GitHub Integration for Startup CFO Services</h2>
+<h3>GitHub Projects for Financial Milestones</h3>
+<p>Startup financial goals tracked alongside technical milestones. Funding targets, profitability goals, and scaling objectives managed in integrated project boards.</p>
+<h3>GitHub Issues for Financial Tasks</h3>
+<p>Financial tasks and investor requests managed through GitHub Issues. Structured workflows for financial analysis and reporting.</p>
+<pre><code class="language-yaml"># GitHub Issue template for startup financial tasks
+name: Startup Financial Task
+description: Track financial tasks and milestones for startup growth
+title: &quot;[STARTUP-FINANCE] &quot;
+labels: [&quot;startup&quot;, &quot;finance&quot;, &quot;milestone&quot;]
+body:
+  - type: textarea
+    id: objective
+    attributes:
+      label: Financial Objective
+      description: What financial goal or milestone needs to be achieved?
+    validations:
+      required: true
+  
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - Funding Preparation
+        - Cash Flow Management
+        - Unit Economics
+        - Financial Reporting
+        - Tax Planning
+        - Investor Relations
+    validations:
+      required: true
+  
+  - type: input
+    id: timeline
+    attributes:
+      label: Timeline
+      description: When should this be completed?
+      placeholder: Q2 2024
+</code></pre>
+<h3>GitHub Actions for Financial Automation</h3>
+<p>Startup CFOs implement automated financial processes using GitHub Actions. From expense tracking to financial reporting, founders get automated financial insights.</p>
+<pre><code class="language-javascript">// GitHub Action for startup financial dashboard
+const core = require(&#39;@actions/core&#39;);
+const github = require(&#39;@actions/github&#39;);
+const { Octokit } = require(&#39;@octokit/rest&#39;);
+
+async function updateFinancialDashboard() {
+  const octokit = new Octokit({ auth: core.getInput(&#39;token&#39;) });
+  
+  // Gather startup metrics
+  const metrics = {
+    runway_months: await getRunwayMonths(),
+    burn_rate: await getMonthlyBurn(),
+    revenue: await getMonthlyRevenue(),
+    customers: await getCustomerCount(),
+    cac: await getCustomerAcquisitionCost(),
+    ltv: await getCustomerLifetimeValue(),
+    code_commits: await getCodeCommits(),
+    user_growth: await getUserGrowth()
+  };
+  
+  // Calculate key ratios
+  metrics.ltv_cac_ratio = metrics.ltv / metrics.cac;
+  metrics.payback_period = (metrics.cac * 12) / (metrics.ltv - metrics.cac);
+  
+  // Determine financial health
+  let health_status = &#39;healthy&#39;;
+  if (metrics.runway_months &lt; 6) health_status = &#39;warning&#39;;
+  if (metrics.runway_months &lt; 3) health_status = &#39;critical&#39;;
+  if (metrics.ltv_cac_ratio &lt; 3) health_status = &#39;attention_needed&#39;;
+  
+  // Create or update dashboard issue
+  const dashboardBody = `# Startup Financial Dashboard
+
+## Financial Health: ${health_status.toUpperCase()}
+
+### Key Metrics
+- **Runway**: ${metrics.runway_months} months
+- **Monthly Burn**: $${metrics.burn_rate.toLocaleString()}
+- **Monthly Revenue**: $${metrics.revenue.toLocaleString()}
+- **Customers**: ${metrics.customers.toLocaleString()}
+
+### Unit Economics
+- **CAC**: $${metrics.cac}
+- **LTV**: $${metrics.ltv}
+- **LTV:CAC Ratio**: ${metrics.ltv_cac_ratio.toFixed(1)}
+- **Payback Period**: ${metrics.payback_period.toFixed(1)} months
+
+### Technical Metrics
+- **Code Commits**: ${metrics.code_commits} (last 30 days)
+- **User Growth**: ${metrics.user_growth.toFixed(1)}% (last 30 days)
+
+### Recommendations
+${generateRecommendations(metrics, health_status)}
+
+*Dashboard updated automatically - Last updated: ${new Date().toISOString()}*`;
+  
+  // Update or create dashboard issue
+  const existingIssues = await octokit.issues.listForRepo({
+    owner: github.context.repo.owner,
+    repo: github.context.repo.repo,
+    labels: &#39;financial-dashboard&#39;,
+    state: &#39;open&#39;
+  });
+  
+  if (existingIssues.data.length &gt; 0) {
+    await octokit.issues.update({
+      owner: github.context.repo.owner,
+      repo: github.context.repo.repo,
+      issue_number: existingIssues.data[0].number,
+      body: dashboardBody,
+      labels: [&#39;financial-dashboard&#39;, health_status]
+    });
+  } else {
+    await octokit.issues.create({
+      owner: github.context.repo.owner,
+      repo: github.context.repo.repo,
+      title: &#39;Startup Financial Dashboard&#39;,
+      body: dashboardBody,
+      labels: [&#39;financial-dashboard&#39;, health_status]
+    });
+  }
+  
+  core.setOutput(&#39;dashboard_updated&#39;, &#39;true&#39;);
+  core.setOutput(&#39;health_status&#39;, health_status);
+}
+
+function generateRecommendations(metrics, health) {
+  const recommendations = [];
+  
+  if (metrics.runway_months &lt; 6) {
+    recommendations.push(&#39;- Consider fundraising or cost reduction measures&#39;);
+  }
+  
+  if (metrics.ltv_cac_ratio &lt; 3) {
+    recommendations.push(&#39;- Focus on improving customer lifetime value or reducing acquisition costs&#39;);
+  }
+  
+  if (metrics.payback_period &gt; 12) {
+    recommendations.push(&#39;- Review pricing strategy or customer acquisition channels&#39;);
+  }
+  
+  if (recommendations.length === 0) {
+    recommendations.push(&#39;- Financial metrics look healthy - continue monitoring growth&#39;);
+  }
+  
+  return recommendations.join(&#39;\n&#39;);
+}
+
+// Placeholder functions for metrics
+async function getRunwayMonths() { return 8; }
+async function getMonthlyBurn() { return 50000; }
+async function getMonthlyRevenue() { return 25000; }
+async function getCustomerCount() { return 1250; }
+async function getCustomerAcquisitionCost() { return 150; }
+async function getCustomerLifetimeValue() { return 600; }
+async function getCodeCommits() { return 450; }
+async function getUserGrowth() { return 15.5; }
+
+updateFinancialDashboard();
+</code></pre>
+<h3>GitHub Milestones for Startup Goals</h3>
+<p>Startup financial objectives tracked as GitHub milestones. Funding rounds, profitability targets, and scaling goals aligned with technical development.</p>
+<h2>Startup Growth Stages and Financial Needs</h2>
+<h3>Idea to MVP Stage</h3>
+<p>Focus on bootstrapping and resource efficiency. Financial planning centers on validating product-market fit with minimal burn.</p>
+<h3>Product-Market Fit to Scale</h3>
+<p>Emphasis on unit economics and customer acquisition. Financial models for scaling and market expansion.</p>
+<h3>Scale to Funding</h3>
+<p>Preparation for venture capital investment. Building compelling financial narratives and valuation optimization.</p>
+<h3>Post-Funding Growth</h3>
+<p>Managing investor relations and scalable financial operations. From startup metrics to enterprise financial management.</p>
+<h2>Technical Startup Financial Metrics</h2>
+<h3>Unit Economics</h3>
+<ul>
+<li>Customer Acquisition Cost (CAC)</li>
+<li>Customer Lifetime Value (LTV)</li>
+<li>LTV to CAC Ratio</li>
+<li>Monthly Churn Rate</li>
+<li>Net Revenue Retention</li>
+</ul>
+<h3>Growth Metrics</h3>
+<ul>
+<li>Monthly Recurring Revenue (MRR) Growth</li>
+<li>Customer Growth Rate</li>
+<li>Viral Coefficient</li>
+<li>Market Penetration</li>
+</ul>
+<h3>Efficiency Metrics</h3>
+<ul>
+<li>Burn Multiple (Revenue to Burn Ratio)</li>
+<li>Gross Margins</li>
+<li>Customer Payback Period</li>
+<li>Revenue per Employee</li>
+</ul>
+<h2>Startup Funding Strategies</h2>
+<h3>Bootstrapping</h3>
+<p>Self-funded growth with revenue generation. Financial discipline and resource optimization for sustainable growth.</p>
+<h3>Angel Investment</h3>
+<p>Individual investor funding for early-stage companies. Preparing financials for angel investor due diligence.</p>
+<h3>Venture Capital</h3>
+<p>Institutional funding for high-growth companies. Building scalable financial models and exit strategies.</p>
+<h3>Alternative Funding</h3>
+<p>Revenue-based financing, grants, and strategic partnerships. Financial planning for non-traditional funding sources.</p>
+<h2>Success Stories</h2>
+<h3>Developer-Led SaaS Startup</h3>
+<p>A technical founder used startup CFO services to secure $5M Series A funding. Integrated financial planning with GitHub development workflows resulted in 40% higher valuation.</p>
+<h3>Healthcare Tech MVP to Market</h3>
+<p>A healthcare technology startup achieved product-market fit with financial guidance. Automated financial monitoring enabled data-driven scaling decisions.</p>
+<h3>E-commerce Platform Bootstrap to Scale</h3>
+<p>An e-commerce platform grew from $0 to $2M ARR using startup financial strategies. Unit economics optimization drove profitable scaling.</p>
+<h2>Getting Started with Startup CFO Services</h2>
+<p>Ready to accelerate your technical startup&#39;s growth? Contact our startup CFO team to discuss financial strategies for your development-focused company.</p>
+<p>Explore related services:</p>
+<ul>
+<li><a href="cfo-services/fractional-cfo.html">Fractional CFO</a> - Flexible financial leadership</li>
+<li><a href="financial-operations/cash-flow-management.html">Cash Flow Management</a> - Runway optimization</li>
+<li><a href="resources/templates.html">Templates</a> - Startup financial templates</li>
+</ul>
+<p>Access startup resources:</p>
+<ul>
+<li><a href="resources/calculators.html">Calculators</a> - Startup financial calculators</li>
+<li><a href="resources/guides.html">Guides</a> - Funding preparation guides</li>
+</ul>
+<h2>Back to Industries Hub</h2>
+<p>Return to the Industries overview:
+<a href="industries/index.html">Index</a></p>
+<h2>Cross-Silo Integration</h2>
+<p>Access our operational expertise:
+<a href="financial-operations/financial-analysis.html">Financial Analysis</a> - Startup financial analysis</p>
+<p>Explore our comprehensive resources:
+<a href="resources/tools.html">Tools</a> - Startup financial tools</p>
+<h2>Financial Resources</h2>
+<table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Fractional CFO Services</td>
+<td><a href="https://docs.google.com/document/d/1b7ME_R87TwUP7QvLrQtZJM4_bumPkhS0HUtFpcOKnvw/edit?usp=drivesdk">https://docs.google.com/document/d/1b7ME_R87TwUP7QvLrQtZJM4_bumPkhS0HUtFpcOKnvw/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Virtual CFO Services</td>
+<td><a href="https://docs.google.com/document/d/1g-jCRriEwH7gUE-b-pAkP6UtAIxIy90ylZx8LoPywUU/edit?usp=drivesdk">https://docs.google.com/document/d/1g-jCRriEwH7gUE-b-pAkP6UtAIxIy90ylZx8LoPywUU/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Outsourced CFO Services</td>
+<td><a href="https://docs.google.com/document/d/1At5MAw085vYTYHfdUwv70OSHymjUfV_rxkjJnQm8Oac/edit?usp=drivesdk">https://docs.google.com/document/d/1At5MAw085vYTYHfdUwv70OSHymjUfV_rxkjJnQm8Oac/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Financial Planning &amp; Analysis</td>
+<td><a href="https://docs.google.com/document/d/1S-zLJkfYmNOJUPJo3rbsLs_67yZC7LGtFaEHA73V57c/edit?usp=drivesdk">https://docs.google.com/document/d/1S-zLJkfYmNOJUPJo3rbsLs_67yZC7LGtFaEHA73V57c/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Cash Flow Management</td>
+<td><a href="https://docs.google.com/document/d/1jMWD-5pMqOLTsF0_DeWYjNmkACkXWNwKv7-lqpcIfA0/edit?usp=drivesdk">https://docs.google.com/document/d/1jMWD-5pMqOLTsF0_DeWYjNmkACkXWNwKv7-lqpcIfA0/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Financial Reporting</td>
+<td><a href="https://docs.google.com/document/d/1rJxEYy5ceFRl-FJyHCpA2zW5DuJHaAWgfiSVn9t5w4A/edit?usp=drivesdk">https://docs.google.com/document/d/1rJxEYy5ceFRl-FJyHCpA2zW5DuJHaAWgfiSVn9t5w4A/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Fundraising Support</td>
+<td><a href="https://docs.google.com/document/d/1esv1ICauYmdAH7oYN_XNgUeNdy3AJdX5EDZa-bwuGBw/edit?usp=drivesdk">https://docs.google.com/document/d/1esv1ICauYmdAH7oYN_XNgUeNdy3AJdX5EDZa-bwuGBw/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>M&amp;A Advisory</td>
+<td><a href="https://docs.google.com/document/d/10C7WM0G_rCLc9STAQE0f5A654TU7WYMGc2vR6HY43no/edit?usp=drivesdk">https://docs.google.com/document/d/10C7WM0G_rCLc9STAQE0f5A654TU7WYMGc2vR6HY43no/edit?usp=drivesdk</a></td>
+</tr>
+</tbody></table>
+<h2>Industry Expertise</h2>
+<table>
+<thead>
+<tr>
+<th>Industry</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Startup CFO</td>
+<td><a href="https://docs.google.com/document/d/1iY8plrLwhlceLdF7q1Vors3ANEoLCNNslBt34CaL9Ks/edit?usp=drivesdk">https://docs.google.com/document/d/1iY8plrLwhlceLdF7q1Vors3ANEoLCNNslBt34CaL9Ks/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Healthcare CFO</td>
+<td><a href="https://docs.google.com/document/d/1Sa2TESzUXuMfj7OslD-9pMODsYE3tWZU1K4YWj07_1s/edit?usp=drivesdk">https://docs.google.com/document/d/1Sa2TESzUXuMfj7OslD-9pMODsYE3tWZU1K4YWj07_1s/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>SaaS CFO</td>
+<td><a href="https://docs.google.com/document/d/1ePOe1T5e3buOomLe7D986nqtSYjMrOQGvJHp93h0kAw/edit?usp=drivesdk">https://docs.google.com/document/d/1ePOe1T5e3buOomLe7D986nqtSYjMrOQGvJHp93h0kAw/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Construction CFO</td>
+<td><a href="https://docs.google.com/document/d/1BCTpQIUzZufGghsC1WBFMkFoRM0bhkcB6p5NrZEADw8/edit?usp=drivesdk">https://docs.google.com/document/d/1BCTpQIUzZufGghsC1WBFMkFoRM0bhkcB6p5NrZEADw8/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>E-commerce CFO</td>
+<td><a href="https://docs.google.com/document/d/1MofZMqBNwFFWJlIr8ZaI45Bj06atwtGLuqjwzK1hVRQ/edit?usp=drivesdk">https://docs.google.com/document/d/1MofZMqBNwFFWJlIr8ZaI45Bj06atwtGLuqjwzK1hVRQ/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Manufacturing CFO</td>
+<td><a href="https://docs.google.com/document/d/1S0QLjLY2rH_aV1FLQWqQhqPmGNdERPhbVz0DQNw8Iw4/edit?usp=drivesdk">https://docs.google.com/document/d/1S0QLjLY2rH_aV1FLQWqQhqPmGNdERPhbVz0DQNw8Iw4/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Nonprofit CFO</td>
+<td><a href="https://docs.google.com/document/d/1NT24jSSnSEAiqu8VVzXOzwICfFbn-B_GPQrOncdT6iI/edit?usp=drivesdk">https://docs.google.com/document/d/1NT24jSSnSEAiqu8VVzXOzwICfFbn-B_GPQrOncdT6iI/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Professional Services CFO</td>
+<td><a href="https://docs.google.com/document/d/1yIa13DisLYlaW09uRozm-v5CUNdMI9SUiyNKtFcGqD4/edit?usp=drivesdk">https://docs.google.com/document/d/1yIa13DisLYlaW09uRozm-v5CUNdMI9SUiyNKtFcGqD4/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Technology CFO</td>
+<td><a href="https://docs.google.com/document/d/1Gb_g1nr-z6scA348PQht08qgsALH-FQuC_g1mcEiTI8/edit?usp=drivesdk">https://docs.google.com/document/d/1Gb_g1nr-z6scA348PQht08qgsALH-FQuC_g1mcEiTI8/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Real Estate CFO</td>
+<td><a href="https://docs.google.com/document/d/1V9vKH45TrLADqELP-pouV_vYEfvnQZi6D1Hte9ULvN8/edit?usp=drivesdk">https://docs.google.com/document/d/1V9vKH45TrLADqELP-pouV_vYEfvnQZi6D1Hte9ULvN8/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Retail CFO</td>
+<td><a href="https://docs.google.com/document/d/1_cXGNsxyY37rjrc4_-8KTntLDYmBpkmCum6-NrgMLN0/edit?usp=drivesdk">https://docs.google.com/document/d/1_cXGNsxyY37rjrc4_-8KTntLDYmBpkmCum6-NrgMLN0/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Legal CFO</td>
+<td><a href="https://docs.google.com/document/d/1zOqBO0tXzGZa7t4V334dx8BuXIaF492ZM_G7zfxwBz0/edit?usp=drivesdk">https://docs.google.com/document/d/1zOqBO0tXzGZa7t4V334dx8BuXIaF492ZM_G7zfxwBz0/edit?usp=drivesdk</a></td>
+</tr>
+</tbody></table>
+<h2>Regional Services</h2>
+<table>
+<thead>
+<tr>
+<th>Market</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Phoenix CFO</td>
+<td><a href="https://docs.google.com/document/d/1HAR4bXqUnkrbL6GmwHwGy8nxiRoquEH5IQshvlhdnTs/edit?usp=drivesdk">https://docs.google.com/document/d/1HAR4bXqUnkrbL6GmwHwGy8nxiRoquEH5IQshvlhdnTs/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Scottsdale CFO</td>
+<td><a href="https://docs.google.com/document/d/190AuvOwVWrF9XiRJDKaebhYLUB-M9D4qSwsEZDynsVs/edit?usp=drivesdk">https://docs.google.com/document/d/190AuvOwVWrF9XiRJDKaebhYLUB-M9D4qSwsEZDynsVs/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Dallas CFO</td>
+<td><a href="https://docs.google.com/document/d/1mI5nCWSlZAWTPjNDLJkekk_9saDiAPER7eyWXxeWsQY/edit?usp=drivesdk">https://docs.google.com/document/d/1mI5nCWSlZAWTPjNDLJkekk_9saDiAPER7eyWXxeWsQY/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Denver CFO</td>
+<td><a href="https://docs.google.com/document/d/1Yjvx1-U-50Z7FrpFQIyNrzHxeicDmsKbiLta-s49XB4/edit?usp=drivesdk">https://docs.google.com/document/d/1Yjvx1-U-50Z7FrpFQIyNrzHxeicDmsKbiLta-s49XB4/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Austin CFO</td>
+<td><a href="https://docs.google.com/document/d/1lzwU_kZJr7ZNnCRZSs81gJ8bhg9L2-vjP6iiHqhhuPE/edit?usp=drivesdk">https://docs.google.com/document/d/1lzwU_kZJr7ZNnCRZSs81gJ8bhg9L2-vjP6iiHqhhuPE/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Houston CFO</td>
+<td><a href="https://docs.google.com/document/d/1xTbk9NAoLpdkPDWOZg6B2INCIbV-70qPGBiBn5ybb10/edit?usp=drivesdk">https://docs.google.com/document/d/1xTbk9NAoLpdkPDWOZg6B2INCIbV-70qPGBiBn5ybb10/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Los Angeles CFO</td>
+<td><a href="https://docs.google.com/document/d/1w2nj8z6TsWecr4fbYUwptV-DNBNKscPQHsuG91pR5yY/edit?usp=drivesdk">https://docs.google.com/document/d/1w2nj8z6TsWecr4fbYUwptV-DNBNKscPQHsuG91pR5yY/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>San Diego CFO</td>
+<td><a href="https://docs.google.com/document/d/1WdDzi5OMSf25ado5x6Z-4VaRSdu_sx2CeNi6xLh68aQ/edit?usp=drivesdk">https://docs.google.com/document/d/1WdDzi5OMSf25ado5x6Z-4VaRSdu_sx2CeNi6xLh68aQ/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>San Antonio CFO</td>
+<td><a href="https://docs.google.com/document/d/1zpUQ3-9KzR98sA7fknmO7n2ajfG8ezsLmaRomiKalP8/edit?usp=drivesdk">https://docs.google.com/document/d/1zpUQ3-9KzR98sA7fknmO7n2ajfG8ezsLmaRomiKalP8/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Las Vegas CFO</td>
+<td><a href="https://docs.google.com/document/d/1ziOozCmMpCi42z-km83jwz6MztSvycEUByKjkRhI3Jw/edit?usp=drivesdk">https://docs.google.com/document/d/1ziOozCmMpCi42z-km83jwz6MztSvycEUByKjkRhI3Jw/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Tucson CFO</td>
+<td><a href="https://docs.google.com/document/d/1O4wv81fQx7OAcL54-hCAIjEWSTNNuO4hhIYkJd1UVgU/edit?usp=drivesdk">https://docs.google.com/document/d/1O4wv81fQx7OAcL54-hCAIjEWSTNNuO4hhIYkJd1UVgU/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Albuquerque CFO</td>
+<td><a href="https://docs.google.com/document/d/1r8frk3L4cq8Z5snHB5y5GTSqu3D6V_Tpchdix0bAiLg/edit?usp=drivesdk">https://docs.google.com/document/d/1r8frk3L4cq8Z5snHB5y5GTSqu3D6V_Tpchdix0bAiLg/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Salt Lake City CFO</td>
+<td><a href="https://docs.google.com/document/d/1tFU6RRbFmWnndsnIX4jp-GI0j4gf-jkZXkrjv9O39-o/edit?usp=drivesdk">https://docs.google.com/document/d/1tFU6RRbFmWnndsnIX4jp-GI0j4gf-jkZXkrjv9O39-o/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Portland CFO</td>
+<td><a href="https://docs.google.com/document/d/1mEXSiyb6cd-_VHOviXL6zv00UpIwP5Ifmn74-zrsiLk/edit?usp=drivesdk">https://docs.google.com/document/d/1mEXSiyb6cd-_VHOviXL6zv00UpIwP5Ifmn74-zrsiLk/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Seattle CFO</td>
+<td><a href="https://docs.google.com/document/d/1E79oZ2SKiKtXnrVI8w26-Uy3Wke3CuMdpR-b9hpcpaw/edit?usp=drivesdk">https://docs.google.com/document/d/1E79oZ2SKiKtXnrVI8w26-Uy3Wke3CuMdpR-b9hpcpaw/edit?usp=drivesdk</a></td>
+</tr>
+</tbody></table>
+<h2>Document Library</h2>
+<p><a href="https://drive.google.com/drive/folders/17FIc19x6kgby5iX5xNCtkLvwdnTKkYEL" target="_blank" style="display:inline-block; padding:12px 24px; background:#4285f4; color:white; text-decoration:none; border-radius:4px; font-weight:bold;">Browse Document Library</a></p>
+
+<h2>Complete Resource Index</h2>
+<p><a href="https://www.1cfo.ai/resources" target="_blank" style="display:inline-block; padding:12px 24px; background:#34a853; color:white; text-decoration:none; border-radius:4px; font-weight:bold;">View All Resources</a></p>
+
+
+</body>
+</html>
