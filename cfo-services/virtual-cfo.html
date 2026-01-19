@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Virtual CFO Services for Technical Teams</title>
+  <meta name="description" content="Virtual CFO Services for Technical Teams - Financial resources and tools">
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      line-height: 1.6;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      color: #333;
+    }
+    h1 { color: #1a365d; border-bottom: 2px solid #2b6cb0; padding-bottom: 10px; }
+    h2 { color: #2c5282; margin-top: 30px; }
+    h3 { color: #2d3748; }
+    a { color: #2b6cb0; }
+    table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+    th, td { border: 1px solid #e2e8f0; padding: 12px; text-align: left; }
+    th { background: #edf2f7; }
+    ul, ol { padding-left: 20px; }
+  </style>
+</head>
+<body>
+<h1>Virtual CFO Services for Technical Teams</h1>
+<p>GitHub enables virtual CFO services that integrate seamlessly with remote development teams. Technical founders and CTOs access expert financial guidance through modern collaboration tools. Virtual CFOs provide comprehensive financial leadership without geographical constraints.</p>
+<h2>What are Virtual CFO Services?</h2>
+<p>Virtual CFO services deliver full CFO capabilities through remote collaboration. Technical companies benefit from experienced financial leadership accessible via GitHub, Slack, and video conferencing. Services include strategic planning, financial reporting, and operational oversight.</p>
+<h3>Advantages for Technical Companies</h3>
+<ul>
+<li><strong>Global Accessibility</strong>: Work with top CFO talent regardless of location</li>
+<li><strong>Technical Expertise</strong>: CFOs who understand developer workflows and SaaS metrics</li>
+<li><strong>Flexible Engagement</strong>: Scale services based on company needs and growth stage</li>
+<li><strong>Modern Tools Integration</strong>: Financial processes integrated with development tools</li>
+</ul>
+<h2>How Virtual CFOs Support Technical Teams</h2>
+<h3>Remote Financial Monitoring</h3>
+<p>Virtual CFOs monitor financial health using automated dashboards and real-time data feeds. Technical teams receive alerts about key financial metrics alongside code deployment notifications.</p>
+<h3>GitHub-Integrated Financial Planning</h3>
+<p>Financial planning becomes part of your GitHub project management. Virtual CFOs create financial milestones and track progress alongside technical deliverables.</p>
+<h3>API-Driven Financial Reporting</h3>
+<p>Virtual CFOs implement automated financial reporting through APIs and webhooks. Financial data flows automatically into technical dashboards and monitoring systems.</p>
+<h2>Virtual CFO Service Components</h2>
+<h3>Strategic Financial Leadership</h3>
+<ul>
+<li>Long-term financial strategy development</li>
+<li>Funding and capital structure optimization</li>
+<li>Risk management and mitigation</li>
+<li>Growth planning and execution</li>
+</ul>
+<h3>Operational Financial Management</h3>
+<ul>
+<li>Budget creation and monitoring</li>
+<li>Cash flow forecasting and optimization</li>
+<li>Financial reporting automation</li>
+<li>Tax planning and compliance</li>
+</ul>
+<h3>Technical Financial Integration</h3>
+<ul>
+<li>Financial metrics dashboard development</li>
+<li>Cost analysis for cloud infrastructure</li>
+<li>API economy financial modeling</li>
+<li>Technical team productivity analysis</li>
+</ul>
+<h2>GitHub Integration for Virtual CFO Services</h2>
+<h3>GitHub Issues for Financial Tasks</h3>
+<p>Financial tasks and projects tracked using GitHub Issues. Virtual CFOs create, assign, and monitor financial work items alongside technical tasks.</p>
+<pre><code class="language-yaml"># GitHub Issue template for financial tasks
+name: Financial Task
+description: Create a financial task or project
+title: &quot;[FINANCE] &quot;
+labels: [&quot;finance&quot;, &quot;cfo&quot;]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Financial Task Description
+      description: Describe the financial task or project
+    validations:
+      required: true
+  
+  - type: input
+    id: priority
+    attributes:
+      label: Priority
+      description: High, Medium, or Low
+      placeholder: High
+    validations:
+      required: true
+  
+  - type: input
+    id: due_date
+    attributes:
+      label: Due Date
+      description: When should this be completed?
+      placeholder: 2024-12-31
+</code></pre>
+<h3>GitHub Actions for Financial Automation</h3>
+<p>Virtual CFOs implement automated financial processes using GitHub Actions. From invoice processing to financial reporting, technical teams benefit from streamlined workflows.</p>
+<pre><code class="language-javascript">// GitHub Action for automated invoice processing
+const core = require(&#39;@actions/core&#39;);
+const github = require(&#39;@actions/github&#39;);
+
+async function processInvoice() {
+  const invoiceData = {
+    vendor: core.getInput(&#39;vendor&#39;),
+    amount: parseFloat(core.getInput(&#39;amount&#39;)),
+    description: core.getInput(&#39;description&#39;),
+    date: core.getInput(&#39;date&#39;),
+    category: core.getInput(&#39;category&#39;),
+    approver: github.context.actor
+  };
+  
+  // Validate invoice data
+  if (invoiceData.amount &lt;= 0) {
+    core.setFailed(&#39;Invalid invoice amount&#39;);
+    return;
+  }
+  
+  // Send to accounting system
+  const response = await fetch(process.env.ACCOUNTING_API_URL + &#39;/invoices&#39;, {
+    method: &#39;POST&#39;,
+    headers: {
+      &#39;Authorization&#39;: `Bearer ${process.env.ACCOUNTING_API_KEY}`,
+      &#39;Content-Type&#39;: &#39;application/json&#39;
+    },
+    body: JSON.stringify(invoiceData)
+  });
+  
+  if (response.ok) {
+    const result = await response.json();
+    core.setOutput(&#39;invoice_id&#39;, result.id);
+    core.setOutput(&#39;status&#39;, &#39;processed&#39;);
+  } else {
+    core.setFailed(&#39;Failed to process invoice&#39;);
+  }
+}
+
+processInvoice();
+</code></pre>
+<h3>GitHub Projects for Financial Planning</h3>
+<p>Virtual CFOs use GitHub Projects to manage financial planning and execution. Track financial goals, budgets, and milestones alongside technical roadmaps.</p>
+<h3>GitHub API for Financial Data Access</h3>
+<p>Virtual CFOs access financial data through GitHub&#39;s API. Real-time financial insights integrated with development metrics and deployment status.</p>
+<h2>Virtual CFO Communication and Collaboration</h2>
+<h3>Regular Strategic Sessions</h3>
+<p>Weekly or bi-weekly video calls for strategic financial planning and review. Virtual CFOs participate in technical standups and planning meetings.</p>
+<h3>Asynchronous Communication</h3>
+<p>Financial guidance provided through Slack, email, and GitHub comments. Technical teams receive timely financial input without disrupting development flow.</p>
+<h3>Real-Time Financial Dashboards</h3>
+<p>Virtual CFOs build and maintain real-time financial dashboards. Technical teams monitor financial health alongside application performance metrics.</p>
+<h2>Technical Company Financial Challenges Solved</h2>
+<h3>Remote Team Financial Coordination</h3>
+<p>Virtual CFOs coordinate financial activities across distributed technical teams. Consistent financial processes regardless of team location.</p>
+<h3>SaaS Financial Metrics Tracking</h3>
+<p>Advanced tracking of SaaS financial metrics with technical integration. Customer acquisition cost, lifetime value, and churn analysis built into development workflows.</p>
+<h3>API Economy Financial Planning</h3>
+<p>Financial planning for companies monetizing through APIs. Understanding platform economics and indirect revenue streams.</p>
+<h3>Scalable Financial Operations</h3>
+<p>Financial operations that scale with technical growth. From early-stage financial tracking to enterprise-grade financial management.</p>
+<h2>Virtual CFO Success Metrics</h2>
+<h3>Financial Process Efficiency</h3>
+<ul>
+<li>60% reduction in financial reporting time</li>
+<li>Automated financial workflows eliminating manual tasks</li>
+<li>Real-time financial visibility for technical leaders</li>
+</ul>
+<h3>Strategic Decision Support</h3>
+<ul>
+<li>Data-driven funding and investment decisions</li>
+<li>Technical roadmap aligned with financial capacity</li>
+<li>Risk management integrated with development processes</li>
+</ul>
+<h3>Cost Optimization</h3>
+<ul>
+<li>25% reduction in financial operational costs</li>
+<li>Optimized cloud spending through technical integration</li>
+<li>Improved cash flow management and forecasting</li>
+</ul>
+<h2>Virtual CFO Implementation Process</h2>
+<h3>Discovery and Assessment</h3>
+<p>Initial assessment of financial needs and technical infrastructure. Virtual CFOs review GitHub usage and identify automation opportunities.</p>
+<h3>Service Customization</h3>
+<p>Tailored virtual CFO services based on company stage, technical complexity, and financial challenges. Services evolve as companies grow.</p>
+<h3>Integration and Training</h3>
+<p>Integration of financial processes with existing technical workflows. Training for technical teams on financial metrics and processes.</p>
+<h3>Ongoing Support and Optimization</h3>
+<p>Continuous financial guidance with regular performance reviews. Optimization of financial processes based on technical changes.</p>
+<h2>Virtual CFO Case Studies</h2>
+<h3>Global SaaS Company</h3>
+<p>A distributed SaaS company implemented virtual CFO services for consistent financial management across time zones. Using GitHub integration, they achieved synchronized financial reporting and real-time budget monitoring.</p>
+<h3>Healthcare Technology Startup</h3>
+<p>A healthcare tech startup used virtual CFO services to implement automated compliance monitoring. The virtual CFO integrated regulatory requirements with their CI/CD pipeline.</p>
+<h3>E-commerce Platform Scaling</h3>
+<p>An e-commerce platform engaged virtual CFO services during rapid growth. Real-time financial monitoring helped them optimize inventory costs and improve cash flow management.</p>
+<h2>Virtual CFO Pricing Models</h2>
+<h3>Retainer-Based Services</h3>
+<p>Fixed monthly retainer for ongoing CFO support. Includes strategic planning, financial monitoring, and technical integration.</p>
+<h3>Project-Based Services</h3>
+<p>Specific projects like fundraising preparation, financial system implementation, or compliance audits.</p>
+<h3>Hourly Consulting</h3>
+<p>Flexible hourly rates for specific financial challenges or strategic planning sessions.</p>
+<h2>Getting Started with Virtual CFO Services</h2>
+<p>Ready to implement virtual CFO services for your technical team? Contact our team to discuss how remote financial leadership can support your development goals.</p>
+<p>Explore related services:</p>
+<ul>
+<li><a href="cfo-services/fractional-cfo.html">Fractional CFO</a> - Part-time CFO support</li>
+<li><a href="industries/saas.html">SAAS</a> - SaaS financial management</li>
+<li><a href="financial-operations/financial-reporting.html">Financial Reporting</a> - Automated reporting solutions</li>
+</ul>
+<p>Access our technical resources:</p>
+<ul>
+<li><a href="resources/tools.html">Tools</a> - Financial tools for remote teams</li>
+<li><a href="resources/templates.html">Templates</a> - Virtual CFO templates</li>
+</ul>
+<h2>Back to CFO Services Hub</h2>
+<p>Return to the CFO Services overview:
+<a href="cfo-services/index.html">Index</a></p>
+<h2>Financial Resources</h2>
+<table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Fractional CFO Services</td>
+<td><a href="https://docs.google.com/document/d/1b7ME_R87TwUP7QvLrQtZJM4_bumPkhS0HUtFpcOKnvw/edit?usp=drivesdk">https://docs.google.com/document/d/1b7ME_R87TwUP7QvLrQtZJM4_bumPkhS0HUtFpcOKnvw/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Virtual CFO Services</td>
+<td><a href="https://docs.google.com/document/d/1g-jCRriEwH7gUE-b-pAkP6UtAIxIy90ylZx8LoPywUU/edit?usp=drivesdk">https://docs.google.com/document/d/1g-jCRriEwH7gUE-b-pAkP6UtAIxIy90ylZx8LoPywUU/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Outsourced CFO Services</td>
+<td><a href="https://docs.google.com/document/d/1At5MAw085vYTYHfdUwv70OSHymjUfV_rxkjJnQm8Oac/edit?usp=drivesdk">https://docs.google.com/document/d/1At5MAw085vYTYHfdUwv70OSHymjUfV_rxkjJnQm8Oac/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Financial Planning &amp; Analysis</td>
+<td><a href="https://docs.google.com/document/d/1S-zLJkfYmNOJUPJo3rbsLs_67yZC7LGtFaEHA73V57c/edit?usp=drivesdk">https://docs.google.com/document/d/1S-zLJkfYmNOJUPJo3rbsLs_67yZC7LGtFaEHA73V57c/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Cash Flow Management</td>
+<td><a href="https://docs.google.com/document/d/1jMWD-5pMqOLTsF0_DeWYjNmkACkXWNwKv7-lqpcIfA0/edit?usp=drivesdk">https://docs.google.com/document/d/1jMWD-5pMqOLTsF0_DeWYjNmkACkXWNwKv7-lqpcIfA0/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Financial Reporting</td>
+<td><a href="https://docs.google.com/document/d/1rJxEYy5ceFRl-FJyHCpA2zW5DuJHaAWgfiSVn9t5w4A/edit?usp=drivesdk">https://docs.google.com/document/d/1rJxEYy5ceFRl-FJyHCpA2zW5DuJHaAWgfiSVn9t5w4A/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Fundraising Support</td>
+<td><a href="https://docs.google.com/document/d/1esv1ICauYmdAH7oYN_XNgUeNdy3AJdX5EDZa-bwuGBw/edit?usp=drivesdk">https://docs.google.com/document/d/1esv1ICauYmdAH7oYN_XNgUeNdy3AJdX5EDZa-bwuGBw/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>M&amp;A Advisory</td>
+<td><a href="https://docs.google.com/document/d/10C7WM0G_rCLc9STAQE0f5A654TU7WYMGc2vR6HY43no/edit?usp=drivesdk">https://docs.google.com/document/d/10C7WM0G_rCLc9STAQE0f5A654TU7WYMGc2vR6HY43no/edit?usp=drivesdk</a></td>
+</tr>
+</tbody></table>
+<h2>Industry Expertise</h2>
+<table>
+<thead>
+<tr>
+<th>Industry</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Startup CFO</td>
+<td><a href="https://docs.google.com/document/d/1iY8plrLwhlceLdF7q1Vors3ANEoLCNNslBt34CaL9Ks/edit?usp=drivesdk">https://docs.google.com/document/d/1iY8plrLwhlceLdF7q1Vors3ANEoLCNNslBt34CaL9Ks/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Healthcare CFO</td>
+<td><a href="https://docs.google.com/document/d/1Sa2TESzUXuMfj7OslD-9pMODsYE3tWZU1K4YWj07_1s/edit?usp=drivesdk">https://docs.google.com/document/d/1Sa2TESzUXuMfj7OslD-9pMODsYE3tWZU1K4YWj07_1s/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>SaaS CFO</td>
+<td><a href="https://docs.google.com/document/d/1ePOe1T5e3buOomLe7D986nqtSYjMrOQGvJHp93h0kAw/edit?usp=drivesdk">https://docs.google.com/document/d/1ePOe1T5e3buOomLe7D986nqtSYjMrOQGvJHp93h0kAw/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Construction CFO</td>
+<td><a href="https://docs.google.com/document/d/1BCTpQIUzZufGghsC1WBFMkFoRM0bhkcB6p5NrZEADw8/edit?usp=drivesdk">https://docs.google.com/document/d/1BCTpQIUzZufGghsC1WBFMkFoRM0bhkcB6p5NrZEADw8/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>E-commerce CFO</td>
+<td><a href="https://docs.google.com/document/d/1MofZMqBNwFFWJlIr8ZaI45Bj06atwtGLuqjwzK1hVRQ/edit?usp=drivesdk">https://docs.google.com/document/d/1MofZMqBNwFFWJlIr8ZaI45Bj06atwtGLuqjwzK1hVRQ/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Manufacturing CFO</td>
+<td><a href="https://docs.google.com/document/d/1S0QLjLY2rH_aV1FLQWqQhqPmGNdERPhbVz0DQNw8Iw4/edit?usp=drivesdk">https://docs.google.com/document/d/1S0QLjLY2rH_aV1FLQWqQhqPmGNdERPhbVz0DQNw8Iw4/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Nonprofit CFO</td>
+<td><a href="https://docs.google.com/document/d/1NT24jSSnSEAiqu8VVzXOzwICfFbn-B_GPQrOncdT6iI/edit?usp=drivesdk">https://docs.google.com/document/d/1NT24jSSnSEAiqu8VVzXOzwICfFbn-B_GPQrOncdT6iI/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Professional Services CFO</td>
+<td><a href="https://docs.google.com/document/d/1yIa13DisLYlaW09uRozm-v5CUNdMI9SUiyNKtFcGqD4/edit?usp=drivesdk">https://docs.google.com/document/d/1yIa13DisLYlaW09uRozm-v5CUNdMI9SUiyNKtFcGqD4/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Technology CFO</td>
+<td><a href="https://docs.google.com/document/d/1Gb_g1nr-z6scA348PQht08qgsALH-FQuC_g1mcEiTI8/edit?usp=drivesdk">https://docs.google.com/document/d/1Gb_g1nr-z6scA348PQht08qgsALH-FQuC_g1mcEiTI8/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Real Estate CFO</td>
+<td><a href="https://docs.google.com/document/d/1V9vKH45TrLADqELP-pouV_vYEfvnQZi6D1Hte9ULvN8/edit?usp=drivesdk">https://docs.google.com/document/d/1V9vKH45TrLADqELP-pouV_vYEfvnQZi6D1Hte9ULvN8/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Retail CFO</td>
+<td><a href="https://docs.google.com/document/d/1_cXGNsxyY37rjrc4_-8KTntLDYmBpkmCum6-NrgMLN0/edit?usp=drivesdk">https://docs.google.com/document/d/1_cXGNsxyY37rjrc4_-8KTntLDYmBpkmCum6-NrgMLN0/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Legal CFO</td>
+<td><a href="https://docs.google.com/document/d/1zOqBO0tXzGZa7t4V334dx8BuXIaF492ZM_G7zfxwBz0/edit?usp=drivesdk">https://docs.google.com/document/d/1zOqBO0tXzGZa7t4V334dx8BuXIaF492ZM_G7zfxwBz0/edit?usp=drivesdk</a></td>
+</tr>
+</tbody></table>
+<h2>Regional Services</h2>
+<table>
+<thead>
+<tr>
+<th>Market</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Phoenix CFO</td>
+<td><a href="https://docs.google.com/document/d/1HAR4bXqUnkrbL6GmwHwGy8nxiRoquEH5IQshvlhdnTs/edit?usp=drivesdk">https://docs.google.com/document/d/1HAR4bXqUnkrbL6GmwHwGy8nxiRoquEH5IQshvlhdnTs/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Scottsdale CFO</td>
+<td><a href="https://docs.google.com/document/d/190AuvOwVWrF9XiRJDKaebhYLUB-M9D4qSwsEZDynsVs/edit?usp=drivesdk">https://docs.google.com/document/d/190AuvOwVWrF9XiRJDKaebhYLUB-M9D4qSwsEZDynsVs/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Dallas CFO</td>
+<td><a href="https://docs.google.com/document/d/1mI5nCWSlZAWTPjNDLJkekk_9saDiAPER7eyWXxeWsQY/edit?usp=drivesdk">https://docs.google.com/document/d/1mI5nCWSlZAWTPjNDLJkekk_9saDiAPER7eyWXxeWsQY/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Denver CFO</td>
+<td><a href="https://docs.google.com/document/d/1Yjvx1-U-50Z7FrpFQIyNrzHxeicDmsKbiLta-s49XB4/edit?usp=drivesdk">https://docs.google.com/document/d/1Yjvx1-U-50Z7FrpFQIyNrzHxeicDmsKbiLta-s49XB4/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Austin CFO</td>
+<td><a href="https://docs.google.com/document/d/1lzwU_kZJr7ZNnCRZSs81gJ8bhg9L2-vjP6iiHqhhuPE/edit?usp=drivesdk">https://docs.google.com/document/d/1lzwU_kZJr7ZNnCRZSs81gJ8bhg9L2-vjP6iiHqhhuPE/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Houston CFO</td>
+<td><a href="https://docs.google.com/document/d/1xTbk9NAoLpdkPDWOZg6B2INCIbV-70qPGBiBn5ybb10/edit?usp=drivesdk">https://docs.google.com/document/d/1xTbk9NAoLpdkPDWOZg6B2INCIbV-70qPGBiBn5ybb10/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Los Angeles CFO</td>
+<td><a href="https://docs.google.com/document/d/1w2nj8z6TsWecr4fbYUwptV-DNBNKscPQHsuG91pR5yY/edit?usp=drivesdk">https://docs.google.com/document/d/1w2nj8z6TsWecr4fbYUwptV-DNBNKscPQHsuG91pR5yY/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>San Diego CFO</td>
+<td><a href="https://docs.google.com/document/d/1WdDzi5OMSf25ado5x6Z-4VaRSdu_sx2CeNi6xLh68aQ/edit?usp=drivesdk">https://docs.google.com/document/d/1WdDzi5OMSf25ado5x6Z-4VaRSdu_sx2CeNi6xLh68aQ/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>San Antonio CFO</td>
+<td><a href="https://docs.google.com/document/d/1zpUQ3-9KzR98sA7fknmO7n2ajfG8ezsLmaRomiKalP8/edit?usp=drivesdk">https://docs.google.com/document/d/1zpUQ3-9KzR98sA7fknmO7n2ajfG8ezsLmaRomiKalP8/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Las Vegas CFO</td>
+<td><a href="https://docs.google.com/document/d/1ziOozCmMpCi42z-km83jwz6MztSvycEUByKjkRhI3Jw/edit?usp=drivesdk">https://docs.google.com/document/d/1ziOozCmMpCi42z-km83jwz6MztSvycEUByKjkRhI3Jw/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Tucson CFO</td>
+<td><a href="https://docs.google.com/document/d/1O4wv81fQx7OAcL54-hCAIjEWSTNNuO4hhIYkJd1UVgU/edit?usp=drivesdk">https://docs.google.com/document/d/1O4wv81fQx7OAcL54-hCAIjEWSTNNuO4hhIYkJd1UVgU/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Albuquerque CFO</td>
+<td><a href="https://docs.google.com/document/d/1r8frk3L4cq8Z5snHB5y5GTSqu3D6V_Tpchdix0bAiLg/edit?usp=drivesdk">https://docs.google.com/document/d/1r8frk3L4cq8Z5snHB5y5GTSqu3D6V_Tpchdix0bAiLg/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Salt Lake City CFO</td>
+<td><a href="https://docs.google.com/document/d/1tFU6RRbFmWnndsnIX4jp-GI0j4gf-jkZXkrjv9O39-o/edit?usp=drivesdk">https://docs.google.com/document/d/1tFU6RRbFmWnndsnIX4jp-GI0j4gf-jkZXkrjv9O39-o/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Portland CFO</td>
+<td><a href="https://docs.google.com/document/d/1mEXSiyb6cd-_VHOviXL6zv00UpIwP5Ifmn74-zrsiLk/edit?usp=drivesdk">https://docs.google.com/document/d/1mEXSiyb6cd-_VHOviXL6zv00UpIwP5Ifmn74-zrsiLk/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Seattle CFO</td>
+<td><a href="https://docs.google.com/document/d/1E79oZ2SKiKtXnrVI8w26-Uy3Wke3CuMdpR-b9hpcpaw/edit?usp=drivesdk">https://docs.google.com/document/d/1E79oZ2SKiKtXnrVI8w26-Uy3Wke3CuMdpR-b9hpcpaw/edit?usp=drivesdk</a></td>
+</tr>
+</tbody></table>
+<h2>Document Library</h2>
+<p><a href="https://drive.google.com/drive/folders/17FIc19x6kgby5iX5xNCtkLvwdnTKkYEL" target="_blank" style="display:inline-block; padding:12px 24px; background:#4285f4; color:white; text-decoration:none; border-radius:4px; font-weight:bold;">Browse Document Library</a></p>
+
+<h2>Complete Resource Index</h2>
+<p><a href="https://www.1cfo.ai/resources" target="_blank" style="display:inline-block; padding:12px 24px; background:#34a853; color:white; text-decoration:none; border-radius:4px; font-weight:bold;">View All Resources</a></p>
+
+
+</body>
+</html>
