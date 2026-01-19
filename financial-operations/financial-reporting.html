@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Financial Reporting Automation for Technical Teams</title>
+  <meta name="description" content="Financial Reporting Automation for Technical Teams - Financial resources and tools">
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      line-height: 1.6;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      color: #333;
+    }
+    h1 { color: #1a365d; border-bottom: 2px solid #2b6cb0; padding-bottom: 10px; }
+    h2 { color: #2c5282; margin-top: 30px; }
+    h3 { color: #2d3748; }
+    a { color: #2b6cb0; }
+    table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+    th, td { border: 1px solid #e2e8f0; padding: 12px; text-align: left; }
+    th { background: #edf2f7; }
+    ul, ol { padding-left: 20px; }
+  </style>
+</head>
+<body>
+<h1>Financial Reporting Automation for Technical Teams</h1>
+<p>GitHub enables automated financial reporting integrated with development workflows. Technical founders and CTOs generate financial reports alongside code deployments and sprint reviews. API-driven reporting ensures real-time financial visibility for engineering teams.</p>
+<h2>Challenges of Traditional Financial Reporting</h2>
+<p>Technical companies struggle with financial reporting that doesn&#39;t align with development cycles. Monthly reports lack the real-time visibility that engineering teams need. Traditional reporting processes are manual and disconnected from technical workflows.</p>
+<h3>Key Reporting Challenges</h3>
+<ul>
+<li><strong>Timing Mismatch</strong>: Monthly reports don&#39;t align with weekly sprints and daily deployments</li>
+<li><strong>Manual Processes</strong>: Financial reporting requires manual data collection and formatting</li>
+<li><strong>Technical Disconnect</strong>: Financial reports don&#39;t integrate with engineering metrics and KPIs</li>
+<li><strong>Delayed Insights</strong>: Reporting lags prevent timely financial decision-making</li>
+</ul>
+<h2>Automated Financial Reporting Components</h2>
+<h3>Real-Time Report Generation</h3>
+<p>Financial reports generated automatically using GitHub Actions. Reports created alongside code deployments and feature releases.</p>
+<h3>API-Driven Data Integration</h3>
+<p>Financial data accessed through APIs for real-time reporting. No manual data extraction or manipulation required.</p>
+<h3>Custom Dashboard Development</h3>
+<p>Technical teams build custom financial dashboards integrated with development tools. Financial metrics displayed alongside code quality and deployment status.</p>
+<h2>GitHub Integration for Financial Reporting</h2>
+<h3>Automated Report Pipelines</h3>
+<p>GitHub Actions automate financial report generation and distribution. Reports created on schedules or triggered by development events.</p>
+<h3>Report Version Control</h3>
+<p>Financial reports version controlled alongside code. Change tracking and collaboration on reporting logic and presentation.</p>
+<pre><code class="language-yaml"># GitHub Actions workflow for automated financial reporting
+name: Financial Reporting Pipeline
+on:
+  schedule:
+    - cron: &#39;0 8 * * 1&#39;  # Every Monday at 8 AM
+  workflow_dispatch:
+    inputs:
+      report_type:
+        description: &#39;Type of report to generate&#39;
+        required: true
+        default: &#39;weekly&#39;
+        type: choice
+        options:
+          - weekly
+          - monthly
+          - quarterly
+
+jobs:
+  generate-reports:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Python Environment
+        uses: actions/setup-python@v4
+        with:
+          python-version: &#39;3.9&#39;
+      
+      - name: Install Financial Libraries
+        run: |
+          pip install pandas numpy matplotlib requests python-quickbooks
+          pip install plotly dash  # For interactive dashboards
+      
+      - name: Fetch Financial Data
+        run: python scripts/fetch_financial_data.py
+        env:
+          QUICKBOOKS_ACCESS_TOKEN: ${{ secrets.QUICKBOOKS_ACCESS_TOKEN }}
+          STRIPE_API_KEY: ${{ secrets.STRIPE_API_KEY }}
+      
+      - name: Generate Financial Reports
+        run: python scripts/generate_reports.py --type ${{ inputs.report_type }}
+      
+      - name: Create Interactive Dashboard
+        run: python scripts/create_dashboard.py
+      
+      - name: Upload Reports to GitHub
+        uses: actions/upload-artifact@v3
+        with:
+          name: financial-reports-${{ inputs.report_type }}
+          path: reports/
+      
+      - name: Deploy Dashboard
+        run: |
+          # Deploy interactive dashboard to GitHub Pages or cloud service
+          echo &quot;Dashboard deployed at: https://financial-dashboard.example.com&quot;
+      
+      - name: Send Report Notifications
+        run: python scripts/send_notifications.py
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          EMAIL_RECIPIENTS: ${{ secrets.REPORT_RECIPIENTS }}
+</code></pre>
+<h3>Report Integration with Development Metrics</h3>
+<p>Financial reports include technical metrics and KPIs. Development velocity, code quality, and deployment frequency alongside financial performance.</p>
+<h3>Automated Report Distribution</h3>
+<p>Reports automatically distributed to technical teams through Slack, email, and GitHub comments. No manual report sharing required.</p>
+<h2>Technical Implementation of Financial Reporting</h2>
+<h3>API-First Report Generation</h3>
+<p>Financial reports generated through APIs for easy integration with development tools. RESTful APIs provide report data for dashboards and monitoring systems.</p>
+<h3>Real-Time Data Streaming</h3>
+<p>Financial data streamed in real-time for live reporting. Technical teams monitor financial health alongside application performance.</p>
+<h3>Report Customization Engine</h3>
+<p>Technical teams customize reports using configuration files. Report templates and data sources defined in version-controlled files.</p>
+<h3>Report Testing and Validation</h3>
+<p>Automated testing ensures report accuracy and completeness. Report validation integrated into CI/CD pipelines.</p>
+<h2>Financial Report Types for Technical Teams</h2>
+<h3>Sprint Financial Reports</h3>
+<p>Financial performance reports aligned with development sprints. Budget variance, cost per feature, and financial velocity measured.</p>
+<h3>Real-Time Dashboards</h3>
+<p>Live financial dashboards integrated with development dashboards. Cash position, burn rate, and revenue metrics updated in real-time.</p>
+<h3>Executive Summary Reports</h3>
+<p>Automated executive summaries combining financial and technical metrics. Key performance indicators for leadership decision-making.</p>
+<h3>Compliance and Audit Reports</h3>
+<p>Automated compliance reporting for regulatory requirements. Audit trails and compliance evidence generated automatically.</p>
+<h2>Data Sources and Integration</h2>
+<h3>Accounting System Integration</h3>
+<p>QuickBooks, Xero, and other accounting systems integrated through APIs. Transaction data, invoices, and expenses automatically included in reports.</p>
+<h3>Payment Processor Integration</h3>
+<p>Stripe, PayPal, and other payment processors integrated for revenue data. Transaction volumes, fees, and chargeback rates included in reports.</p>
+<h3>Development Tool Integration</h3>
+<p>Jira, GitHub, and CI/CD tools integrated for technical metrics. Development velocity, deployment frequency, and code quality metrics included.</p>
+<h3>Business System Integration</h3>
+<p>CRM, marketing automation, and business intelligence tools integrated. Customer acquisition, conversion rates, and marketing ROI included.</p>
+<h2>Report Automation Best Practices</h2>
+<h3>Configuration as Code</h3>
+<p>Report configurations version controlled alongside application code. Report changes tested and deployed through CI/CD.</p>
+<h3>Report Testing Automation</h3>
+<p>Automated testing of report logic and data accuracy. Report validation ensures reliability and trustworthiness.</p>
+<h3>Performance Optimization</h3>
+<p>Report generation optimized for speed and efficiency. Large datasets processed efficiently for real-time reporting.</p>
+<h3>Security and Access Control</h3>
+<p>Report access controlled based on roles and permissions. Sensitive financial data protected through encryption and access controls.</p>
+<h2>Technical Team Benefits</h2>
+<h3>Real-Time Financial Visibility</h3>
+<p>Technical teams access financial data alongside technical metrics. No separation between engineering and financial performance.</p>
+<h3>Data-Driven Development Decisions</h3>
+<p>Financial data informs technical prioritization and resource allocation. Development roadmaps aligned with financial objectives.</p>
+<h3>Automated Compliance</h3>
+<p>Compliance reporting automated and integrated with development processes. Regulatory requirements met without disrupting development flow.</p>
+<h3>Improved Communication</h3>
+<p>Financial reports shared automatically with technical teams. Better understanding of business impact of technical work.</p>
+<h2>Success Stories</h2>
+<h3>SaaS Company Achieves Reporting Excellence</h3>
+<p>A SaaS company automated their financial reporting using GitHub Actions, reducing reporting time from 2 days to 2 hours while improving accuracy by 95%.</p>
+<h3>Development Platform Integrates Financial Data</h3>
+<p>A development platform integrated real-time financial dashboards with their engineering metrics, enabling data-driven technical decision-making.</p>
+<h3>API Platform Automates Compliance Reporting</h3>
+<p>An API platform automated their compliance reporting, reducing audit preparation time by 70% and ensuring continuous regulatory compliance.</p>
+<h2>Getting Started with Financial Reporting Automation</h2>
+<p>Ready to automate financial reporting for your technical team? Contact our financial operations team to discuss GitHub-integrated reporting solutions.</p>
+<p>Explore related services:</p>
+<ul>
+<li><a href="financial-operations/cash-flow-management.html">Cash Flow Management</a> - Real-time financial monitoring</li>
+<li><a href="resources/tools.html">Tools</a> - Financial reporting tools</li>
+<li><a href="resources/templates.html">Templates</a> - Report templates</li>
+</ul>
+<p>Access reporting resources:</p>
+<ul>
+<li><a href="resources/guides.html">Guides</a> - Reporting automation guides</li>
+<li><a href="resources/calculators.html">Calculators</a> - Financial metric calculators</li>
+</ul>
+<h2>Back to Financial Operations Hub</h2>
+<p>Return to the Financial Operations overview:
+<a href="financial-operations/index.html">Index</a></p>
+<h2>Cross-Silo Integration</h2>
+<p>Explore our CFO services:
+<a href="cfo-services/virtual-cfo.html">Virtual CFO</a> - Remote financial leadership</p>
+<p>Access our industry expertise:
+<a href="industries/saas.html">SAAS</a> - SaaS reporting requirements</p>
+<h2>Financial Resources</h2>
+<table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Fractional CFO Services</td>
+<td><a href="https://docs.google.com/document/d/1b7ME_R87TwUP7QvLrQtZJM4_bumPkhS0HUtFpcOKnvw/edit?usp=drivesdk">https://docs.google.com/document/d/1b7ME_R87TwUP7QvLrQtZJM4_bumPkhS0HUtFpcOKnvw/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Virtual CFO Services</td>
+<td><a href="https://docs.google.com/document/d/1g-jCRriEwH7gUE-b-pAkP6UtAIxIy90ylZx8LoPywUU/edit?usp=drivesdk">https://docs.google.com/document/d/1g-jCRriEwH7gUE-b-pAkP6UtAIxIy90ylZx8LoPywUU/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Outsourced CFO Services</td>
+<td><a href="https://docs.google.com/document/d/1At5MAw085vYTYHfdUwv70OSHymjUfV_rxkjJnQm8Oac/edit?usp=drivesdk">https://docs.google.com/document/d/1At5MAw085vYTYHfdUwv70OSHymjUfV_rxkjJnQm8Oac/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Financial Planning &amp; Analysis</td>
+<td><a href="https://docs.google.com/document/d/1S-zLJkfYmNOJUPJo3rbsLs_67yZC7LGtFaEHA73V57c/edit?usp=drivesdk">https://docs.google.com/document/d/1S-zLJkfYmNOJUPJo3rbsLs_67yZC7LGtFaEHA73V57c/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Cash Flow Management</td>
+<td><a href="https://docs.google.com/document/d/1jMWD-5pMqOLTsF0_DeWYjNmkACkXWNwKv7-lqpcIfA0/edit?usp=drivesdk">https://docs.google.com/document/d/1jMWD-5pMqOLTsF0_DeWYjNmkACkXWNwKv7-lqpcIfA0/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Financial Reporting</td>
+<td><a href="https://docs.google.com/document/d/1rJxEYy5ceFRl-FJyHCpA2zW5DuJHaAWgfiSVn9t5w4A/edit?usp=drivesdk">https://docs.google.com/document/d/1rJxEYy5ceFRl-FJyHCpA2zW5DuJHaAWgfiSVn9t5w4A/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Fundraising Support</td>
+<td><a href="https://docs.google.com/document/d/1esv1ICauYmdAH7oYN_XNgUeNdy3AJdX5EDZa-bwuGBw/edit?usp=drivesdk">https://docs.google.com/document/d/1esv1ICauYmdAH7oYN_XNgUeNdy3AJdX5EDZa-bwuGBw/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>M&amp;A Advisory</td>
+<td><a href="https://docs.google.com/document/d/10C7WM0G_rCLc9STAQE0f5A654TU7WYMGc2vR6HY43no/edit?usp=drivesdk">https://docs.google.com/document/d/10C7WM0G_rCLc9STAQE0f5A654TU7WYMGc2vR6HY43no/edit?usp=drivesdk</a></td>
+</tr>
+</tbody></table>
+<h2>Industry Expertise</h2>
+<table>
+<thead>
+<tr>
+<th>Industry</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Startup CFO</td>
+<td><a href="https://docs.google.com/document/d/1iY8plrLwhlceLdF7q1Vors3ANEoLCNNslBt34CaL9Ks/edit?usp=drivesdk">https://docs.google.com/document/d/1iY8plrLwhlceLdF7q1Vors3ANEoLCNNslBt34CaL9Ks/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Healthcare CFO</td>
+<td><a href="https://docs.google.com/document/d/1Sa2TESzUXuMfj7OslD-9pMODsYE3tWZU1K4YWj07_1s/edit?usp=drivesdk">https://docs.google.com/document/d/1Sa2TESzUXuMfj7OslD-9pMODsYE3tWZU1K4YWj07_1s/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>SaaS CFO</td>
+<td><a href="https://docs.google.com/document/d/1ePOe1T5e3buOomLe7D986nqtSYjMrOQGvJHp93h0kAw/edit?usp=drivesdk">https://docs.google.com/document/d/1ePOe1T5e3buOomLe7D986nqtSYjMrOQGvJHp93h0kAw/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Construction CFO</td>
+<td><a href="https://docs.google.com/document/d/1BCTpQIUzZufGghsC1WBFMkFoRM0bhkcB6p5NrZEADw8/edit?usp=drivesdk">https://docs.google.com/document/d/1BCTpQIUzZufGghsC1WBFMkFoRM0bhkcB6p5NrZEADw8/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>E-commerce CFO</td>
+<td><a href="https://docs.google.com/document/d/1MofZMqBNwFFWJlIr8ZaI45Bj06atwtGLuqjwzK1hVRQ/edit?usp=drivesdk">https://docs.google.com/document/d/1MofZMqBNwFFWJlIr8ZaI45Bj06atwtGLuqjwzK1hVRQ/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Manufacturing CFO</td>
+<td><a href="https://docs.google.com/document/d/1S0QLjLY2rH_aV1FLQWqQhqPmGNdERPhbVz0DQNw8Iw4/edit?usp=drivesdk">https://docs.google.com/document/d/1S0QLjLY2rH_aV1FLQWqQhqPmGNdERPhbVz0DQNw8Iw4/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Nonprofit CFO</td>
+<td><a href="https://docs.google.com/document/d/1NT24jSSnSEAiqu8VVzXOzwICfFbn-B_GPQrOncdT6iI/edit?usp=drivesdk">https://docs.google.com/document/d/1NT24jSSnSEAiqu8VVzXOzwICfFbn-B_GPQrOncdT6iI/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Professional Services CFO</td>
+<td><a href="https://docs.google.com/document/d/1yIa13DisLYlaW09uRozm-v5CUNdMI9SUiyNKtFcGqD4/edit?usp=drivesdk">https://docs.google.com/document/d/1yIa13DisLYlaW09uRozm-v5CUNdMI9SUiyNKtFcGqD4/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Technology CFO</td>
+<td><a href="https://docs.google.com/document/d/1Gb_g1nr-z6scA348PQht08qgsALH-FQuC_g1mcEiTI8/edit?usp=drivesdk">https://docs.google.com/document/d/1Gb_g1nr-z6scA348PQht08qgsALH-FQuC_g1mcEiTI8/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Real Estate CFO</td>
+<td><a href="https://docs.google.com/document/d/1V9vKH45TrLADqELP-pouV_vYEfvnQZi6D1Hte9ULvN8/edit?usp=drivesdk">https://docs.google.com/document/d/1V9vKH45TrLADqELP-pouV_vYEfvnQZi6D1Hte9ULvN8/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Retail CFO</td>
+<td><a href="https://docs.google.com/document/d/1_cXGNsxyY37rjrc4_-8KTntLDYmBpkmCum6-NrgMLN0/edit?usp=drivesdk">https://docs.google.com/document/d/1_cXGNsxyY37rjrc4_-8KTntLDYmBpkmCum6-NrgMLN0/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Legal CFO</td>
+<td><a href="https://docs.google.com/document/d/1zOqBO0tXzGZa7t4V334dx8BuXIaF492ZM_G7zfxwBz0/edit?usp=drivesdk">https://docs.google.com/document/d/1zOqBO0tXzGZa7t4V334dx8BuXIaF492ZM_G7zfxwBz0/edit?usp=drivesdk</a></td>
+</tr>
+</tbody></table>
+<h2>Regional Services</h2>
+<table>
+<thead>
+<tr>
+<th>Market</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Phoenix CFO</td>
+<td><a href="https://docs.google.com/document/d/1HAR4bXqUnkrbL6GmwHwGy8nxiRoquEH5IQshvlhdnTs/edit?usp=drivesdk">https://docs.google.com/document/d/1HAR4bXqUnkrbL6GmwHwGy8nxiRoquEH5IQshvlhdnTs/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Scottsdale CFO</td>
+<td><a href="https://docs.google.com/document/d/190AuvOwVWrF9XiRJDKaebhYLUB-M9D4qSwsEZDynsVs/edit?usp=drivesdk">https://docs.google.com/document/d/190AuvOwVWrF9XiRJDKaebhYLUB-M9D4qSwsEZDynsVs/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Dallas CFO</td>
+<td><a href="https://docs.google.com/document/d/1mI5nCWSlZAWTPjNDLJkekk_9saDiAPER7eyWXxeWsQY/edit?usp=drivesdk">https://docs.google.com/document/d/1mI5nCWSlZAWTPjNDLJkekk_9saDiAPER7eyWXxeWsQY/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Denver CFO</td>
+<td><a href="https://docs.google.com/document/d/1Yjvx1-U-50Z7FrpFQIyNrzHxeicDmsKbiLta-s49XB4/edit?usp=drivesdk">https://docs.google.com/document/d/1Yjvx1-U-50Z7FrpFQIyNrzHxeicDmsKbiLta-s49XB4/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Austin CFO</td>
+<td><a href="https://docs.google.com/document/d/1lzwU_kZJr7ZNnCRZSs81gJ8bhg9L2-vjP6iiHqhhuPE/edit?usp=drivesdk">https://docs.google.com/document/d/1lzwU_kZJr7ZNnCRZSs81gJ8bhg9L2-vjP6iiHqhhuPE/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Houston CFO</td>
+<td><a href="https://docs.google.com/document/d/1xTbk9NAoLpdkPDWOZg6B2INCIbV-70qPGBiBn5ybb10/edit?usp=drivesdk">https://docs.google.com/document/d/1xTbk9NAoLpdkPDWOZg6B2INCIbV-70qPGBiBn5ybb10/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Los Angeles CFO</td>
+<td><a href="https://docs.google.com/document/d/1w2nj8z6TsWecr4fbYUwptV-DNBNKscPQHsuG91pR5yY/edit?usp=drivesdk">https://docs.google.com/document/d/1w2nj8z6TsWecr4fbYUwptV-DNBNKscPQHsuG91pR5yY/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>San Diego CFO</td>
+<td><a href="https://docs.google.com/document/d/1WdDzi5OMSf25ado5x6Z-4VaRSdu_sx2CeNi6xLh68aQ/edit?usp=drivesdk">https://docs.google.com/document/d/1WdDzi5OMSf25ado5x6Z-4VaRSdu_sx2CeNi6xLh68aQ/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>San Antonio CFO</td>
+<td><a href="https://docs.google.com/document/d/1zpUQ3-9KzR98sA7fknmO7n2ajfG8ezsLmaRomiKalP8/edit?usp=drivesdk">https://docs.google.com/document/d/1zpUQ3-9KzR98sA7fknmO7n2ajfG8ezsLmaRomiKalP8/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Las Vegas CFO</td>
+<td><a href="https://docs.google.com/document/d/1ziOozCmMpCi42z-km83jwz6MztSvycEUByKjkRhI3Jw/edit?usp=drivesdk">https://docs.google.com/document/d/1ziOozCmMpCi42z-km83jwz6MztSvycEUByKjkRhI3Jw/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Tucson CFO</td>
+<td><a href="https://docs.google.com/document/d/1O4wv81fQx7OAcL54-hCAIjEWSTNNuO4hhIYkJd1UVgU/edit?usp=drivesdk">https://docs.google.com/document/d/1O4wv81fQx7OAcL54-hCAIjEWSTNNuO4hhIYkJd1UVgU/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Albuquerque CFO</td>
+<td><a href="https://docs.google.com/document/d/1r8frk3L4cq8Z5snHB5y5GTSqu3D6V_Tpchdix0bAiLg/edit?usp=drivesdk">https://docs.google.com/document/d/1r8frk3L4cq8Z5snHB5y5GTSqu3D6V_Tpchdix0bAiLg/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Salt Lake City CFO</td>
+<td><a href="https://docs.google.com/document/d/1tFU6RRbFmWnndsnIX4jp-GI0j4gf-jkZXkrjv9O39-o/edit?usp=drivesdk">https://docs.google.com/document/d/1tFU6RRbFmWnndsnIX4jp-GI0j4gf-jkZXkrjv9O39-o/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Portland CFO</td>
+<td><a href="https://docs.google.com/document/d/1mEXSiyb6cd-_VHOviXL6zv00UpIwP5Ifmn74-zrsiLk/edit?usp=drivesdk">https://docs.google.com/document/d/1mEXSiyb6cd-_VHOviXL6zv00UpIwP5Ifmn74-zrsiLk/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Seattle CFO</td>
+<td><a href="https://docs.google.com/document/d/1E79oZ2SKiKtXnrVI8w26-Uy3Wke3CuMdpR-b9hpcpaw/edit?usp=drivesdk">https://docs.google.com/document/d/1E79oZ2SKiKtXnrVI8w26-Uy3Wke3CuMdpR-b9hpcpaw/edit?usp=drivesdk</a></td>
+</tr>
+</tbody></table>
+<h2>Document Library</h2>
+<p><a href="https://drive.google.com/drive/folders/17FIc19x6kgby5iX5xNCtkLvwdnTKkYEL" target="_blank" style="display:inline-block; padding:12px 24px; background:#4285f4; color:white; text-decoration:none; border-radius:4px; font-weight:bold;">Browse Document Library</a></p>
+
+<h2>Complete Resource Index</h2>
+<p><a href="https://www.1cfo.ai/resources" target="_blank" style="display:inline-block; padding:12px 24px; background:#34a853; color:white; text-decoration:none; border-radius:4px; font-weight:bold;">View All Resources</a></p>
+
+
+</body>
+</html>
