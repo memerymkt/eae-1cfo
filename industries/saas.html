@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SaaS CFO Services for Technical Leaders</title>
+  <meta name="description" content="SaaS CFO Services for Technical Leaders - Financial resources and tools">
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      line-height: 1.6;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      color: #333;
+    }
+    h1 { color: #1a365d; border-bottom: 2px solid #2b6cb0; padding-bottom: 10px; }
+    h2 { color: #2c5282; margin-top: 30px; }
+    h3 { color: #2d3748; }
+    a { color: #2b6cb0; }
+    table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+    th, td { border: 1px solid #e2e8f0; padding: 12px; text-align: left; }
+    th { background: #edf2f7; }
+    ul, ol { padding-left: 20px; }
+  </style>
+</head>
+<body>
+<h1>SaaS CFO Services for Technical Leaders</h1>
+<p>GitHub powers SaaS financial management for technical founders and CTOs. SaaS companies require specialized financial expertise in subscription economics, churn analysis, and scalable operations. Our SaaS CFOs integrate financial planning with development workflows for data-driven growth.</p>
+<h2>SaaS Financial Management Challenges</h2>
+<p>SaaS companies operate on subscription economics requiring unique financial metrics. Customer lifetime value, churn rates, and unit economics demand sophisticated financial modeling. Technical founders need financial guidance that understands both technology and subscription business models.</p>
+<h3>Key SaaS Financial Challenges</h3>
+<ul>
+<li><strong>Unit Economics</strong>: Understanding customer acquisition cost versus lifetime value</li>
+<li><strong>Churn Analysis</strong>: Predicting and managing customer retention financial impacts</li>
+<li><strong>Scalable Financial Operations</strong>: Building financial systems that grow with subscription revenue</li>
+<li><strong>ARR Forecasting</strong>: Accurate prediction of annual recurring revenue growth</li>
+</ul>
+<h2>SaaS CFO Service Components</h2>
+<h3>Subscription Revenue Modeling</h3>
+<ul>
+<li>Monthly and Annual Recurring Revenue (MRR/ARR) forecasting</li>
+<li>Customer cohort analysis and lifetime value prediction</li>
+<li>Churn rate modeling and retention strategy financial impact</li>
+<li>Expansion revenue and upgrade path financial analysis</li>
+</ul>
+<h3>Unit Economics Optimization</h3>
+<ul>
+<li>Customer Acquisition Cost (CAC) analysis and optimization</li>
+<li>Customer Lifetime Value (LTV) calculation and improvement</li>
+<li>LTV to CAC ratio monitoring and targets</li>
+<li>Payback period analysis and cash flow optimization</li>
+</ul>
+<h3>Scalable Financial Operations</h3>
+<ul>
+<li>Subscription billing system financial integration</li>
+<li>Revenue recognition automation for SaaS accounting standards</li>
+<li>Multi-tenant financial reporting and analytics</li>
+<li>International tax compliance for subscription businesses</li>
+</ul>
+<h2>GitHub Integration for SaaS CFO Services</h2>
+<h3>SaaS Metrics Dashboard Integration</h3>
+<p>Real-time SaaS financial metrics integrated with GitHub repositories. MRR growth, churn rates, and customer acquisition costs monitored alongside code deployments.</p>
+<h3>Subscription Analytics Automation</h3>
+<p>Automated analysis of subscription data using GitHub Actions. Customer behavior patterns and financial trends identified through continuous integration.</p>
+<pre><code class="language-javascript">// GitHub Action for SaaS financial metrics analysis
+const core = require(&#39;@actions/core&#39;);
+const github = require(&#39;@actions/github&#39;);
+const { Octokit } = require(&#39;@octokit/rest&#39;);
+
+async function analyzeSaaSMetrics() {
+  const octokit = new Octokit({ auth: core.getInput(&#39;token&#39;) });
+  
+  // Get subscription data from Stripe or similar
+  const subscriptionMetrics = await getSubscriptionMetrics();
+  
+  // Calculate key SaaS financial metrics
+  const metrics = {
+    mrr: subscriptionMetrics.totalMRR,
+    arr: subscriptionMetrics.totalARR,
+    customers: subscriptionMetrics.activeCustomers,
+    churnRate: calculateChurnRate(subscriptionMetrics),
+    cac: calculateCAC(subscriptionMetrics),
+    ltv: calculateLTV(subscriptionMetrics),
+    ltvCacRatio: 0,
+    paybackPeriod: 0,
+    nrr: calculateNRR(subscriptionMetrics),
+    expansionRevenue: subscriptionMetrics.expansionRevenue
+  };
+  
+  // Calculate derived metrics
+  metrics.ltvCacRatio = metrics.ltv / metrics.cac;
+  metrics.paybackPeriod = (metrics.cac * 12) / (metrics.ltv - metrics.cac);
+  
+  // Determine SaaS health indicators
+  const healthIndicators = {
+    growth: metrics.mrr &gt; core.getInput(&#39;mrr_target&#39;) ? &#39;strong&#39; : &#39;needs_attention&#39;,
+    retention: metrics.churnRate &lt; 0.05 ? &#39;excellent&#39; : (metrics.churnRate &lt; 0.10 ? &#39;good&#39; : &#39;concerning&#39;),
+    efficiency: metrics.ltvCacRatio &gt; 3 ? &#39;efficient&#39; : &#39;needs_optimization&#39;,
+    scalability: metrics.nrr &gt; 1.1 ? &#39;scalable&#39; : &#39;monitor_closely&#39;
+  };
+  
+  // Create SaaS metrics report
+  const reportBody = generateSaaSReport(metrics, healthIndicators);
+  
+  // Create or update metrics issue
+  const existingIssues = await octokit.issues.listForRepo({
+    owner: github.context.repo.owner,
+    repo: github.context.repo.repo,
+    labels: &#39;saas-metrics&#39;,
+    state: &#39;open&#39;
+  });
+  
+  if (existingIssues.data.length &gt; 0) {
+    await octokit.issues.update({
+      owner: github.context.repo.owner,
+      repo: github.context.repo.repo,
+      issue_number: existingIssues.data[0].number,
+      body: reportBody
+    });
+  } else {
+    await octokit.issues.create({
+      owner: github.context.repo.owner,
+      repo: github.context.repo.repo,
+      title: `SaaS Financial Metrics - ${new Date().toLocaleDateString()}`,
+      body: reportBody,
+      labels: [&#39;saas-metrics&#39;, &#39;financial&#39;]
+    });
+  }
+  
+  // Set outputs for workflow
+  core.setOutput(&#39;mrr&#39;, metrics.mrr);
+  core.setOutput(&#39;churn_rate&#39;, metrics.churnRate);
+  core.setOutput(&#39;ltv_cac_ratio&#39;, metrics.ltvCacRatio);
+  core.setOutput(&#39;health_status&#39;, Object.values(healthIndicators).every(h =&gt; h === &#39;excellent&#39; || h === &#39;strong&#39; || h === &#39;efficient&#39;) ? &#39;healthy&#39; : &#39;needs_attention&#39;);
+}
+
+function generateSaaSReport(metrics, health) {
+  return `# SaaS Financial Metrics Report
+
+## Revenue Metrics
+- **MRR**: $${metrics.mrr.toLocaleString()}
+- **ARR**: $${metrics.arr.toLocaleString()}
+- **Active Customers**: ${metrics.customers.toLocaleString()}
+- **Net Revenue Retention**: ${(metrics.nrr * 100).toFixed(1)}%
+
+## Unit Economics
+- **CAC**: $${metrics.cac.toFixed(0)}
+- **LTV**: $${metrics.ltv.toFixed(0)}
+- **LTV:CAC Ratio**: ${metrics.ltvCacRatio.toFixed(1)}
+- **Payback Period**: ${metrics.paybackPeriod.toFixed(1)} months
+- **Churn Rate**: ${(metrics.churnRate * 100).toFixed(1)}%
+
+## Expansion Metrics
+- **Expansion Revenue**: $${metrics.expansionRevenue.toLocaleString()}
+
+## Health Indicators
+- **Growth**: ${health.growth.replace(&#39;_&#39;, &#39; &#39;)}
+- **Retention**: ${health.retention.replace(&#39;_&#39;, &#39; &#39;)}
+- **Efficiency**: ${health.efficiency.replace(&#39;_&#39;, &#39; &#39;)}
+- **Scalability**: ${health.scalability.replace(&#39;_&#39;, &#39; &#39;)}
+
+## Recommendations
+${generateSaaSRecommendations(metrics, health)}
+
+*Report generated automatically - Last updated: ${new Date().toISOString()}*`;
+}
+
+function generateSaaSRecommendations(metrics, health) {
+  const recommendations = [];
+  
+  if (health.efficiency === &#39;needs_optimization&#39;) {
+    recommendations.push(&#39;- Focus on improving customer lifetime value or reducing acquisition costs&#39;);
+  }
+  
+  if (health.retention === &#39;concerning&#39;) {
+    recommendations.push(&#39;- Implement customer success initiatives to reduce churn&#39;);
+  }
+  
+  if (health.growth === &#39;needs_attention&#39;) {
+    recommendations.push(&#39;- Review pricing strategy and market positioning&#39;);
+  }
+  
+  if (recommendations.length === 0) {
+    recommendations.push(&#39;- SaaS metrics look healthy - continue monitoring and optimization&#39;);
+  }
+  
+  return recommendations.map(r =&gt; `- ${r}`).join(&#39;\n&#39;);
+}
+
+// Placeholder functions
+async function getSubscriptionMetrics() {
+  return {
+    totalMRR: 125000,
+    totalARR: 1500000,
+    activeCustomers: 2500,
+    churnedCustomers: 125,
+    newCustomers: 300,
+    expansionRevenue: 25000
+  };
+}
+
+function calculateChurnRate(metrics) {
+  return metrics.churnedCustomers / (metrics.activeCustomers + metrics.churnedCustomers);
+}
+
+function calculateCAC(metrics) {
+  // Simplified - would calculate based on marketing spend
+  return 150;
+}
+
+function calculateLTV(metrics) {
+  // Simplified - would use cohort analysis
+  return 600;
+}
+
+function calculateNRR(metrics) {
+  // Simplified - would calculate based on expansion and churn
+  return 1.15;
+}
+
+analyzeSaaSMetrics();
+</code></pre>
+<h3>Subscription Billing Integration</h3>
+<p>GitHub Actions integrate with SaaS billing platforms for real-time financial data. Subscription changes and revenue events automatically reflected in financial models.</p>
+<h3>Customer Success Financial Tracking</h3>
+<p>Customer success metrics tracked alongside financial performance. Expansion opportunities and churn risks identified through integrated dashboards.</p>
+<h2>SaaS Business Model Financial Analysis</h2>
+<h3>B2B SaaS Financial Dynamics</h3>
+<ul>
+<li>Enterprise contract financial modeling and analysis</li>
+<li>Multi-year subscription revenue recognition</li>
+<li>Implementation fee and professional services revenue</li>
+<li>Customer success and expansion financial impact</li>
+</ul>
+<h3>B2C SaaS Financial Considerations</h3>
+<ul>
+<li>Consumer pricing strategy and discount optimization</li>
+<li>Payment method and churn correlation analysis</li>
+<li>Freemium to paid conversion financial modeling</li>
+<li>Viral growth and referral program economics</li>
+</ul>
+<h3>Marketplace and Platform SaaS</h3>
+<ul>
+<li>Platform economics and transaction fee analysis</li>
+<li>Seller/buyer balance and financial sustainability</li>
+<li>Platform growth and network effect financial modeling</li>
+<li>Regulatory compliance costs for marketplace businesses</li>
+</ul>
+<h2>SaaS Funding and Valuation Metrics</h2>
+<h3>SaaS-Specific Valuation Multiples</h3>
+<ul>
+<li>Revenue multiples based on growth rate and retention</li>
+<li>Customer count and cohort quality valuation factors</li>
+<li>Market category and competitive positioning</li>
+<li>International expansion and market diversification</li>
+</ul>
+<h3>SaaS Investment Due Diligence</h3>
+<ul>
+<li>Cohort analysis and retention curve validation</li>
+<li>Unit economics scalability assessment</li>
+<li>Customer acquisition channel efficiency</li>
+<li>Product roadmap financial impact analysis</li>
+</ul>
+<h3>SaaS Exit Strategy Financial Planning</h3>
+<ul>
+<li>Strategic acquisition financial modeling</li>
+<li>IPO preparation and public company transition</li>
+<li>Secondary market and liquidity event planning</li>
+<li>Founder equity and dilution optimization</li>
+</ul>
+<h2>SaaS Financial Operations Automation</h2>
+<h3>Subscription Management Automation</h3>
+<p>Automated billing, invoicing, and revenue recognition processes. GitHub integration ensures billing changes reflected in financial systems immediately.</p>
+<h3>Customer Financial Lifecycle Tracking</h3>
+<p>Complete customer financial journey from acquisition to expansion to churn. Automated alerts for at-risk accounts and expansion opportunities.</p>
+<h3>International SaaS Financial Management</h3>
+<p>Multi-currency financial operations and tax compliance. Automated currency conversion and international revenue reporting.</p>
+<h2>Success Stories</h2>
+<h3>B2B SaaS Platform Scales to $50M ARR</h3>
+<p>A B2B SaaS platform used SaaS CFO services to optimize unit economics and achieve 300% ARR growth. Integrated financial monitoring enabled data-driven pricing and expansion strategies.</p>
+<h3>Consumer SaaS App Achieves Profitability</h3>
+<p>A consumer SaaS application reduced CAC by 40% through SaaS financial optimization. Customer success initiatives improved LTV and reduced churn from 8% to 3%.</p>
+<h3>Marketplace Platform Manages Complex Economics</h3>
+<p>A SaaS marketplace platform navigated complex two-sided economics with specialized financial guidance. Balanced seller and buyer economics while achieving sustainable growth.</p>
+<h2>Getting Started with SaaS CFO Services</h2>
+<p>Ready to optimize your SaaS financial performance? Contact our SaaS CFO team to discuss subscription economics and growth strategies.</p>
+<p>Explore related services:</p>
+<ul>
+<li><a href="cfo-services/fractional-cfo.html">Fractional CFO</a> - Flexible financial leadership for SaaS</li>
+<li><a href="financial-operations/financial-analysis.html">Financial Analysis</a> - SaaS unit economics analysis</li>
+<li><a href="resources/calculators.html">Calculators</a> - SaaS financial calculators</li>
+</ul>
+<p>Access SaaS resources:</p>
+<ul>
+<li><a href="resources/templates.html">Templates</a> - SaaS financial model templates</li>
+<li><a href="resources/guides.html">Guides</a> - Subscription business guides</li>
+</ul>
+<h2>Back to Industries Hub</h2>
+<p>Return to the Industries overview:
+<a href="industries/index.html">Index</a></p>
+<h2>Cross-Silo Integration</h2>
+<p>Explore our operational expertise:
+<a href="financial-operations/cash-flow-management.html">Cash Flow Management</a> - SaaS cash flow optimization</p>
+<p>Access our technical resources:
+<a href="resources/tools.html">Tools</a> - SaaS financial tools</p>
+<h2>Financial Resources</h2>
+<table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Fractional CFO Services</td>
+<td><a href="https://docs.google.com/document/d/1b7ME_R87TwUP7QvLrQtZJM4_bumPkhS0HUtFpcOKnvw/edit?usp=drivesdk">https://docs.google.com/document/d/1b7ME_R87TwUP7QvLrQtZJM4_bumPkhS0HUtFpcOKnvw/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Virtual CFO Services</td>
+<td><a href="https://docs.google.com/document/d/1g-jCRriEwH7gUE-b-pAkP6UtAIxIy90ylZx8LoPywUU/edit?usp=drivesdk">https://docs.google.com/document/d/1g-jCRriEwH7gUE-b-pAkP6UtAIxIy90ylZx8LoPywUU/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Outsourced CFO Services</td>
+<td><a href="https://docs.google.com/document/d/1At5MAw085vYTYHfdUwv70OSHymjUfV_rxkjJnQm8Oac/edit?usp=drivesdk">https://docs.google.com/document/d/1At5MAw085vYTYHfdUwv70OSHymjUfV_rxkjJnQm8Oac/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Financial Planning &amp; Analysis</td>
+<td><a href="https://docs.google.com/document/d/1S-zLJkfYmNOJUPJo3rbsLs_67yZC7LGtFaEHA73V57c/edit?usp=drivesdk">https://docs.google.com/document/d/1S-zLJkfYmNOJUPJo3rbsLs_67yZC7LGtFaEHA73V57c/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Cash Flow Management</td>
+<td><a href="https://docs.google.com/document/d/1jMWD-5pMqOLTsF0_DeWYjNmkACkXWNwKv7-lqpcIfA0/edit?usp=drivesdk">https://docs.google.com/document/d/1jMWD-5pMqOLTsF0_DeWYjNmkACkXWNwKv7-lqpcIfA0/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Financial Reporting</td>
+<td><a href="https://docs.google.com/document/d/1rJxEYy5ceFRl-FJyHCpA2zW5DuJHaAWgfiSVn9t5w4A/edit?usp=drivesdk">https://docs.google.com/document/d/1rJxEYy5ceFRl-FJyHCpA2zW5DuJHaAWgfiSVn9t5w4A/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Fundraising Support</td>
+<td><a href="https://docs.google.com/document/d/1esv1ICauYmdAH7oYN_XNgUeNdy3AJdX5EDZa-bwuGBw/edit?usp=drivesdk">https://docs.google.com/document/d/1esv1ICauYmdAH7oYN_XNgUeNdy3AJdX5EDZa-bwuGBw/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>M&amp;A Advisory</td>
+<td><a href="https://docs.google.com/document/d/10C7WM0G_rCLc9STAQE0f5A654TU7WYMGc2vR6HY43no/edit?usp=drivesdk">https://docs.google.com/document/d/10C7WM0G_rCLc9STAQE0f5A654TU7WYMGc2vR6HY43no/edit?usp=drivesdk</a></td>
+</tr>
+</tbody></table>
+<h2>Industry Expertise</h2>
+<table>
+<thead>
+<tr>
+<th>Industry</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Startup CFO</td>
+<td><a href="https://docs.google.com/document/d/1iY8plrLwhlceLdF7q1Vors3ANEoLCNNslBt34CaL9Ks/edit?usp=drivesdk">https://docs.google.com/document/d/1iY8plrLwhlceLdF7q1Vors3ANEoLCNNslBt34CaL9Ks/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Healthcare CFO</td>
+<td><a href="https://docs.google.com/document/d/1Sa2TESzUXuMfj7OslD-9pMODsYE3tWZU1K4YWj07_1s/edit?usp=drivesdk">https://docs.google.com/document/d/1Sa2TESzUXuMfj7OslD-9pMODsYE3tWZU1K4YWj07_1s/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>SaaS CFO</td>
+<td><a href="https://docs.google.com/document/d/1ePOe1T5e3buOomLe7D986nqtSYjMrOQGvJHp93h0kAw/edit?usp=drivesdk">https://docs.google.com/document/d/1ePOe1T5e3buOomLe7D986nqtSYjMrOQGvJHp93h0kAw/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Construction CFO</td>
+<td><a href="https://docs.google.com/document/d/1BCTpQIUzZufGghsC1WBFMkFoRM0bhkcB6p5NrZEADw8/edit?usp=drivesdk">https://docs.google.com/document/d/1BCTpQIUzZufGghsC1WBFMkFoRM0bhkcB6p5NrZEADw8/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>E-commerce CFO</td>
+<td><a href="https://docs.google.com/document/d/1MofZMqBNwFFWJlIr8ZaI45Bj06atwtGLuqjwzK1hVRQ/edit?usp=drivesdk">https://docs.google.com/document/d/1MofZMqBNwFFWJlIr8ZaI45Bj06atwtGLuqjwzK1hVRQ/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Manufacturing CFO</td>
+<td><a href="https://docs.google.com/document/d/1S0QLjLY2rH_aV1FLQWqQhqPmGNdERPhbVz0DQNw8Iw4/edit?usp=drivesdk">https://docs.google.com/document/d/1S0QLjLY2rH_aV1FLQWqQhqPmGNdERPhbVz0DQNw8Iw4/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Nonprofit CFO</td>
+<td><a href="https://docs.google.com/document/d/1NT24jSSnSEAiqu8VVzXOzwICfFbn-B_GPQrOncdT6iI/edit?usp=drivesdk">https://docs.google.com/document/d/1NT24jSSnSEAiqu8VVzXOzwICfFbn-B_GPQrOncdT6iI/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Professional Services CFO</td>
+<td><a href="https://docs.google.com/document/d/1yIa13DisLYlaW09uRozm-v5CUNdMI9SUiyNKtFcGqD4/edit?usp=drivesdk">https://docs.google.com/document/d/1yIa13DisLYlaW09uRozm-v5CUNdMI9SUiyNKtFcGqD4/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Technology CFO</td>
+<td><a href="https://docs.google.com/document/d/1Gb_g1nr-z6scA348PQht08qgsALH-FQuC_g1mcEiTI8/edit?usp=drivesdk">https://docs.google.com/document/d/1Gb_g1nr-z6scA348PQht08qgsALH-FQuC_g1mcEiTI8/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Real Estate CFO</td>
+<td><a href="https://docs.google.com/document/d/1V9vKH45TrLADqELP-pouV_vYEfvnQZi6D1Hte9ULvN8/edit?usp=drivesdk">https://docs.google.com/document/d/1V9vKH45TrLADqELP-pouV_vYEfvnQZi6D1Hte9ULvN8/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Retail CFO</td>
+<td><a href="https://docs.google.com/document/d/1_cXGNsxyY37rjrc4_-8KTntLDYmBpkmCum6-NrgMLN0/edit?usp=drivesdk">https://docs.google.com/document/d/1_cXGNsxyY37rjrc4_-8KTntLDYmBpkmCum6-NrgMLN0/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Legal CFO</td>
+<td><a href="https://docs.google.com/document/d/1zOqBO0tXzGZa7t4V334dx8BuXIaF492ZM_G7zfxwBz0/edit?usp=drivesdk">https://docs.google.com/document/d/1zOqBO0tXzGZa7t4V334dx8BuXIaF492ZM_G7zfxwBz0/edit?usp=drivesdk</a></td>
+</tr>
+</tbody></table>
+<h2>Regional Services</h2>
+<table>
+<thead>
+<tr>
+<th>Market</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Phoenix CFO</td>
+<td><a href="https://docs.google.com/document/d/1HAR4bXqUnkrbL6GmwHwGy8nxiRoquEH5IQshvlhdnTs/edit?usp=drivesdk">https://docs.google.com/document/d/1HAR4bXqUnkrbL6GmwHwGy8nxiRoquEH5IQshvlhdnTs/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Scottsdale CFO</td>
+<td><a href="https://docs.google.com/document/d/190AuvOwVWrF9XiRJDKaebhYLUB-M9D4qSwsEZDynsVs/edit?usp=drivesdk">https://docs.google.com/document/d/190AuvOwVWrF9XiRJDKaebhYLUB-M9D4qSwsEZDynsVs/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Dallas CFO</td>
+<td><a href="https://docs.google.com/document/d/1mI5nCWSlZAWTPjNDLJkekk_9saDiAPER7eyWXxeWsQY/edit?usp=drivesdk">https://docs.google.com/document/d/1mI5nCWSlZAWTPjNDLJkekk_9saDiAPER7eyWXxeWsQY/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Denver CFO</td>
+<td><a href="https://docs.google.com/document/d/1Yjvx1-U-50Z7FrpFQIyNrzHxeicDmsKbiLta-s49XB4/edit?usp=drivesdk">https://docs.google.com/document/d/1Yjvx1-U-50Z7FrpFQIyNrzHxeicDmsKbiLta-s49XB4/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Austin CFO</td>
+<td><a href="https://docs.google.com/document/d/1lzwU_kZJr7ZNnCRZSs81gJ8bhg9L2-vjP6iiHqhhuPE/edit?usp=drivesdk">https://docs.google.com/document/d/1lzwU_kZJr7ZNnCRZSs81gJ8bhg9L2-vjP6iiHqhhuPE/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Houston CFO</td>
+<td><a href="https://docs.google.com/document/d/1xTbk9NAoLpdkPDWOZg6B2INCIbV-70qPGBiBn5ybb10/edit?usp=drivesdk">https://docs.google.com/document/d/1xTbk9NAoLpdkPDWOZg6B2INCIbV-70qPGBiBn5ybb10/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Los Angeles CFO</td>
+<td><a href="https://docs.google.com/document/d/1w2nj8z6TsWecr4fbYUwptV-DNBNKscPQHsuG91pR5yY/edit?usp=drivesdk">https://docs.google.com/document/d/1w2nj8z6TsWecr4fbYUwptV-DNBNKscPQHsuG91pR5yY/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>San Diego CFO</td>
+<td><a href="https://docs.google.com/document/d/1WdDzi5OMSf25ado5x6Z-4VaRSdu_sx2CeNi6xLh68aQ/edit?usp=drivesdk">https://docs.google.com/document/d/1WdDzi5OMSf25ado5x6Z-4VaRSdu_sx2CeNi6xLh68aQ/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>San Antonio CFO</td>
+<td><a href="https://docs.google.com/document/d/1zpUQ3-9KzR98sA7fknmO7n2ajfG8ezsLmaRomiKalP8/edit?usp=drivesdk">https://docs.google.com/document/d/1zpUQ3-9KzR98sA7fknmO7n2ajfG8ezsLmaRomiKalP8/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Las Vegas CFO</td>
+<td><a href="https://docs.google.com/document/d/1ziOozCmMpCi42z-km83jwz6MztSvycEUByKjkRhI3Jw/edit?usp=drivesdk">https://docs.google.com/document/d/1ziOozCmMpCi42z-km83jwz6MztSvycEUByKjkRhI3Jw/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Tucson CFO</td>
+<td><a href="https://docs.google.com/document/d/1O4wv81fQx7OAcL54-hCAIjEWSTNNuO4hhIYkJd1UVgU/edit?usp=drivesdk">https://docs.google.com/document/d/1O4wv81fQx7OAcL54-hCAIjEWSTNNuO4hhIYkJd1UVgU/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Albuquerque CFO</td>
+<td><a href="https://docs.google.com/document/d/1r8frk3L4cq8Z5snHB5y5GTSqu3D6V_Tpchdix0bAiLg/edit?usp=drivesdk">https://docs.google.com/document/d/1r8frk3L4cq8Z5snHB5y5GTSqu3D6V_Tpchdix0bAiLg/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Salt Lake City CFO</td>
+<td><a href="https://docs.google.com/document/d/1tFU6RRbFmWnndsnIX4jp-GI0j4gf-jkZXkrjv9O39-o/edit?usp=drivesdk">https://docs.google.com/document/d/1tFU6RRbFmWnndsnIX4jp-GI0j4gf-jkZXkrjv9O39-o/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Portland CFO</td>
+<td><a href="https://docs.google.com/document/d/1mEXSiyb6cd-_VHOviXL6zv00UpIwP5Ifmn74-zrsiLk/edit?usp=drivesdk">https://docs.google.com/document/d/1mEXSiyb6cd-_VHOviXL6zv00UpIwP5Ifmn74-zrsiLk/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Seattle CFO</td>
+<td><a href="https://docs.google.com/document/d/1E79oZ2SKiKtXnrVI8w26-Uy3Wke3CuMdpR-b9hpcpaw/edit?usp=drivesdk">https://docs.google.com/document/d/1E79oZ2SKiKtXnrVI8w26-Uy3Wke3CuMdpR-b9hpcpaw/edit?usp=drivesdk</a></td>
+</tr>
+</tbody></table>
+<h2>Document Library</h2>
+<p><a href="https://drive.google.com/drive/folders/17FIc19x6kgby5iX5xNCtkLvwdnTKkYEL" target="_blank" style="display:inline-block; padding:12px 24px; background:#4285f4; color:white; text-decoration:none; border-radius:4px; font-weight:bold;">Browse Document Library</a></p>
+
+<h2>Complete Resource Index</h2>
+<p><a href="https://www.1cfo.ai/resources" target="_blank" style="display:inline-block; padding:12px 24px; background:#34a853; color:white; text-decoration:none; border-radius:4px; font-weight:bold;">View All Resources</a></p>
+
+
+</body>
+</html>
