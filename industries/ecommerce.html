@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-commerce Technology CFO Services</title>
+  <meta name="description" content="E-commerce Technology CFO Services - Financial resources and tools">
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      line-height: 1.6;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      color: #333;
+    }
+    h1 { color: #1a365d; border-bottom: 2px solid #2b6cb0; padding-bottom: 10px; }
+    h2 { color: #2c5282; margin-top: 30px; }
+    h3 { color: #2d3748; }
+    a { color: #2b6cb0; }
+    table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+    th, td { border: 1px solid #e2e8f0; padding: 12px; text-align: left; }
+    th { background: #edf2f7; }
+    ul, ol { padding-left: 20px; }
+  </style>
+</head>
+<body>
+<h1>E-commerce Technology CFO Services</h1>
+<p>GitHub enables specialized financial management for e-commerce technology companies. E-commerce tech faces unique challenges in payment processing, inventory management, and global operations. Our e-commerce CFOs provide expertise in transaction economics, international finance, and platform scaling.</p>
+<h2>E-commerce Technology Financial Challenges</h2>
+<p>E-commerce technology companies operate in a high-velocity, global marketplace. Financial management requires understanding payment processing fees, inventory financing, and international tax complexities. E-commerce CFOs navigate both technological scaling challenges and retail economics.</p>
+<h3>Key E-commerce Financial Challenges</h3>
+<ul>
+<li><strong>Payment Processing Economics</strong>: Understanding transaction fees, chargebacks, and payment method optimization</li>
+<li><strong>Inventory Financing</strong>: Working capital management for e-commerce inventory and fulfillment</li>
+<li><strong>International Operations</strong>: Multi-currency accounting, cross-border tax compliance, and currency risk management</li>
+<li><strong>Platform Scaling Costs</strong>: Infrastructure costs that scale with transaction volume</li>
+</ul>
+<h2>E-commerce CFO Service Components</h2>
+<h3>Payment Processing Financial Optimization</h3>
+<ul>
+<li>Payment processor fee analysis and negotiation</li>
+<li>Chargeback prevention and management cost optimization</li>
+<li>Payment method diversification financial planning</li>
+<li>Transaction cost reduction strategies</li>
+</ul>
+<h3>Inventory and Working Capital Management</h3>
+<ul>
+<li>Inventory financing optimization and cash flow management</li>
+<li>Just-in-time inventory financial modeling</li>
+<li>Warehouse and fulfillment cost analysis</li>
+<li>Stockout prevention and overstock financial impact</li>
+</ul>
+<h3>International E-commerce Financial Management</h3>
+<ul>
+<li>Multi-currency accounting and reporting</li>
+<li>International tax compliance and optimization</li>
+<li>Customs duty and import cost management</li>
+<li>Currency hedging and foreign exchange risk management</li>
+</ul>
+<h2>GitHub Integration for E-commerce CFO Services</h2>
+<h3>E-commerce Transaction Monitoring</h3>
+<p>Real-time transaction monitoring integrated with GitHub deployments. Payment success rates, processing fees, and chargeback trends tracked alongside code releases.</p>
+<h3>Inventory Management Automation</h3>
+<p>GitHub Actions automate inventory reorder points and financial triggers. Low stock alerts and overstock warnings integrated with financial dashboards.</p>
+<pre><code class="language-javascript">// GitHub Action for e-commerce financial monitoring
+const core = require(&#39;@actions/core&#39;);
+const github = require(&#39;@actions/github&#39;);
+const { Octokit } = require(&#39;@octokit/rest&#39;);
+
+async function monitorEcommerceFinance() {
+  const octokit = new Octokit({ auth: core.getInput(&#39;token&#39;) });
+  
+  // Get e-commerce financial metrics
+  const metrics = await getEcommerceMetrics();
+  
+  // Calculate key financial KPIs
+  const kpis = {
+    dailyRevenue: metrics.revenue,
+    transactionCount: metrics.transactions,
+    averageOrderValue: metrics.revenue / metrics.transactions,
+    paymentSuccessRate: (metrics.successfulPayments / metrics.totalPayments) * 100,
+    chargebackRate: (metrics.chargebacks / metrics.transactions) * 100,
+    paymentProcessingFees: metrics.processingFees,
+    inventoryTurnover: calculateInventoryTurnover(metrics),
+    grossMargin: (metrics.revenue - metrics.cogs) / metrics.revenue,
+    customerAcquisitionCost: calculateCAC(metrics),
+    returnRate: (metrics.returns / metrics.transactions) * 100
+  };
+  
+  // Determine financial health indicators
+  const healthIndicators = {
+    revenue: kpis.dailyRevenue &gt; core.getInput(&#39;revenue_target&#39;) ? &#39;strong&#39; : &#39;monitor&#39;,
+    margins: kpis.grossMargin &gt; 0.30 ? &#39;healthy&#39; : &#39;concerning&#39;,
+    payments: kpis.paymentSuccessRate &gt; 98 ? &#39;excellent&#39; : &#39;needs_attention&#39;,
+    returns: kpis.returnRate &lt; 5 ? &#39;good&#39; : &#39;high_returns&#39;
+  };
+  
+  // Create financial monitoring report
+  const reportBody = generateEcommerceReport(kpis, healthIndicators);
+  
+  // Create or update monitoring issue
+  const existingIssues = await octokit.issues.listForRepo({
+    owner: github.context.repo.owner,
+    repo: github.context.repo.repo,
+    labels: &#39;ecommerce-finance&#39;,
+    state: &#39;open&#39;
+  });
+  
+  if (existingIssues.data.length &gt; 0) {
+    await octokit.issues.update({
+      owner: github.context.repo.owner,
+      repo: github.context.repo.repo,
+      issue_number: existingIssues.data[0].number,
+      body: reportBody
+    });
+  } else {
+    await octokit.issues.create({
+      owner: github.context.repo.owner,
+      repo: github.context.repo.repo,
+      title: `E-commerce Financial Monitor - ${new Date().toLocaleDateString()}`,
+      body: reportBody,
+      labels: [&#39;ecommerce-finance&#39;, &#39;financial&#39;]
+    });
+  }
+  
+  core.setOutput(&#39;revenue&#39;, kpis.dailyRevenue);
+  core.setOutput(&#39;success_rate&#39;, kpis.paymentSuccessRate);
+  core.setOutput(&#39;health_status&#39;, Object.values(healthIndicators).every(h =&gt; h === &#39;strong&#39; || h === &#39;healthy&#39; || h === &#39;excellent&#39; || h === &#39;good&#39;) ? &#39;healthy&#39; : &#39;needs_attention&#39;);
+}
+
+function generateEcommerceReport(kpis, health) {
+  return `# E-commerce Financial Monitor
+
+## Daily Performance
+- **Revenue**: $${kpis.dailyRevenue.toLocaleString()}
+- **Transactions**: ${kpis.transactionCount.toLocaleString()}
+- **Average Order Value**: $${kpis.averageOrderValue.toFixed(2)}
+- **Payment Success Rate**: ${kpis.paymentSuccessRate.toFixed(1)}%
+
+## Financial Health
+- **Gross Margin**: ${(kpis.grossMargin * 100).toFixed(1)}%
+- **Chargeback Rate**: ${kpis.chargebackRate.toFixed(2)}%
+- **Return Rate**: ${kpis.returnRate.toFixed(1)}%
+- **Processing Fees**: $${kpis.paymentProcessingFees.toLocaleString()}
+
+## Operational Metrics
+- **Inventory Turnover**: ${kpis.inventoryTurnover.toFixed(1)}x
+- **Customer Acquisition Cost**: $${kpis.customerAcquisitionCost.toFixed(0)}
+
+## Health Indicators
+- **Revenue**: ${health.revenue}
+- **Margins**: ${health.margins}
+- **Payments**: ${health.payments}
+- **Returns**: ${health.returns}
+
+## Recommendations
+${generateEcommerceRecommendations(kpis, health)}
+
+*Report generated automatically - Last updated: ${new Date().toISOString()}*`;
+}
+
+function generateEcommerceRecommendations(kpis, health) {
+  const recommendations = [];
+  
+  if (health.payments === &#39;needs_attention&#39;) {
+    recommendations.push(&#39;- Investigate payment processing issues and optimize checkout flow&#39;);
+  }
+  
+  if (health.returns === &#39;high_returns&#39;) {
+    recommendations.push(&#39;- Review product quality and return policies to reduce return rates&#39;);
+  }
+  
+  if (kpis.chargebackRate &gt; 1) {
+    recommendations.push(&#39;- Implement chargeback prevention measures and review dispute handling&#39;);
+  }
+  
+  if (recommendations.length === 0) {
+    recommendations.push(&#39;- E-commerce financial metrics look healthy - continue monitoring trends&#39;);
+  }
+  
+  return recommendations.map(r =&gt; `- ${r}`).join(&#39;\n&#39;);
+}
+
+// Placeholder functions
+async function getEcommerceMetrics() {
+  return {
+    revenue: 45000,
+    transactions: 450,
+    successfulPayments: 445,
+    totalPayments: 450,
+    chargebacks: 2,
+    processingFees: 675,
+    cogs: 27000,
+    returns: 18
+  };
+}
+
+function calculateInventoryTurnover(metrics) {
+  // Simplified calculation
+  return 8.5;
+}
+
+function calculateCAC(metrics) {
+  // Simplified calculation
+  return 85;
+}
+
+monitorEcommerceFinance();
+</code></pre>
+<h3>International Expansion Financial Planning</h3>
+<p>GitHub Projects track international market expansion with financial milestones. Currency risk, tax compliance, and market entry costs managed through integrated workflows.</p>
+<h3>Fulfillment Cost Optimization</h3>
+<p>Automated fulfillment cost analysis with GitHub Actions. Shipping rates, warehouse costs, and last-mile delivery optimization tracked.</p>
+<h2>E-commerce Technology Business Models</h2>
+<h3>Direct-to-Consumer Platforms</h3>
+<ul>
+<li>DTC platform financial modeling and unit economics</li>
+<li>Customer acquisition cost optimization</li>
+<li>Subscription and repeat purchase financial analysis</li>
+<li>Customer lifetime value maximization</li>
+</ul>
+<h3>Marketplace Platforms</h3>
+<ul>
+<li>Marketplace commission and fee structure optimization</li>
+<li>Seller/buyer balance financial management</li>
+<li>Platform growth and network effect economics</li>
+<li>Fraud prevention and chargeback management</li>
+</ul>
+<h3>B2B E-commerce Solutions</h3>
+<ul>
+<li>B2B ordering platform financial metrics</li>
+<li>Enterprise customer payment terms and credit</li>
+<li>Integration and implementation fee analysis</li>
+<li>Multi-tenant platform cost allocation</li>
+</ul>
+<h2>E-commerce Financial Operations</h2>
+<h3>Payment Method Optimization</h3>
+<p>Financial analysis of payment method performance and costs. Credit card fees, digital wallets, buy-now-pay-later options, and international payment methods.</p>
+<h3>Inventory Financing Strategies</h3>
+<p>Working capital optimization for e-commerce inventory. Just-in-time inventory, drop-shipping financial models, and supplier payment terms optimization.</p>
+<h3>Tax and Customs Financial Management</h3>
+<p>International tax compliance and customs duty optimization. VAT registration, transfer pricing, and customs valuation strategies.</p>
+<h2>E-commerce Funding and Valuation</h2>
+<h3>E-commerce-Specific Valuation Metrics</h3>
+<ul>
+<li>GMV (Gross Merchandise Value) multiples and growth rates</li>
+<li>Customer acquisition cost payback periods</li>
+<li>International expansion and market diversification</li>
+<li>Platform economics and network effects</li>
+</ul>
+<h3>Funding Strategies for E-commerce Tech</h3>
+<ul>
+<li>Revenue-based financing for established platforms</li>
+<li>Venture capital for high-growth marketplaces</li>
+<li>Strategic partnerships and vendor financing</li>
+<li>IPO preparation for public market transitions</li>
+</ul>
+<h2>Success Stories</h2>
+<h3>DTC Platform Achieves 300% Growth</h3>
+<p>A direct-to-consumer e-commerce platform used e-commerce CFO services to optimize payment processing and achieve 300% revenue growth. International expansion financial planning enabled global market entry.</p>
+<h3>Marketplace Platform Manages Complex Economics</h3>
+<p>A B2B marketplace platform navigated two-sided economics with specialized financial guidance. Seller onboarding costs and buyer acquisition optimization achieved sustainable growth.</p>
+<h3>Subscription E-commerce Business Scales Profitably</h3>
+<p>A subscription box e-commerce business optimized customer lifetime value and reduced churn through e-commerce financial analysis. Unit economics optimization improved profitability by 45%.</p>
+<h2>Getting Started with E-commerce Technology CFO Services</h2>
+<p>Ready to optimize your e-commerce financial performance? Contact our e-commerce CFO team to discuss payment processing optimization and international expansion strategies.</p>
+<p>Explore related services:</p>
+<ul>
+<li><a href="cfo-services/fractional-cfo.html">Fractional CFO</a> - Flexible financial leadership for e-commerce</li>
+<li><a href="financial-operations/cash-flow-management.html">Cash Flow Management</a> - Working capital optimization</li>
+<li><a href="resources/calculators.html">Calculators</a> - E-commerce financial calculators</li>
+</ul>
+<p>Access e-commerce resources:</p>
+<ul>
+<li><a href="resources/templates.html">Templates</a> - E-commerce financial model templates</li>
+<li><a href="resources/guides.html">Guides</a> - International e-commerce finance guides</li>
+</ul>
+<h2>Back to Industries Hub</h2>
+<p>Return to the Industries overview:
+<a href="industries/index.html">Index</a></p>
+<h2>Cross-Silo Integration</h2>
+<p>Explore our operational expertise:
+<a href="financial-operations/financial-analysis.html">Financial Analysis</a> - E-commerce unit economics analysis</p>
+<p>Access our technical resources:
+<a href="resources/tools.html">Tools</a> - E-commerce financial tools</p>
+<h2>Financial Resources</h2>
+<table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Fractional CFO Services</td>
+<td><a href="https://docs.google.com/document/d/1b7ME_R87TwUP7QvLrQtZJM4_bumPkhS0HUtFpcOKnvw/edit?usp=drivesdk">https://docs.google.com/document/d/1b7ME_R87TwUP7QvLrQtZJM4_bumPkhS0HUtFpcOKnvw/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Virtual CFO Services</td>
+<td><a href="https://docs.google.com/document/d/1g-jCRriEwH7gUE-b-pAkP6UtAIxIy90ylZx8LoPywUU/edit?usp=drivesdk">https://docs.google.com/document/d/1g-jCRriEwH7gUE-b-pAkP6UtAIxIy90ylZx8LoPywUU/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Outsourced CFO Services</td>
+<td><a href="https://docs.google.com/document/d/1At5MAw085vYTYHfdUwv70OSHymjUfV_rxkjJnQm8Oac/edit?usp=drivesdk">https://docs.google.com/document/d/1At5MAw085vYTYHfdUwv70OSHymjUfV_rxkjJnQm8Oac/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Financial Planning &amp; Analysis</td>
+<td><a href="https://docs.google.com/document/d/1S-zLJkfYmNOJUPJo3rbsLs_67yZC7LGtFaEHA73V57c/edit?usp=drivesdk">https://docs.google.com/document/d/1S-zLJkfYmNOJUPJo3rbsLs_67yZC7LGtFaEHA73V57c/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Cash Flow Management</td>
+<td><a href="https://docs.google.com/document/d/1jMWD-5pMqOLTsF0_DeWYjNmkACkXWNwKv7-lqpcIfA0/edit?usp=drivesdk">https://docs.google.com/document/d/1jMWD-5pMqOLTsF0_DeWYjNmkACkXWNwKv7-lqpcIfA0/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Financial Reporting</td>
+<td><a href="https://docs.google.com/document/d/1rJxEYy5ceFRl-FJyHCpA2zW5DuJHaAWgfiSVn9t5w4A/edit?usp=drivesdk">https://docs.google.com/document/d/1rJxEYy5ceFRl-FJyHCpA2zW5DuJHaAWgfiSVn9t5w4A/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Fundraising Support</td>
+<td><a href="https://docs.google.com/document/d/1esv1ICauYmdAH7oYN_XNgUeNdy3AJdX5EDZa-bwuGBw/edit?usp=drivesdk">https://docs.google.com/document/d/1esv1ICauYmdAH7oYN_XNgUeNdy3AJdX5EDZa-bwuGBw/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>M&amp;A Advisory</td>
+<td><a href="https://docs.google.com/document/d/10C7WM0G_rCLc9STAQE0f5A654TU7WYMGc2vR6HY43no/edit?usp=drivesdk">https://docs.google.com/document/d/10C7WM0G_rCLc9STAQE0f5A654TU7WYMGc2vR6HY43no/edit?usp=drivesdk</a></td>
+</tr>
+</tbody></table>
+<h2>Industry Expertise</h2>
+<table>
+<thead>
+<tr>
+<th>Industry</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Startup CFO</td>
+<td><a href="https://docs.google.com/document/d/1iY8plrLwhlceLdF7q1Vors3ANEoLCNNslBt34CaL9Ks/edit?usp=drivesdk">https://docs.google.com/document/d/1iY8plrLwhlceLdF7q1Vors3ANEoLCNNslBt34CaL9Ks/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Healthcare CFO</td>
+<td><a href="https://docs.google.com/document/d/1Sa2TESzUXuMfj7OslD-9pMODsYE3tWZU1K4YWj07_1s/edit?usp=drivesdk">https://docs.google.com/document/d/1Sa2TESzUXuMfj7OslD-9pMODsYE3tWZU1K4YWj07_1s/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>SaaS CFO</td>
+<td><a href="https://docs.google.com/document/d/1ePOe1T5e3buOomLe7D986nqtSYjMrOQGvJHp93h0kAw/edit?usp=drivesdk">https://docs.google.com/document/d/1ePOe1T5e3buOomLe7D986nqtSYjMrOQGvJHp93h0kAw/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Construction CFO</td>
+<td><a href="https://docs.google.com/document/d/1BCTpQIUzZufGghsC1WBFMkFoRM0bhkcB6p5NrZEADw8/edit?usp=drivesdk">https://docs.google.com/document/d/1BCTpQIUzZufGghsC1WBFMkFoRM0bhkcB6p5NrZEADw8/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>E-commerce CFO</td>
+<td><a href="https://docs.google.com/document/d/1MofZMqBNwFFWJlIr8ZaI45Bj06atwtGLuqjwzK1hVRQ/edit?usp=drivesdk">https://docs.google.com/document/d/1MofZMqBNwFFWJlIr8ZaI45Bj06atwtGLuqjwzK1hVRQ/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Manufacturing CFO</td>
+<td><a href="https://docs.google.com/document/d/1S0QLjLY2rH_aV1FLQWqQhqPmGNdERPhbVz0DQNw8Iw4/edit?usp=drivesdk">https://docs.google.com/document/d/1S0QLjLY2rH_aV1FLQWqQhqPmGNdERPhbVz0DQNw8Iw4/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Nonprofit CFO</td>
+<td><a href="https://docs.google.com/document/d/1NT24jSSnSEAiqu8VVzXOzwICfFbn-B_GPQrOncdT6iI/edit?usp=drivesdk">https://docs.google.com/document/d/1NT24jSSnSEAiqu8VVzXOzwICfFbn-B_GPQrOncdT6iI/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Professional Services CFO</td>
+<td><a href="https://docs.google.com/document/d/1yIa13DisLYlaW09uRozm-v5CUNdMI9SUiyNKtFcGqD4/edit?usp=drivesdk">https://docs.google.com/document/d/1yIa13DisLYlaW09uRozm-v5CUNdMI9SUiyNKtFcGqD4/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Technology CFO</td>
+<td><a href="https://docs.google.com/document/d/1Gb_g1nr-z6scA348PQht08qgsALH-FQuC_g1mcEiTI8/edit?usp=drivesdk">https://docs.google.com/document/d/1Gb_g1nr-z6scA348PQht08qgsALH-FQuC_g1mcEiTI8/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Real Estate CFO</td>
+<td><a href="https://docs.google.com/document/d/1V9vKH45TrLADqELP-pouV_vYEfvnQZi6D1Hte9ULvN8/edit?usp=drivesdk">https://docs.google.com/document/d/1V9vKH45TrLADqELP-pouV_vYEfvnQZi6D1Hte9ULvN8/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Retail CFO</td>
+<td><a href="https://docs.google.com/document/d/1_cXGNsxyY37rjrc4_-8KTntLDYmBpkmCum6-NrgMLN0/edit?usp=drivesdk">https://docs.google.com/document/d/1_cXGNsxyY37rjrc4_-8KTntLDYmBpkmCum6-NrgMLN0/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Legal CFO</td>
+<td><a href="https://docs.google.com/document/d/1zOqBO0tXzGZa7t4V334dx8BuXIaF492ZM_G7zfxwBz0/edit?usp=drivesdk">https://docs.google.com/document/d/1zOqBO0tXzGZa7t4V334dx8BuXIaF492ZM_G7zfxwBz0/edit?usp=drivesdk</a></td>
+</tr>
+</tbody></table>
+<h2>Regional Services</h2>
+<table>
+<thead>
+<tr>
+<th>Market</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Phoenix CFO</td>
+<td><a href="https://docs.google.com/document/d/1HAR4bXqUnkrbL6GmwHwGy8nxiRoquEH5IQshvlhdnTs/edit?usp=drivesdk">https://docs.google.com/document/d/1HAR4bXqUnkrbL6GmwHwGy8nxiRoquEH5IQshvlhdnTs/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Scottsdale CFO</td>
+<td><a href="https://docs.google.com/document/d/190AuvOwVWrF9XiRJDKaebhYLUB-M9D4qSwsEZDynsVs/edit?usp=drivesdk">https://docs.google.com/document/d/190AuvOwVWrF9XiRJDKaebhYLUB-M9D4qSwsEZDynsVs/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Dallas CFO</td>
+<td><a href="https://docs.google.com/document/d/1mI5nCWSlZAWTPjNDLJkekk_9saDiAPER7eyWXxeWsQY/edit?usp=drivesdk">https://docs.google.com/document/d/1mI5nCWSlZAWTPjNDLJkekk_9saDiAPER7eyWXxeWsQY/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Denver CFO</td>
+<td><a href="https://docs.google.com/document/d/1Yjvx1-U-50Z7FrpFQIyNrzHxeicDmsKbiLta-s49XB4/edit?usp=drivesdk">https://docs.google.com/document/d/1Yjvx1-U-50Z7FrpFQIyNrzHxeicDmsKbiLta-s49XB4/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Austin CFO</td>
+<td><a href="https://docs.google.com/document/d/1lzwU_kZJr7ZNnCRZSs81gJ8bhg9L2-vjP6iiHqhhuPE/edit?usp=drivesdk">https://docs.google.com/document/d/1lzwU_kZJr7ZNnCRZSs81gJ8bhg9L2-vjP6iiHqhhuPE/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Houston CFO</td>
+<td><a href="https://docs.google.com/document/d/1xTbk9NAoLpdkPDWOZg6B2INCIbV-70qPGBiBn5ybb10/edit?usp=drivesdk">https://docs.google.com/document/d/1xTbk9NAoLpdkPDWOZg6B2INCIbV-70qPGBiBn5ybb10/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Los Angeles CFO</td>
+<td><a href="https://docs.google.com/document/d/1w2nj8z6TsWecr4fbYUwptV-DNBNKscPQHsuG91pR5yY/edit?usp=drivesdk">https://docs.google.com/document/d/1w2nj8z6TsWecr4fbYUwptV-DNBNKscPQHsuG91pR5yY/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>San Diego CFO</td>
+<td><a href="https://docs.google.com/document/d/1WdDzi5OMSf25ado5x6Z-4VaRSdu_sx2CeNi6xLh68aQ/edit?usp=drivesdk">https://docs.google.com/document/d/1WdDzi5OMSf25ado5x6Z-4VaRSdu_sx2CeNi6xLh68aQ/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>San Antonio CFO</td>
+<td><a href="https://docs.google.com/document/d/1zpUQ3-9KzR98sA7fknmO7n2ajfG8ezsLmaRomiKalP8/edit?usp=drivesdk">https://docs.google.com/document/d/1zpUQ3-9KzR98sA7fknmO7n2ajfG8ezsLmaRomiKalP8/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Las Vegas CFO</td>
+<td><a href="https://docs.google.com/document/d/1ziOozCmMpCi42z-km83jwz6MztSvycEUByKjkRhI3Jw/edit?usp=drivesdk">https://docs.google.com/document/d/1ziOozCmMpCi42z-km83jwz6MztSvycEUByKjkRhI3Jw/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Tucson CFO</td>
+<td><a href="https://docs.google.com/document/d/1O4wv81fQx7OAcL54-hCAIjEWSTNNuO4hhIYkJd1UVgU/edit?usp=drivesdk">https://docs.google.com/document/d/1O4wv81fQx7OAcL54-hCAIjEWSTNNuO4hhIYkJd1UVgU/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Albuquerque CFO</td>
+<td><a href="https://docs.google.com/document/d/1r8frk3L4cq8Z5snHB5y5GTSqu3D6V_Tpchdix0bAiLg/edit?usp=drivesdk">https://docs.google.com/document/d/1r8frk3L4cq8Z5snHB5y5GTSqu3D6V_Tpchdix0bAiLg/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Salt Lake City CFO</td>
+<td><a href="https://docs.google.com/document/d/1tFU6RRbFmWnndsnIX4jp-GI0j4gf-jkZXkrjv9O39-o/edit?usp=drivesdk">https://docs.google.com/document/d/1tFU6RRbFmWnndsnIX4jp-GI0j4gf-jkZXkrjv9O39-o/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Portland CFO</td>
+<td><a href="https://docs.google.com/document/d/1mEXSiyb6cd-_VHOviXL6zv00UpIwP5Ifmn74-zrsiLk/edit?usp=drivesdk">https://docs.google.com/document/d/1mEXSiyb6cd-_VHOviXL6zv00UpIwP5Ifmn74-zrsiLk/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Seattle CFO</td>
+<td><a href="https://docs.google.com/document/d/1E79oZ2SKiKtXnrVI8w26-Uy3Wke3CuMdpR-b9hpcpaw/edit?usp=drivesdk">https://docs.google.com/document/d/1E79oZ2SKiKtXnrVI8w26-Uy3Wke3CuMdpR-b9hpcpaw/edit?usp=drivesdk</a></td>
+</tr>
+</tbody></table>
+<h2>Document Library</h2>
+<p><a href="https://drive.google.com/drive/folders/17FIc19x6kgby5iX5xNCtkLvwdnTKkYEL" target="_blank" style="display:inline-block; padding:12px 24px; background:#4285f4; color:white; text-decoration:none; border-radius:4px; font-weight:bold;">Browse Document Library</a></p>
+
+<h2>Complete Resource Index</h2>
+<p><a href="https://www.1cfo.ai/resources" target="_blank" style="display:inline-block; padding:12px 24px; background:#34a853; color:white; text-decoration:none; border-radius:4px; font-weight:bold;">View All Resources</a></p>
+
+
+</body>
+</html>
