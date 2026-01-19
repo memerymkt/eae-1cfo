@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cash Flow Management for Technical Teams</title>
+  <meta name="description" content="Cash Flow Management for Technical Teams - Financial resources and tools">
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      line-height: 1.6;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      color: #333;
+    }
+    h1 { color: #1a365d; border-bottom: 2px solid #2b6cb0; padding-bottom: 10px; }
+    h2 { color: #2c5282; margin-top: 30px; }
+    h3 { color: #2d3748; }
+    a { color: #2b6cb0; }
+    table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+    th, td { border: 1px solid #e2e8f0; padding: 12px; text-align: left; }
+    th { background: #edf2f7; }
+    ul, ol { padding-left: 20px; }
+  </style>
+</head>
+<body>
+<h1>Cash Flow Management for Technical Teams</h1>
+<p>GitHub enables real-time cash flow management integrated with development workflows. Technical founders and CTOs monitor cash position alongside code deployments and sprint velocity. Automated cash flow tracking ensures financial health awareness during rapid growth.</p>
+<h2>Understanding Cash Flow Challenges for Technical Companies</h2>
+<p>Technical companies face unique cash flow dynamics. Development cycles, hiring ramps, and infrastructure scaling create volatile cash flows. Traditional cash flow management lacks real-time visibility that technical teams need.</p>
+<h3>Key Cash Flow Challenges</h3>
+<ul>
+<li><strong>Burn Rate Visibility</strong>: Real-time awareness of cash consumption during development sprints</li>
+<li><strong>Infrastructure Scaling Costs</strong>: Cloud infrastructure costs that scale with technical growth</li>
+<li><strong>Hiring and Compensation</strong>: Cash flow impact of technical hiring and equity compensation</li>
+<li><strong>Revenue Recognition</strong>: Subscription and API-based revenue timing and recognition</li>
+</ul>
+<h2>Cash Flow Management Components</h2>
+<h3>Real-Time Cash Monitoring</h3>
+<p>Continuous cash position tracking integrated with GitHub repositories. Technical teams see cash impact alongside code changes and deployments.</p>
+<h3>Automated Cash Flow Forecasting</h3>
+<p>Machine learning-powered forecasting that incorporates development velocity and market conditions. Predictive cash flow models update with each code commit.</p>
+<h3>Burn Rate Optimization</h3>
+<p>Dynamic burn rate analysis tied to development milestones. Technical teams optimize spending based on product progress and market feedback.</p>
+<h2>GitHub Integration for Cash Flow Management</h2>
+<h3>Real-Time Cash Dashboards</h3>
+<p>Cash flow metrics integrated into GitHub project boards. Development teams monitor runway alongside sprint progress and deployment status.</p>
+<h3>Automated Cash Flow Alerts</h3>
+<p>GitHub Actions trigger alerts based on cash flow thresholds. Technical leaders receive notifications about cash position changes during development cycles.</p>
+<pre><code class="language-javascript">// GitHub Action for automated cash flow monitoring
+const core = require(&#39;@actions/core&#39;);
+const github = require(&#39;@actions/github&#39;);
+const { Octokit } = require(&#39;@octokit/rest&#39;);
+
+async function monitorCashFlow() {
+  const octokit = new Octokit({ auth: core.getInput(&#39;token&#39;) });
+  
+  // Get cash flow data from financial system
+  const cashFlowData = await getCashFlowData();
+  
+  // Calculate key cash flow metrics
+  const metrics = {
+    currentCashPosition: cashFlowData.cashPosition,
+    monthlyBurnRate: calculateMonthlyBurn(cashFlowData),
+    runwayMonths: cashFlowData.cashPosition / Math.abs(cashFlowData.monthlyBurnRate),
+    cashFlowVariance: calculateVariance(cashFlowData),
+    upcomingMilestones: cashFlowData.upcomingExpenses,
+    revenueRunRate: cashFlowData.monthlyRevenue
+  };
+  
+  // Determine cash flow health
+  const healthStatus = determineCashFlowHealth(metrics);
+  
+  // Generate cash flow report
+  const reportBody = generateCashFlowReport(metrics, healthStatus);
+  
+  // Create or update cash flow monitoring issue
+  const existingIssues = await octokit.issues.listForRepo({
+    owner: github.context.repo.owner,
+    repo: github.context.repo.repo,
+    labels: &#39;cash-flow&#39;,
+    state: &#39;open&#39;
+  });
+  
+  if (existingIssues.data.length &gt; 0) {
+    await octokit.issues.update({
+      owner: github.context.repo.owner,
+      repo: github.context.repo.repo,
+      issue_number: existingIssues.data[0].number,
+      body: reportBody,
+      labels: [&#39;cash-flow&#39;, healthStatus.severity]
+    });
+  } else {
+    await octokit.issues.create({
+      owner: github.context.repo.owner,
+      repo: github.context.repo.repo,
+      title: `Cash Flow Monitor - ${new Date().toLocaleDateString()}`,
+      body: reportBody,
+      labels: [&#39;cash-flow&#39;, healthStatus.severity]
+    });
+  }
+  
+  // Set outputs for workflow
+  core.setOutput(&#39;cash_position&#39;, metrics.currentCashPosition);
+  core.setOutput(&#39;runway_months&#39;, metrics.runwayMonths);
+  core.setOutput(&#39;health_status&#39;, healthStatus.overall);
+}
+
+function generateCashFlowReport(metrics, health) {
+  return `# Cash Flow Monitor
+
+## Current Position
+- **Cash Position**: $${metrics.currentCashPosition.toLocaleString()}
+- **Monthly Burn Rate**: $${Math.abs(metrics.monthlyBurnRate).toLocaleString()}
+- **Runway**: ${metrics.runwayMonths.toFixed(1)} months
+- **Revenue Run Rate**: $${metrics.revenueRunRate.toLocaleString()}
+
+## Cash Flow Health: ${health.overall.toUpperCase()}
+
+## Upcoming Milestones
+${metrics.upcomingMilestones.map(m =&gt; `- ${m.description}: $${m.amount.toLocaleString()} (${m.date})`).join(&#39;\n&#39;)}
+
+## Variance Analysis
+- **Cash Flow Variance**: ${metrics.cashFlowVariance &gt; 0 ? &#39;+&#39; : &#39;&#39;}$${metrics.cashFlowVariance.toLocaleString()} from forecast
+
+## Recommendations
+${generateCashFlowRecommendations(metrics, health)}
+
+*Report generated automatically - Last updated: ${new Date().toISOString()}*`;
+}
+
+function generateCashFlowRecommendations(metrics, health) {
+  const recommendations = [];
+  
+  if (metrics.runwayMonths &lt; 3) {
+    recommendations.push(&#39;- Consider fundraising or cost reduction measures to extend runway&#39;);
+  }
+  
+  if (Math.abs(metrics.cashFlowVariance) &gt; 50000) {
+    recommendations.push(&#39;- Investigate significant cash flow variances from forecast&#39;);
+  }
+  
+  if (metrics.revenueRunRate &lt; 100000) {
+    recommendations.push(&#39;- Focus on revenue growth initiatives to improve run rate&#39;);
+  }
+  
+  if (recommendations.length === 0) {
+    recommendations.push(&#39;- Cash flow metrics look healthy - continue monitoring trends&#39;);
+  }
+  
+  return recommendations.map(r =&gt; `- ${r}`).join(&#39;\n&#39;);
+}
+
+function determineCashFlowHealth(metrics) {
+  let severity = &#39;healthy&#39;;
+  let overall = &#39;healthy&#39;;
+  
+  if (metrics.runwayMonths &lt; 6) {
+    severity = &#39;warning&#39;;
+    overall = &#39;monitor&#39;;
+  }
+  
+  if (metrics.runwayMonths &lt; 3) {
+    severity = &#39;critical&#39;;
+    overall = &#39;concerning&#39;;
+  }
+  
+  return { severity, overall };
+}
+
+// Placeholder functions
+async function getCashFlowData() {
+  return {
+    cashPosition: 850000,
+    monthlyBurnRate: -125000,
+    monthlyRevenue: 75000,
+    upcomingExpenses: [
+      { description: &#39;Server costs&#39;, amount: 25000, date: &#39;2024-02-01&#39; },
+      { description: &#39;Team salaries&#39;, amount: 150000, date: &#39;2024-02-15&#39; }
+    ]
+  };
+}
+
+function calculateMonthlyBurn(data) {
+  return data.monthlyBurnRate;
+}
+
+function calculateVariance(data) {
+  // Simplified variance calculation
+  return -8500; // Negative means under budget
+}
+
+monitorCashFlow();
+</code></pre>
+<h3>Development Cycle Cash Integration</h3>
+<p>Cash flow forecasts updated with each development milestone. Technical teams see financial impact of feature releases and sprint completions.</p>
+<h3>Infrastructure Cost Tracking</h3>
+<p>Cloud infrastructure costs automatically tracked and forecasted. Development teams monitor infrastructure spending alongside application performance.</p>
+<h2>Cash Flow Forecasting Techniques</h2>
+<h3>Development Velocity-Based Forecasting</h3>
+<p>Cash flow forecasts based on engineering velocity and sprint completion rates. More accurate predictions for technical companies.</p>
+<h3>Market Condition Integration</h3>
+<p>Forecasts incorporate market conditions, competitor activity, and economic indicators affecting technical company cash flows.</p>
+<h3>Scenario Planning Automation</h3>
+<p>Automated scenario planning for different development outcomes. Best-case, worst-case, and most-likely cash flow projections.</p>
+<h2>Burn Rate Optimization Strategies</h2>
+<h3>Unit Economics Integration</h3>
+<p>Burn rate optimization tied to customer acquisition cost and lifetime value. Technical teams optimize spending based on unit economics.</p>
+<h3>Infrastructure Cost Optimization</h3>
+<p>Automated infrastructure cost monitoring and optimization. Cloud spending aligned with development needs and business growth.</p>
+<h3>Hiring and Compensation Planning</h3>
+<p>Cash flow impact of technical hiring analyzed and optimized. Equity compensation, salary increases, and contractor costs planned for cash availability.</p>
+<h2>Technical Company Cash Flow Patterns</h2>
+<h3>SaaS Company Cash Flows</h3>
+<p>Subscription revenue timing, churn impact, and expansion revenue cash flow patterns unique to SaaS businesses.</p>
+<h3>Development-Intensive Startups</h3>
+<p>Heavy initial development spending followed by revenue ramps. Cash flow management during extended development phases.</p>
+<h3>Platform and Marketplace Companies</h3>
+<p>Two-sided marketplace economics with complex cash flow patterns. Seller payouts, platform fees, and growth investments.</p>
+<h2>Cash Flow Monitoring Best Practices</h2>
+<h3>Real-Time Visibility</h3>
+<p>Technical teams access cash positions alongside code repository status. No delays between financial events and awareness.</p>
+<h3>Automated Alerts and Triggers</h3>
+<p>Cash flow thresholds trigger automated actions. Expense approvals, hiring freezes, or fundraising activities initiated automatically.</p>
+<h3>Integrated Financial Dashboards</h3>
+<p>Cash flow metrics integrated with technical dashboards. Development velocity, cash velocity, and product metrics in unified views.</p>
+<h2>Success Stories</h2>
+<h3>SaaS Startup Extends Runway</h3>
+<p>A SaaS startup implemented automated cash flow monitoring and extended their runway by 6 months through proactive cost management.</p>
+<h3>Development Platform Optimizes Burn</h3>
+<p>A development platform company optimized their burn rate by 30% through real-time cash flow visibility and infrastructure cost optimization.</p>
+<h3>API Platform Improves Forecasting</h3>
+<p>An API platform improved cash flow forecasting accuracy by 40% through development velocity integration and automated scenario planning.</p>
+<h2>Getting Started with Cash Flow Management</h2>
+<p>Ready to implement real-time cash flow management for your technical team? Contact our financial operations team to discuss GitHub-integrated cash flow solutions.</p>
+<p>Explore related services:</p>
+<ul>
+<li><a href="financial-operations/financial-reporting.html">Financial Reporting</a> - Integrated financial reporting</li>
+<li><a href="industries/saas.html">SAAS</a> - SaaS cash flow patterns</li>
+<li><a href="resources/calculators.html">Calculators</a> - Cash flow calculators</li>
+</ul>
+<p>Access cash flow resources:</p>
+<ul>
+<li><a href="resources/templates.html">Templates</a> - Cash flow forecasting templates</li>
+<li><a href="resources/tools.html">Tools</a> - Cash flow monitoring tools</li>
+</ul>
+<h2>Back to Financial Operations Hub</h2>
+<p>Return to the Financial Operations overview:
+<a href="financial-operations/index.html">Index</a></p>
+<h2>Cross-Silo Integration</h2>
+<p>Explore our CFO services:
+<a href="cfo-services/fractional-cfo.html">Fractional CFO</a> - Strategic cash flow guidance</p>
+<p>Access our industry expertise:
+<a href="industries/startups.html">Startups</a> - Startup cash flow management</p>
+<h2>Financial Resources</h2>
+<table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Fractional CFO Services</td>
+<td><a href="https://docs.google.com/document/d/1b7ME_R87TwUP7QvLrQtZJM4_bumPkhS0HUtFpcOKnvw/edit?usp=drivesdk">https://docs.google.com/document/d/1b7ME_R87TwUP7QvLrQtZJM4_bumPkhS0HUtFpcOKnvw/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Virtual CFO Services</td>
+<td><a href="https://docs.google.com/document/d/1g-jCRriEwH7gUE-b-pAkP6UtAIxIy90ylZx8LoPywUU/edit?usp=drivesdk">https://docs.google.com/document/d/1g-jCRriEwH7gUE-b-pAkP6UtAIxIy90ylZx8LoPywUU/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Outsourced CFO Services</td>
+<td><a href="https://docs.google.com/document/d/1At5MAw085vYTYHfdUwv70OSHymjUfV_rxkjJnQm8Oac/edit?usp=drivesdk">https://docs.google.com/document/d/1At5MAw085vYTYHfdUwv70OSHymjUfV_rxkjJnQm8Oac/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Financial Planning &amp; Analysis</td>
+<td><a href="https://docs.google.com/document/d/1S-zLJkfYmNOJUPJo3rbsLs_67yZC7LGtFaEHA73V57c/edit?usp=drivesdk">https://docs.google.com/document/d/1S-zLJkfYmNOJUPJo3rbsLs_67yZC7LGtFaEHA73V57c/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Cash Flow Management</td>
+<td><a href="https://docs.google.com/document/d/1jMWD-5pMqOLTsF0_DeWYjNmkACkXWNwKv7-lqpcIfA0/edit?usp=drivesdk">https://docs.google.com/document/d/1jMWD-5pMqOLTsF0_DeWYjNmkACkXWNwKv7-lqpcIfA0/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Financial Reporting</td>
+<td><a href="https://docs.google.com/document/d/1rJxEYy5ceFRl-FJyHCpA2zW5DuJHaAWgfiSVn9t5w4A/edit?usp=drivesdk">https://docs.google.com/document/d/1rJxEYy5ceFRl-FJyHCpA2zW5DuJHaAWgfiSVn9t5w4A/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Fundraising Support</td>
+<td><a href="https://docs.google.com/document/d/1esv1ICauYmdAH7oYN_XNgUeNdy3AJdX5EDZa-bwuGBw/edit?usp=drivesdk">https://docs.google.com/document/d/1esv1ICauYmdAH7oYN_XNgUeNdy3AJdX5EDZa-bwuGBw/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>M&amp;A Advisory</td>
+<td><a href="https://docs.google.com/document/d/10C7WM0G_rCLc9STAQE0f5A654TU7WYMGc2vR6HY43no/edit?usp=drivesdk">https://docs.google.com/document/d/10C7WM0G_rCLc9STAQE0f5A654TU7WYMGc2vR6HY43no/edit?usp=drivesdk</a></td>
+</tr>
+</tbody></table>
+<h2>Industry Expertise</h2>
+<table>
+<thead>
+<tr>
+<th>Industry</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Startup CFO</td>
+<td><a href="https://docs.google.com/document/d/1iY8plrLwhlceLdF7q1Vors3ANEoLCNNslBt34CaL9Ks/edit?usp=drivesdk">https://docs.google.com/document/d/1iY8plrLwhlceLdF7q1Vors3ANEoLCNNslBt34CaL9Ks/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Healthcare CFO</td>
+<td><a href="https://docs.google.com/document/d/1Sa2TESzUXuMfj7OslD-9pMODsYE3tWZU1K4YWj07_1s/edit?usp=drivesdk">https://docs.google.com/document/d/1Sa2TESzUXuMfj7OslD-9pMODsYE3tWZU1K4YWj07_1s/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>SaaS CFO</td>
+<td><a href="https://docs.google.com/document/d/1ePOe1T5e3buOomLe7D986nqtSYjMrOQGvJHp93h0kAw/edit?usp=drivesdk">https://docs.google.com/document/d/1ePOe1T5e3buOomLe7D986nqtSYjMrOQGvJHp93h0kAw/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Construction CFO</td>
+<td><a href="https://docs.google.com/document/d/1BCTpQIUzZufGghsC1WBFMkFoRM0bhkcB6p5NrZEADw8/edit?usp=drivesdk">https://docs.google.com/document/d/1BCTpQIUzZufGghsC1WBFMkFoRM0bhkcB6p5NrZEADw8/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>E-commerce CFO</td>
+<td><a href="https://docs.google.com/document/d/1MofZMqBNwFFWJlIr8ZaI45Bj06atwtGLuqjwzK1hVRQ/edit?usp=drivesdk">https://docs.google.com/document/d/1MofZMqBNwFFWJlIr8ZaI45Bj06atwtGLuqjwzK1hVRQ/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Manufacturing CFO</td>
+<td><a href="https://docs.google.com/document/d/1S0QLjLY2rH_aV1FLQWqQhqPmGNdERPhbVz0DQNw8Iw4/edit?usp=drivesdk">https://docs.google.com/document/d/1S0QLjLY2rH_aV1FLQWqQhqPmGNdERPhbVz0DQNw8Iw4/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Nonprofit CFO</td>
+<td><a href="https://docs.google.com/document/d/1NT24jSSnSEAiqu8VVzXOzwICfFbn-B_GPQrOncdT6iI/edit?usp=drivesdk">https://docs.google.com/document/d/1NT24jSSnSEAiqu8VVzXOzwICfFbn-B_GPQrOncdT6iI/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Professional Services CFO</td>
+<td><a href="https://docs.google.com/document/d/1yIa13DisLYlaW09uRozm-v5CUNdMI9SUiyNKtFcGqD4/edit?usp=drivesdk">https://docs.google.com/document/d/1yIa13DisLYlaW09uRozm-v5CUNdMI9SUiyNKtFcGqD4/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Technology CFO</td>
+<td><a href="https://docs.google.com/document/d/1Gb_g1nr-z6scA348PQht08qgsALH-FQuC_g1mcEiTI8/edit?usp=drivesdk">https://docs.google.com/document/d/1Gb_g1nr-z6scA348PQht08qgsALH-FQuC_g1mcEiTI8/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Real Estate CFO</td>
+<td><a href="https://docs.google.com/document/d/1V9vKH45TrLADqELP-pouV_vYEfvnQZi6D1Hte9ULvN8/edit?usp=drivesdk">https://docs.google.com/document/d/1V9vKH45TrLADqELP-pouV_vYEfvnQZi6D1Hte9ULvN8/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Retail CFO</td>
+<td><a href="https://docs.google.com/document/d/1_cXGNsxyY37rjrc4_-8KTntLDYmBpkmCum6-NrgMLN0/edit?usp=drivesdk">https://docs.google.com/document/d/1_cXGNsxyY37rjrc4_-8KTntLDYmBpkmCum6-NrgMLN0/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Legal CFO</td>
+<td><a href="https://docs.google.com/document/d/1zOqBO0tXzGZa7t4V334dx8BuXIaF492ZM_G7zfxwBz0/edit?usp=drivesdk">https://docs.google.com/document/d/1zOqBO0tXzGZa7t4V334dx8BuXIaF492ZM_G7zfxwBz0/edit?usp=drivesdk</a></td>
+</tr>
+</tbody></table>
+<h2>Regional Services</h2>
+<table>
+<thead>
+<tr>
+<th>Market</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Phoenix CFO</td>
+<td><a href="https://docs.google.com/document/d/1HAR4bXqUnkrbL6GmwHwGy8nxiRoquEH5IQshvlhdnTs/edit?usp=drivesdk">https://docs.google.com/document/d/1HAR4bXqUnkrbL6GmwHwGy8nxiRoquEH5IQshvlhdnTs/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Scottsdale CFO</td>
+<td><a href="https://docs.google.com/document/d/190AuvOwVWrF9XiRJDKaebhYLUB-M9D4qSwsEZDynsVs/edit?usp=drivesdk">https://docs.google.com/document/d/190AuvOwVWrF9XiRJDKaebhYLUB-M9D4qSwsEZDynsVs/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Dallas CFO</td>
+<td><a href="https://docs.google.com/document/d/1mI5nCWSlZAWTPjNDLJkekk_9saDiAPER7eyWXxeWsQY/edit?usp=drivesdk">https://docs.google.com/document/d/1mI5nCWSlZAWTPjNDLJkekk_9saDiAPER7eyWXxeWsQY/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Denver CFO</td>
+<td><a href="https://docs.google.com/document/d/1Yjvx1-U-50Z7FrpFQIyNrzHxeicDmsKbiLta-s49XB4/edit?usp=drivesdk">https://docs.google.com/document/d/1Yjvx1-U-50Z7FrpFQIyNrzHxeicDmsKbiLta-s49XB4/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Austin CFO</td>
+<td><a href="https://docs.google.com/document/d/1lzwU_kZJr7ZNnCRZSs81gJ8bhg9L2-vjP6iiHqhhuPE/edit?usp=drivesdk">https://docs.google.com/document/d/1lzwU_kZJr7ZNnCRZSs81gJ8bhg9L2-vjP6iiHqhhuPE/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Houston CFO</td>
+<td><a href="https://docs.google.com/document/d/1xTbk9NAoLpdkPDWOZg6B2INCIbV-70qPGBiBn5ybb10/edit?usp=drivesdk">https://docs.google.com/document/d/1xTbk9NAoLpdkPDWOZg6B2INCIbV-70qPGBiBn5ybb10/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Los Angeles CFO</td>
+<td><a href="https://docs.google.com/document/d/1w2nj8z6TsWecr4fbYUwptV-DNBNKscPQHsuG91pR5yY/edit?usp=drivesdk">https://docs.google.com/document/d/1w2nj8z6TsWecr4fbYUwptV-DNBNKscPQHsuG91pR5yY/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>San Diego CFO</td>
+<td><a href="https://docs.google.com/document/d/1WdDzi5OMSf25ado5x6Z-4VaRSdu_sx2CeNi6xLh68aQ/edit?usp=drivesdk">https://docs.google.com/document/d/1WdDzi5OMSf25ado5x6Z-4VaRSdu_sx2CeNi6xLh68aQ/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>San Antonio CFO</td>
+<td><a href="https://docs.google.com/document/d/1zpUQ3-9KzR98sA7fknmO7n2ajfG8ezsLmaRomiKalP8/edit?usp=drivesdk">https://docs.google.com/document/d/1zpUQ3-9KzR98sA7fknmO7n2ajfG8ezsLmaRomiKalP8/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Las Vegas CFO</td>
+<td><a href="https://docs.google.com/document/d/1ziOozCmMpCi42z-km83jwz6MztSvycEUByKjkRhI3Jw/edit?usp=drivesdk">https://docs.google.com/document/d/1ziOozCmMpCi42z-km83jwz6MztSvycEUByKjkRhI3Jw/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Tucson CFO</td>
+<td><a href="https://docs.google.com/document/d/1O4wv81fQx7OAcL54-hCAIjEWSTNNuO4hhIYkJd1UVgU/edit?usp=drivesdk">https://docs.google.com/document/d/1O4wv81fQx7OAcL54-hCAIjEWSTNNuO4hhIYkJd1UVgU/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Albuquerque CFO</td>
+<td><a href="https://docs.google.com/document/d/1r8frk3L4cq8Z5snHB5y5GTSqu3D6V_Tpchdix0bAiLg/edit?usp=drivesdk">https://docs.google.com/document/d/1r8frk3L4cq8Z5snHB5y5GTSqu3D6V_Tpchdix0bAiLg/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Salt Lake City CFO</td>
+<td><a href="https://docs.google.com/document/d/1tFU6RRbFmWnndsnIX4jp-GI0j4gf-jkZXkrjv9O39-o/edit?usp=drivesdk">https://docs.google.com/document/d/1tFU6RRbFmWnndsnIX4jp-GI0j4gf-jkZXkrjv9O39-o/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Portland CFO</td>
+<td><a href="https://docs.google.com/document/d/1mEXSiyb6cd-_VHOviXL6zv00UpIwP5Ifmn74-zrsiLk/edit?usp=drivesdk">https://docs.google.com/document/d/1mEXSiyb6cd-_VHOviXL6zv00UpIwP5Ifmn74-zrsiLk/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Seattle CFO</td>
+<td><a href="https://docs.google.com/document/d/1E79oZ2SKiKtXnrVI8w26-Uy3Wke3CuMdpR-b9hpcpaw/edit?usp=drivesdk">https://docs.google.com/document/d/1E79oZ2SKiKtXnrVI8w26-Uy3Wke3CuMdpR-b9hpcpaw/edit?usp=drivesdk</a></td>
+</tr>
+</tbody></table>
+<h2>Document Library</h2>
+<p><a href="https://drive.google.com/drive/folders/17FIc19x6kgby5iX5xNCtkLvwdnTKkYEL" target="_blank" style="display:inline-block; padding:12px 24px; background:#4285f4; color:white; text-decoration:none; border-radius:4px; font-weight:bold;">Browse Document Library</a></p>
+
+<h2>Complete Resource Index</h2>
+<p><a href="https://www.1cfo.ai/resources" target="_blank" style="display:inline-block; padding:12px 24px; background:#34a853; color:white; text-decoration:none; border-radius:4px; font-weight:bold;">View All Resources</a></p>
+
+
+</body>
+</html>
