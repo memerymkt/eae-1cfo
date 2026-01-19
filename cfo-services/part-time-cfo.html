@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Part-Time CFO Services for Technical Founders</title>
+  <meta name="description" content="Part-Time CFO Services for Technical Founders - Financial resources and tools">
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      line-height: 1.6;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      color: #333;
+    }
+    h1 { color: #1a365d; border-bottom: 2px solid #2b6cb0; padding-bottom: 10px; }
+    h2 { color: #2c5282; margin-top: 30px; }
+    h3 { color: #2d3748; }
+    a { color: #2b6cb0; }
+    table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+    th, td { border: 1px solid #e2e8f0; padding: 12px; text-align: left; }
+    th { background: #edf2f7; }
+    ul, ol { padding-left: 20px; }
+  </style>
+</head>
+<body>
+<h1>Part-Time CFO Services for Technical Founders</h1>
+<p>GitHub enables part-time CFO services that adapt to technical founder schedules. CTOs and technical entrepreneurs access flexible financial leadership without full-time commitment. Part-time CFOs provide ongoing financial guidance integrated with development cycles.</p>
+<h2>Understanding Part-Time CFO Services</h2>
+<p>Part-time CFO services offer flexible financial leadership scaled to company needs. Technical founders balance financial oversight with engineering responsibilities. Services include strategic planning, financial monitoring, and periodic reporting.</p>
+<h3>Advantages for Technical Teams</h3>
+<ul>
+<li><strong>Flexible Engagement</strong>: Financial support that fits founder schedules and company growth stages</li>
+<li><strong>Technical Understanding</strong>: CFOs who comprehend developer workflows and SaaS business models</li>
+<li><strong>Scalable Services</strong>: Financial capacity that grows with technical complexity</li>
+<li><strong>GitHub Integration</strong>: Financial processes embedded in development workflows</li>
+</ul>
+<h2>How Part-Time CFOs Support Technical Founders</h2>
+<h3>Scheduled Financial Reviews</h3>
+<p>Regular financial check-ins aligned with development sprints. Part-time CFOs review financial health alongside technical progress and product milestones.</p>
+<h3>Ongoing Financial Monitoring</h3>
+<p>Continuous monitoring of key financial metrics with automated alerts. Technical founders receive financial insights without daily involvement.</p>
+<h3>Strategic Financial Planning</h3>
+<p>Periodic strategic planning sessions for long-term financial goals. Part-time CFOs help technical founders plan funding, scaling, and exit strategies.</p>
+<h2>Part-Time CFO Service Components</h2>
+<h3>Core Financial Management</h3>
+<ul>
+<li>Monthly financial reporting and analysis</li>
+<li>Budget monitoring and variance analysis</li>
+<li>Cash flow forecasting and optimization</li>
+<li>Tax planning and compliance oversight</li>
+</ul>
+<h3>Strategic Financial Guidance</h3>
+<ul>
+<li>Funding strategy and investor relations</li>
+<li>Financial modeling for technical companies</li>
+<li>Risk assessment and mitigation planning</li>
+<li>Growth planning and scaling advice</li>
+</ul>
+<h3>Technical Financial Integration</h3>
+<ul>
+<li>Financial metrics aligned with engineering KPIs</li>
+<li>Cost analysis for development and infrastructure</li>
+<li>API economy financial planning</li>
+<li>Compliance automation for technical processes</li>
+</ul>
+<h2>GitHub Integration for Part-Time CFO Services</h2>
+<h3>GitHub Issues for Financial Tasks</h3>
+<p>Financial tasks tracked using GitHub Issues with part-time CFO assignments. Technical founders create financial requests alongside technical issues.</p>
+<pre><code class="language-yaml"># GitHub Issue template for part-time CFO requests
+name: Part-Time CFO Request
+description: Request financial assistance from part-time CFO
+title: &quot;[PT-CFO] &quot;
+labels: [&quot;part-time-cfo&quot;, &quot;finance&quot;, &quot;request&quot;]
+body:
+  - type: textarea
+    id: request_description
+    attributes:
+      label: Financial Request Description
+      description: What financial assistance do you need?
+    validations:
+      required: true
+  
+  - type: dropdown
+    id: urgency
+    attributes:
+      label: Urgency Level
+      options:
+        - Low (Next scheduled session)
+        - Medium (This week)
+        - High (Today if possible)
+    validations:
+      required: true
+  
+  - type: input
+    id: context
+    attributes:
+      label: Technical Context
+      description: How does this relate to technical development?
+      placeholder: Preparing for funding round, scaling infrastructure costs, etc.
+</code></pre>
+<h3>GitHub Projects for Financial Planning</h3>
+<p>Part-time CFOs use GitHub Projects to manage ongoing financial initiatives. Track financial goals, compliance requirements, and strategic planning alongside technical roadmaps.</p>
+<h3>GitHub Actions for Financial Automation</h3>
+<p>Part-time CFOs implement automated financial processes using GitHub Actions. Recurring financial tasks automated for consistent execution.</p>
+<pre><code class="language-javascript">// GitHub Action for automated financial summary
+const core = require(&#39;@actions/core&#39;);
+const github = require(&#39;@actions/github&#39;);
+const { Octokit } = require(&#39;@octokit/rest&#39;);
+
+async function generateFinancialSummary() {
+  const octokit = new Octokit({ auth: core.getInput(&#39;token&#39;) });
+  
+  // Get recent financial issues and PRs
+  const [issues, pulls] = await Promise.all([
+    octokit.issues.listForRepo({
+      owner: github.context.repo.owner,
+      repo: github.context.repo.repo,
+      labels: &#39;finance&#39;,
+      state: &#39;all&#39;,
+      since: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString() // Last 30 days
+    }),
+    octokit.pulls.list({
+      owner: github.context.repo.owner,
+      repo: github.context.repo.repo,
+      state: &#39;all&#39;,
+      since: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString()
+    })
+  ]);
+  
+  const summary = {
+    period: &#39;Last 30 days&#39;,
+    financial_issues_created: issues.data.filter(i =&gt; i.created_at &gt; new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)).length,
+    financial_issues_closed: issues.data.filter(i =&gt; i.closed_at &amp;&amp; i.closed_at &gt; new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)).length,
+    prs_merged: pulls.data.filter(pr =&gt; pr.merged_at &amp;&amp; pr.merged_at &gt; new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)).length,
+    active_financial_tasks: issues.data.filter(i =&gt; i.state === &#39;open&#39; &amp;&amp; i.labels.some(l =&gt; l.name === &#39;finance&#39;)).length
+  };
+  
+  // Create or update financial summary issue
+  const summaryBody = `# Financial Summary - ${summary.period}
+
+## Activity Overview
+- Financial issues created: ${summary.financial_issues_created}
+- Financial issues resolved: ${summary.financial_issues_closed}
+- Pull requests merged: ${summary.prs_merged}
+- Active financial tasks: ${summary.active_financial_tasks}
+
+## Next Steps
+- Review open financial issues
+- Schedule part-time CFO check-in
+- Update financial projections based on development progress
+
+*This summary was automatically generated by GitHub Actions*`;
+  
+  // Check if summary issue exists
+  const existingIssues = await octokit.issues.listForRepo({
+    owner: github.context.repo.owner,
+    repo: github.context.repo.repo,
+    labels: &#39;financial-summary&#39;,
+    state: &#39;open&#39;
+  });
+  
+  if (existingIssues.data.length &gt; 0) {
+    // Update existing summary
+    await octokit.issues.update({
+      owner: github.context.repo.owner,
+      repo: github.context.repo.repo,
+      issue_number: existingIssues.data[0].number,
+      body: summaryBody
+    });
+  } else {
+    // Create new summary issue
+    await octokit.issues.create({
+      owner: github.context.repo.owner,
+      repo: github.context.repo.repo,
+      title: `Financial Summary - ${new Date().toLocaleDateString()}`,
+      body: summaryBody,
+      labels: [&#39;financial-summary&#39;, &#39;automated&#39;]
+    });
+  }
+  
+  core.setOutput(&#39;summary_created&#39;, &#39;true&#39;);
+}
+
+generateFinancialSummary();
+</code></pre>
+<h3>GitHub Milestones for Financial Goals</h3>
+<p>Part-time CFOs use GitHub milestones to track progress toward financial objectives. Funding targets, profitability goals, and compliance deadlines tracked alongside technical milestones.</p>
+<h2>Part-Time CFO Engagement Models</h2>
+<h3>Fixed Schedule Model</h3>
+<p>Regular weekly or monthly sessions with predictable availability. Technical founders plan around scheduled CFO time for maximum efficiency.</p>
+<h3>On-Demand Model</h3>
+<p>Flexible availability based on company needs. Technical founders request CFO support when specific financial challenges arise.</p>
+<h3>Hybrid Model</h3>
+<p>Combination of scheduled sessions and on-demand support. Base level of ongoing financial monitoring with additional support as needed.</p>
+<h2>Technical Company Financial Challenges Solved</h2>
+<h3>Balancing Technical and Financial Priorities</h3>
+<p>Part-time CFOs help technical founders allocate time between product development and financial management. Strategic financial decisions made without disrupting engineering focus.</p>
+<h3>SaaS Financial Metrics Understanding</h3>
+<p>Part-time CFOs educate technical founders on SaaS-specific financial metrics. Customer acquisition cost, lifetime value, churn analysis, and unit economics.</p>
+<h3>Funding and Growth Planning</h3>
+<p>Strategic planning for funding rounds and scaling. Part-time CFOs help technical founders prepare for venture capital, IPO, or acquisition scenarios.</p>
+<h3>Compliance and Regulatory Requirements</h3>
+<p>Ongoing compliance monitoring and regulatory reporting. Part-time CFOs ensure technical companies meet financial and industry-specific regulations.</p>
+<h2>Part-Time CFO Success Metrics</h2>
+<h3>Founder Productivity</h3>
+<ul>
+<li>Reduced time spent on financial tasks by technical founders</li>
+<li>Improved focus on core technical competencies</li>
+<li>Better work-life balance for founder teams</li>
+</ul>
+<h3>Financial Health</h3>
+<ul>
+<li>Consistent financial reporting and monitoring</li>
+<li>Improved financial decision-making quality</li>
+<li>Proactive identification of financial risks</li>
+</ul>
+<h3>Company Growth</h3>
+<ul>
+<li>Successful funding rounds and investor relations</li>
+<li>Sustainable scaling of financial operations</li>
+<li>Achievement of financial milestones alongside technical goals</li>
+</ul>
+<h2>Implementation Process for Part-Time CFO Services</h2>
+<h3>Initial Assessment and Planning</h3>
+<p>Comprehensive review of current financial situation and founder goals. Development of customized part-time CFO engagement plan.</p>
+<h3>Service Integration</h3>
+<p>Integration of financial processes with existing technical workflows. Setup of communication channels and tools for efficient collaboration.</p>
+<h3>Ongoing Support and Adjustment</h3>
+<p>Regular financial support with periodic reviews and adjustments. Service levels modified based on company growth and changing needs.</p>
+<h3>Transition Planning</h3>
+<p>Planning for potential transition to full-time CFO as company scales. Knowledge transfer and process documentation.</p>
+<h2>Part-Time CFO Pricing Models</h2>
+<h3>Hourly Rate</h3>
+<p>Flexible hourly billing for specific financial tasks and consultations. Transparent pricing with detailed time tracking.</p>
+<h3>Monthly Retainer</h3>
+<p>Fixed monthly fee for predictable availability and ongoing support. Includes set number of hours with additional hours available.</p>
+<h3>Milestone-Based</h3>
+<p>Pricing based on achievement of specific financial milestones. Aligned incentives for successful outcomes.</p>
+<h2>Technical Integration Best Practices</h2>
+<h3>Asynchronous Communication</h3>
+<p>Part-time CFOs use GitHub, Slack, and email for efficient communication. Technical founders receive financial input without disrupting development flow.</p>
+<h3>Automated Financial Reporting</h3>
+<p>Implementation of automated dashboards and reports. Part-time CFOs ensure technical founders have real-time financial visibility.</p>
+<h3>Process Documentation</h3>
+<p>Comprehensive documentation of financial processes and decisions. Knowledge base for founder team and future hires.</p>
+<h2>Getting Started with Part-Time CFO Services</h2>
+<p>Need flexible financial support for your technical company? Contact our part-time CFO team to discuss how we can support your growth.</p>
+<p>Explore related services:</p>
+<ul>
+<li><a href="cfo-services/fractional-cfo.html">Fractional CFO</a> - Structured part-time support</li>
+<li><a href="industries/startups.html">Startups</a> - Startup founder financial guidance</li>
+<li><a href="financial-operations/financial-reporting.html">Financial Reporting</a> - Automated reporting solutions</li>
+</ul>
+<p>Access our flexible resources:</p>
+<ul>
+<li><a href="resources/templates.html">Templates</a> - Part-time CFO engagement templates</li>
+<li><a href="resources/tools.html">Tools</a> - Financial tools for founders</li>
+</ul>
+<h2>Back to CFO Services Hub</h2>
+<p>Return to the CFO Services overview:
+<a href="cfo-services/index.html">Index</a></p>
+<h2>Financial Resources</h2>
+<table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Fractional CFO Services</td>
+<td><a href="https://docs.google.com/document/d/1b7ME_R87TwUP7QvLrQtZJM4_bumPkhS0HUtFpcOKnvw/edit?usp=drivesdk">https://docs.google.com/document/d/1b7ME_R87TwUP7QvLrQtZJM4_bumPkhS0HUtFpcOKnvw/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Virtual CFO Services</td>
+<td><a href="https://docs.google.com/document/d/1g-jCRriEwH7gUE-b-pAkP6UtAIxIy90ylZx8LoPywUU/edit?usp=drivesdk">https://docs.google.com/document/d/1g-jCRriEwH7gUE-b-pAkP6UtAIxIy90ylZx8LoPywUU/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Outsourced CFO Services</td>
+<td><a href="https://docs.google.com/document/d/1At5MAw085vYTYHfdUwv70OSHymjUfV_rxkjJnQm8Oac/edit?usp=drivesdk">https://docs.google.com/document/d/1At5MAw085vYTYHfdUwv70OSHymjUfV_rxkjJnQm8Oac/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Financial Planning &amp; Analysis</td>
+<td><a href="https://docs.google.com/document/d/1S-zLJkfYmNOJUPJo3rbsLs_67yZC7LGtFaEHA73V57c/edit?usp=drivesdk">https://docs.google.com/document/d/1S-zLJkfYmNOJUPJo3rbsLs_67yZC7LGtFaEHA73V57c/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Cash Flow Management</td>
+<td><a href="https://docs.google.com/document/d/1jMWD-5pMqOLTsF0_DeWYjNmkACkXWNwKv7-lqpcIfA0/edit?usp=drivesdk">https://docs.google.com/document/d/1jMWD-5pMqOLTsF0_DeWYjNmkACkXWNwKv7-lqpcIfA0/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Financial Reporting</td>
+<td><a href="https://docs.google.com/document/d/1rJxEYy5ceFRl-FJyHCpA2zW5DuJHaAWgfiSVn9t5w4A/edit?usp=drivesdk">https://docs.google.com/document/d/1rJxEYy5ceFRl-FJyHCpA2zW5DuJHaAWgfiSVn9t5w4A/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Fundraising Support</td>
+<td><a href="https://docs.google.com/document/d/1esv1ICauYmdAH7oYN_XNgUeNdy3AJdX5EDZa-bwuGBw/edit?usp=drivesdk">https://docs.google.com/document/d/1esv1ICauYmdAH7oYN_XNgUeNdy3AJdX5EDZa-bwuGBw/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>M&amp;A Advisory</td>
+<td><a href="https://docs.google.com/document/d/10C7WM0G_rCLc9STAQE0f5A654TU7WYMGc2vR6HY43no/edit?usp=drivesdk">https://docs.google.com/document/d/10C7WM0G_rCLc9STAQE0f5A654TU7WYMGc2vR6HY43no/edit?usp=drivesdk</a></td>
+</tr>
+</tbody></table>
+<h2>Industry Expertise</h2>
+<table>
+<thead>
+<tr>
+<th>Industry</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Startup CFO</td>
+<td><a href="https://docs.google.com/document/d/1iY8plrLwhlceLdF7q1Vors3ANEoLCNNslBt34CaL9Ks/edit?usp=drivesdk">https://docs.google.com/document/d/1iY8plrLwhlceLdF7q1Vors3ANEoLCNNslBt34CaL9Ks/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Healthcare CFO</td>
+<td><a href="https://docs.google.com/document/d/1Sa2TESzUXuMfj7OslD-9pMODsYE3tWZU1K4YWj07_1s/edit?usp=drivesdk">https://docs.google.com/document/d/1Sa2TESzUXuMfj7OslD-9pMODsYE3tWZU1K4YWj07_1s/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>SaaS CFO</td>
+<td><a href="https://docs.google.com/document/d/1ePOe1T5e3buOomLe7D986nqtSYjMrOQGvJHp93h0kAw/edit?usp=drivesdk">https://docs.google.com/document/d/1ePOe1T5e3buOomLe7D986nqtSYjMrOQGvJHp93h0kAw/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Construction CFO</td>
+<td><a href="https://docs.google.com/document/d/1BCTpQIUzZufGghsC1WBFMkFoRM0bhkcB6p5NrZEADw8/edit?usp=drivesdk">https://docs.google.com/document/d/1BCTpQIUzZufGghsC1WBFMkFoRM0bhkcB6p5NrZEADw8/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>E-commerce CFO</td>
+<td><a href="https://docs.google.com/document/d/1MofZMqBNwFFWJlIr8ZaI45Bj06atwtGLuqjwzK1hVRQ/edit?usp=drivesdk">https://docs.google.com/document/d/1MofZMqBNwFFWJlIr8ZaI45Bj06atwtGLuqjwzK1hVRQ/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Manufacturing CFO</td>
+<td><a href="https://docs.google.com/document/d/1S0QLjLY2rH_aV1FLQWqQhqPmGNdERPhbVz0DQNw8Iw4/edit?usp=drivesdk">https://docs.google.com/document/d/1S0QLjLY2rH_aV1FLQWqQhqPmGNdERPhbVz0DQNw8Iw4/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Nonprofit CFO</td>
+<td><a href="https://docs.google.com/document/d/1NT24jSSnSEAiqu8VVzXOzwICfFbn-B_GPQrOncdT6iI/edit?usp=drivesdk">https://docs.google.com/document/d/1NT24jSSnSEAiqu8VVzXOzwICfFbn-B_GPQrOncdT6iI/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Professional Services CFO</td>
+<td><a href="https://docs.google.com/document/d/1yIa13DisLYlaW09uRozm-v5CUNdMI9SUiyNKtFcGqD4/edit?usp=drivesdk">https://docs.google.com/document/d/1yIa13DisLYlaW09uRozm-v5CUNdMI9SUiyNKtFcGqD4/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Technology CFO</td>
+<td><a href="https://docs.google.com/document/d/1Gb_g1nr-z6scA348PQht08qgsALH-FQuC_g1mcEiTI8/edit?usp=drivesdk">https://docs.google.com/document/d/1Gb_g1nr-z6scA348PQht08qgsALH-FQuC_g1mcEiTI8/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Real Estate CFO</td>
+<td><a href="https://docs.google.com/document/d/1V9vKH45TrLADqELP-pouV_vYEfvnQZi6D1Hte9ULvN8/edit?usp=drivesdk">https://docs.google.com/document/d/1V9vKH45TrLADqELP-pouV_vYEfvnQZi6D1Hte9ULvN8/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Retail CFO</td>
+<td><a href="https://docs.google.com/document/d/1_cXGNsxyY37rjrc4_-8KTntLDYmBpkmCum6-NrgMLN0/edit?usp=drivesdk">https://docs.google.com/document/d/1_cXGNsxyY37rjrc4_-8KTntLDYmBpkmCum6-NrgMLN0/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Legal CFO</td>
+<td><a href="https://docs.google.com/document/d/1zOqBO0tXzGZa7t4V334dx8BuXIaF492ZM_G7zfxwBz0/edit?usp=drivesdk">https://docs.google.com/document/d/1zOqBO0tXzGZa7t4V334dx8BuXIaF492ZM_G7zfxwBz0/edit?usp=drivesdk</a></td>
+</tr>
+</tbody></table>
+<h2>Regional Services</h2>
+<table>
+<thead>
+<tr>
+<th>Market</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Phoenix CFO</td>
+<td><a href="https://docs.google.com/document/d/1HAR4bXqUnkrbL6GmwHwGy8nxiRoquEH5IQshvlhdnTs/edit?usp=drivesdk">https://docs.google.com/document/d/1HAR4bXqUnkrbL6GmwHwGy8nxiRoquEH5IQshvlhdnTs/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Scottsdale CFO</td>
+<td><a href="https://docs.google.com/document/d/190AuvOwVWrF9XiRJDKaebhYLUB-M9D4qSwsEZDynsVs/edit?usp=drivesdk">https://docs.google.com/document/d/190AuvOwVWrF9XiRJDKaebhYLUB-M9D4qSwsEZDynsVs/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Dallas CFO</td>
+<td><a href="https://docs.google.com/document/d/1mI5nCWSlZAWTPjNDLJkekk_9saDiAPER7eyWXxeWsQY/edit?usp=drivesdk">https://docs.google.com/document/d/1mI5nCWSlZAWTPjNDLJkekk_9saDiAPER7eyWXxeWsQY/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Denver CFO</td>
+<td><a href="https://docs.google.com/document/d/1Yjvx1-U-50Z7FrpFQIyNrzHxeicDmsKbiLta-s49XB4/edit?usp=drivesdk">https://docs.google.com/document/d/1Yjvx1-U-50Z7FrpFQIyNrzHxeicDmsKbiLta-s49XB4/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Austin CFO</td>
+<td><a href="https://docs.google.com/document/d/1lzwU_kZJr7ZNnCRZSs81gJ8bhg9L2-vjP6iiHqhhuPE/edit?usp=drivesdk">https://docs.google.com/document/d/1lzwU_kZJr7ZNnCRZSs81gJ8bhg9L2-vjP6iiHqhhuPE/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Houston CFO</td>
+<td><a href="https://docs.google.com/document/d/1xTbk9NAoLpdkPDWOZg6B2INCIbV-70qPGBiBn5ybb10/edit?usp=drivesdk">https://docs.google.com/document/d/1xTbk9NAoLpdkPDWOZg6B2INCIbV-70qPGBiBn5ybb10/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Los Angeles CFO</td>
+<td><a href="https://docs.google.com/document/d/1w2nj8z6TsWecr4fbYUwptV-DNBNKscPQHsuG91pR5yY/edit?usp=drivesdk">https://docs.google.com/document/d/1w2nj8z6TsWecr4fbYUwptV-DNBNKscPQHsuG91pR5yY/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>San Diego CFO</td>
+<td><a href="https://docs.google.com/document/d/1WdDzi5OMSf25ado5x6Z-4VaRSdu_sx2CeNi6xLh68aQ/edit?usp=drivesdk">https://docs.google.com/document/d/1WdDzi5OMSf25ado5x6Z-4VaRSdu_sx2CeNi6xLh68aQ/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>San Antonio CFO</td>
+<td><a href="https://docs.google.com/document/d/1zpUQ3-9KzR98sA7fknmO7n2ajfG8ezsLmaRomiKalP8/edit?usp=drivesdk">https://docs.google.com/document/d/1zpUQ3-9KzR98sA7fknmO7n2ajfG8ezsLmaRomiKalP8/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Las Vegas CFO</td>
+<td><a href="https://docs.google.com/document/d/1ziOozCmMpCi42z-km83jwz6MztSvycEUByKjkRhI3Jw/edit?usp=drivesdk">https://docs.google.com/document/d/1ziOozCmMpCi42z-km83jwz6MztSvycEUByKjkRhI3Jw/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Tucson CFO</td>
+<td><a href="https://docs.google.com/document/d/1O4wv81fQx7OAcL54-hCAIjEWSTNNuO4hhIYkJd1UVgU/edit?usp=drivesdk">https://docs.google.com/document/d/1O4wv81fQx7OAcL54-hCAIjEWSTNNuO4hhIYkJd1UVgU/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Albuquerque CFO</td>
+<td><a href="https://docs.google.com/document/d/1r8frk3L4cq8Z5snHB5y5GTSqu3D6V_Tpchdix0bAiLg/edit?usp=drivesdk">https://docs.google.com/document/d/1r8frk3L4cq8Z5snHB5y5GTSqu3D6V_Tpchdix0bAiLg/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Salt Lake City CFO</td>
+<td><a href="https://docs.google.com/document/d/1tFU6RRbFmWnndsnIX4jp-GI0j4gf-jkZXkrjv9O39-o/edit?usp=drivesdk">https://docs.google.com/document/d/1tFU6RRbFmWnndsnIX4jp-GI0j4gf-jkZXkrjv9O39-o/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Portland CFO</td>
+<td><a href="https://docs.google.com/document/d/1mEXSiyb6cd-_VHOviXL6zv00UpIwP5Ifmn74-zrsiLk/edit?usp=drivesdk">https://docs.google.com/document/d/1mEXSiyb6cd-_VHOviXL6zv00UpIwP5Ifmn74-zrsiLk/edit?usp=drivesdk</a></td>
+</tr>
+<tr>
+<td>Seattle CFO</td>
+<td><a href="https://docs.google.com/document/d/1E79oZ2SKiKtXnrVI8w26-Uy3Wke3CuMdpR-b9hpcpaw/edit?usp=drivesdk">https://docs.google.com/document/d/1E79oZ2SKiKtXnrVI8w26-Uy3Wke3CuMdpR-b9hpcpaw/edit?usp=drivesdk</a></td>
+</tr>
+</tbody></table>
+<h2>Document Library</h2>
+<p><a href="https://drive.google.com/drive/folders/17FIc19x6kgby5iX5xNCtkLvwdnTKkYEL" target="_blank" style="display:inline-block; padding:12px 24px; background:#4285f4; color:white; text-decoration:none; border-radius:4px; font-weight:bold;">Browse Document Library</a></p>
+
+<h2>Complete Resource Index</h2>
+<p><a href="https://www.1cfo.ai/resources" target="_blank" style="display:inline-block; padding:12px 24px; background:#34a853; color:white; text-decoration:none; border-radius:4px; font-weight:bold;">View All Resources</a></p>
+
+
+</body>
+</html>
